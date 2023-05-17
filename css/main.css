@@ -225,15 +225,15 @@ a::selection{
 .social{
     height: auto;
     z-index: 1;
+    transition: all .4s;
 }
-.soc-img{
+#socials:hover .soc-img{
     filter: grayscale(0.9);
     transform: scale(0.95);
     transition: all ease-in-out 0.4s;
 }
-.social:hover .soc-img{
+#socials:hover .social:hover .soc-img{
     filter: grayscale(0);
-    transform: scale(0.9);
 }
 .soc-text{
     text-align: center;
