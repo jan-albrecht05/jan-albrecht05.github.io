@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9/11</title>
+    <link rel="stylesheet" href="/content/schule/englisch/ground-zero/style.css">
+    <link rel="icon" href="/content/schule/englisch/ground-zero/img/skizze.png">
+    <script>
+        window.onload = function start(){
+            let day = 1;
+            let year = 1950; 
+            let dateElement = document.getElementById("date");
+            setInterval(function start(){
+                day++;
+                if(day > 11){
+                    day = 11;
+                }
+            }, 250)
+            setInterval(function start(){
+                dateElement.innerHTML = day+"th<br class='break'> September<br class='break'> "+year;
+                year++;
+                if(year > 2001){
+                    year = 2001;
+                }
+            }, 20)
+        }
+    </script>
+    <script>
+        function openqr(){
+            document.getElementById("qr").style.display = "block";
+            document.getElementById("closeqr").style.display = "flex";
+            document.getElementById("openqr").style.display = "none";
+        }
+        function closeqr(){
+            document.getElementById("qr").style.display = "none";
+            document.getElementById("closeqr").style.display = "none";
+            document.getElementById("openqr").style.display = "flex";
+        }
+    </script>
+</head>
+<body>
+    <div id="openqr" class="panel" onclick="openqr()" title="Opens QR- Code to share">
+        >
+    </div>
+    <div id="closeqr" class="panel" onclick="closeqr()" title="Closes QR- Code to share">
+        <
+    </div>
+    <div id="qr">
+        <img src="/content/schule/englisch/ground-zero/img/qr.png">
+    </div>
+    <div id="main">
+        <div id="date" class="center page">
+            1st September 1950 
+        </div>
+        <!--WTC-->
+        <div class="page">
+            <h1>The World Trade Center (WTC)</h1>
+            <div class="flex">
+                <div class="left">
+                    <div class="img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/World_Trade_Center%2C_New_York_City_-_aerial_view_%28March_2001%29.jpg/490px-World_Trade_Center%2C_New_York_City_-_aerial_view_%28March_2001%29.jpg" alt="WTC 1 and 2, 02/2001">
+                        <span>WTC, 02/2001</span>
+                    </div>
+                </div>
+                <div class="right">
+                    <ol>
+                        <li>located: financial district, lower Manhattan, NYC</li>
+                        <li>buildings: 
+                            <ul>
+                                <li>WTC 1, WTC 2: Twin Towers</li>
+                                <li>WTC 3: hotel</li>
+                                <li>WTC 4, WTC 5: buro</li>
+                                <li>WTC 6: agency (U.S. Department Of Defense And Border Patrol, ATF)</li>
+                                <li>WTC 7: buro</li>
+                            </ul>
+                        </li>
+                        <li>building time: from 1968 to 1987</li>
+                    </ol>
+                    <img class="from_height" src="/content/schule/englisch/ground-zero/img/lageplan.png">
+                    <span>arrangement plan WTC</span>
+                </div>
+            </div>
+        </div>
+        <!--The Attack-->
+        <div class="page">
+            <h1>The attack on the World Trade Center</h1>
+            <div class="flex">
+                <div class="left">
+                    <div class="img">
+                        <img src="https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/newscms/2016_36/1703426/ss-160909-911-attack-mbe-630_7.jpg" alt="burning Twin Towers, 09/11/2001, 09:02">
+                        <span>burning Twin Towers, 09/11/2001, 09:02</span>
+                    </div>
+                </div>
+                <div class="right">
+                    In the morning of the 11th September 2001 19 terrorists of the al-Qaeda network hijacked 4 in-land flights.<br><br>
+                    Two of those planes where kidnapped by 5 persons each. The fist one crashed at 8:46 into WTC 1. (<abbr title="American Airlines">AA</abbr> flight 11)<br>
+                    Sixteen minutes later (09:02) <abbr title="United-Airlines">UA</abbr> flight 175 crashed into the southern tower (WTC 2).<br><br>
+                    The exploding kerosene started various fires on many floors.
+                    <br><br>
+                    At 9:59 the southern tower (WTC 2) collapsed within nine seconds. From 10:06 the NYFD and NYPD expected the WTC 1 to collapse. It started to collapse at 10:23 and broke apart at 10:28 in just 12 seconds.<br>
+                    In WTC 1 16 people survived in Stairwell B between the first and 22nd floor.
+                </div>
+            </div>
+        </div>
+        <!--Pentagon-->
+        <div class="page">
+            <h1>Flight AA77 and Flight UA93</h1>
+            <img src="https://image.pbs.org/video-assets/pbs/911-inside-pentagon/236382/images/mezzanine_973.jpg" alt="attacked Pentagon">
+            <span>attacked Pentagon, 9/11/2001</span><br><br>
+            After ten of the 19 terrorists where in their planes the crew of Hani Handschur started their hijack. They hijacked flight AA77 and flew it at 09:37 into the Pentagon. All 64 passengers and 125 persons within the Pentagon where killed.<br>
+            Also Ziad Jarrah's crew hijacked a plane. But they couldn't reach their target because of a revolt in the plane. Flight UA93 crashed near Shanksville, Pennsylvania.<br><br>
+            <p id="plan">The Plan was it to destroy the Twin Towers, damage the Pentagon and destroy the White House or the Capitol.</p>
+        </div>
+        <!--Bilanz-->
+        <div class="page">
+            <h1>Numbers and Names</h1>
+            <div style="margin-left: 1.5rem;">
+                <li>people saved: 15.000</li>
+                <li>killed people (WTC): 2743 + 10 terrorists</li>
+                <li>killed people: 2983</li>
+            </div>
+            <br><br>
+            <h1>Terrorists:</h1>
+            <h3><u>flight AA 11</u></h3>
+            <div>
+                <li class="sublist">Mohammed Atta</li>
+                <li class="sublist">Abdulaziz al-Omari</li>
+                <li class="sublist">Satam al-Suqami</li>
+                <li class="sublist">Wail al-Shehri</li>
+                <li class="sublist">Waleed al-Shehri</li>
+            </div>
+            <h3><u>flight UA 175</u></h3>
+            <div>
+                <li class="sublist">Marvan al-Shehhi</li>
+                <li class="sublist">Fayez Banihammad</li>
+                <li class="sublist">Hamza al-Ghamdi</li>
+                <li class="sublist">Ahmed al-Ghamdi</li>
+                <li class="sublist">Mohand al-Shehri</li>
+            </div>
+            <h3><u>flight AA 77</u></h3>
+            <div>
+                <li class="sublist">Hani Handschur</li>
+                <li class="sublist">Khalid al Mihdhar</li>
+                <li class="sublist">Majid Moqed</li>
+                <li class="sublist">Nawaf al Hazmi</li>
+                <li class="sublist">Salem al Hazmi</li>
+            </div>
+            <h3><u>flight UA 93</u></h3>
+            <div>
+                <li class="sublist">Ziad Jarrah</li>
+                <li class="sublist">Ramzi Binalshibh</li>
+                <li class="sublist">Ahmed al-Nami</li>
+                <li class="sublist">Ahmed al-Haznawi</li>
+            </div>
+        </div>
+        <!--memorial-->
+        <div class="page" style="margin-bottom: 3rem;">
+            <h1>Memorials</h1>
+            <h2>1. National September 11 Memorial and Museum</h2>
+            <div class="flex">
+                <div class="left">
+                    <div class="img">
+                        <img src="https://www.nycgo.com/images/venues/191/september-11-memorial-lower-manhattan-nyc-brittanypetronella-_x9a4240__large.jpg" alt="9/11 memorial in the evening">
+                        <span>9/11 memorial in the evening</span>
+                    </div>
+                </div>
+                <div class="right">
+                    The National September 11 Memorial and Museum is located at the exact place where the Twin Towers stood.<br>
+                    The memorial honored the 2983 killed people that where killed at the 11th September 2001 and the six people that were killed at the 26th February 1993.<br><br>
+                    Around the walls of the water basins all of the 2983 names are written.<br><br>
+                    In 2006 the build begun and took until spring 2014.<br>
+                    In the museum underneath the memorial you can see 40.000 images, 14.000 things and you can hear 3.500 audio files. Also there are more than 500 hours of videos to watch.<br>
+                    Also there is a <i>mausoleum</i> where  non-identified body parts are stored safely.
+                </div>
+            </div>
+            <h2>2. Pentagon Memorial</h2>
+            <div class="flex">
+                <div class="left">
+                    <div class="img">
+                        <img src="https://media.defense.gov/2017/Aug/02/2002044446/1280/1280/0/160824-D-DB155-004A.JPG" alt="Pentagon-Memorial at night">
+                        <span>Pentagon-Memorial at night</span>
+                    </div>
+                </div>
+                <div class="right">
+                    The Pentagon-Memorial is right in front of the Pentagon where the plane hit.<br>
+                    After the rebuild of the historical Pentagon-wall was finished, the memorial started to grow. There are 189 lighted benches. Every bench has one name graved in.<br><br>
+                    Inside the Pentagon a memorial room was build to show the biography of the killed people at the 11th September 2001.<br><br>
+                    The memorial costs over 22 million US-Dollars.
+                </div>
+            </div>
+            <h2>3. Tribute in Light</h2>
+            <div class="flex">
+                <div class="left">
+                    <div class="img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Tribute_in_Light_%28air_force_2%29_tilt_corrected.jpg/800px-Tribute_in_Light_%28air_force_2%29_tilt_corrected.jpg" alt="Tribute in Light at night">
+                        <span>Tribute in Light at night</span>
+                    </div>
+                </div>
+                <div class="right">
+                    Every year at the 11th September 88 xenon lights are pointing right in the sky at the water basins of the National September 11 Memorial and Museum.<br>
+                    In the first 8 years there were just two searchlights pointing in the sky. But when the 9/11 memorial was finished, those light were planted into it.
+                </div>
+            </div>
+            <h1>4. Flight 93 National Memorial</h1>
+            <div class="flex">
+                <div class="left">
+                    <div class="img">
+                        <img src="https://www.nationalparks.org/uploads/Flight93NM_Luminaria_2014_NPS.jpg" alt="Flight 93 Memorial at night">
+                        <span>Flight 93 Memorial at night, wall of names</span>
+                    </div>
+                </div>
+                <div class="right">
+                    The Flight 93 National Memorial is a 8.9km² closed area. Only family members of the victims were allowed until 2015. After 2015 everybody can visit the memorial. Every year 150.000 people are visiting the area next to Shanksville.<br><br>
+                    The main part is a stone wall with the names of the 40 passengers. You will not find the names of the terrorists there.
+                </div>
+            </div>
+        </div>
+        <!--sources-->
+        <div id="sources" class="flex">
+            <details>
+                <summary>images</summary>
+                <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/World_Trade_Center%2C_New_York_City_-_aerial_view_%28March_2001%29.jpg/490px-World_Trade_Center%2C_New_York_City_-_aerial_view_%28March_2001%29.jpg">Wikipedia: WTC 02/2001</a><br>
+                <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/WTC_Building_Arrangement_and_Site_Plan_%28building_7_highlighted%29.jpg/440px-WTC_Building_Arrangement_and_Site_Plan_%28building_7_highlighted%29.jpg">Wikipedia: arrangement plan WTC (edited)</a><br>
+                <a href="https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/newscms/2016_36/1703426/ss-160909-911-attack-mbe-630_7.jpg">NBC News: burning Twin Towers</a><br>
+                <a href="https://image.pbs.org/video-assets/pbs/911-inside-pentagon/236382/images/mezzanine_973.jpg">wttw: attacked Pentagon</a><br>
+                <a href="https://www.nycgo.com/images/venues/191/september-11-memorial-lower-manhattan-nyc-brittanypetronella-_x9a4240__large.jpg">NYCGO: 9/11 memorial</a><br>
+                <a href="https://media.defense.gov/2017/Aug/02/2002044446/1280/1280/0/160824-D-DB155-004A.JPG">U.S. Department Of Defense: Pentagon-Memorial</a><br>
+                <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Tribute_in_Light_%28air_force_2%29_tilt_corrected.jpg/800px-Tribute_in_Light_%28air_force_2%29_tilt_corrected.jpg">Wikipedia: Tribute in light at night</a><br>
+                <a href="https://www.nationalparks.org/uploads/Flight93NM_Luminaria_2014_NPS.jpg">Flight 93 Memorial at night</a>
+            </details>
+            <details>
+                <summary>text</summary>
+                <a href="https://de.wikipedia.org/wiki/World_Trade_Center">Wikipedia: World Trade Center</a><br>
+                <a href="https://de.wikipedia.org/wiki/American-Airlines-Flug_11">Wikipedia: flight AA11</a><br>
+                <a href="https://de.wikipedia.org/wiki/United-Airlines-Flug_175">Wikipedia: flight UA 175</a><br>
+                <a href="https://de.wikipedia.org/wiki/American-Airlines-Flug_77">Wikipedia: flight AA77</a><br>
+                <a href="https://de.wikipedia.org/wiki/Ablauf_der_Terroranschl%C3%A4ge_am_11._September_2001">Wikipedia: events on 9/11</a><br>
+                <a href="https://govinfo.library.unt.edu/911/report/911Report_Ch1.htm">NCOTAUTUS: We Have Some Planes</a><br>
+                <a href="https://www.dailymail.co.uk/news/article-2035963/9-11-Anniversary-Miraculous-escape-16-trapped-North-Towers-Stairwell-B.html">Dailymail: [..] trapped in [..] Stairwell B [..]</a><br>
+                <a href="https://video.wttw.com/show/911-inside-pentagon/">wwtw: Video - 9/11 Inside the Pentagon</a><br>
+                <a href="https://de.wikipedia.org/wiki/National_September_11_Memorial_and_Museum">Wikipedia: National September 11 Memorial and Museum</a><br>
+                <a href="https://de.wikipedia.org/wiki/Flight_93_National_Memorial">Wikipedia: Flight 93 National Memorial</a><br>
+                <a href="https://de.wikipedia.org/wiki/Bombenanschlag_auf_das_World_Trade_Center_1993">Wikipedia: attack at the world trade center 1993</a><br>
+                <a href="https://de.wikipedia.org/wiki/Pentagon-Denkmal">Wikipedia: Pentagon- Memorial</a><br>
+                <a href="https://de.wikipedia.org/wiki/Tribute_in_Light">Wikipedia: Tribute in Light</a><br>
+                <a href="https://de.wikipedia.org/wiki/Flight_93_National_Memorial">Wikipedia: Flight 93 National Memorial</a>
+            </details>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home | janalbrecht.tech</title>
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/css/navbar.css">
+	<link rel="stylesheet" href="">
+	<link rel="icon" href="/bilder/logos/JA_Coding(green).png">
+</head>
+<body>
+	<div id="top">
+		<div id="navbar">
+            <div class="topnav" id="myTopnav">
+                <a href="#" id="home">
+					<img src="/bilder/logos/JA_Coding(green).png" id="homeicon">
+				</a>
+                <div id="right">
+                    <a href="/content/projects/projects.html">alle Projekte</a>
+                    <a href="/content/setup/setup.html">Setup</a>                    
+                    <div class="dropdown">
+                      	<button class="dropbtn">
+                            Schulprojekte ↓
+                      	</button>
+					<!--Dropdown-->
+                      	<div class="dropdown-content">
+                        	<a href="/content/schule/timetable/timetable.html" target="_blank">Stundenplan 2022/2023</a>
+                        	<a href="/content/schule/englisch/ground-zero/index.html" target="_blank">9/11 (Englisch)</a>
+                        	<a href="/content/schule/kunst/freiotto/index.html" target="_blank">Frei Otto (Kunst)</a>
+                        	<a href="https://youtube-crew.netlify.app" target="_blank">YouTube- Team</a>
+                        	<a href="https://sport-lernscript.netlify.app/" target="_blank">Lernscript (Sport)</a>
+                        	<a href="/content/schule/kunst/kamera/index.html" target="_blank">Spiegelreflexkamera (Kunst)</a>
+							<a href="/content/schule/physik/schaltjahr/index.html" target="_blank">Schaltjahr (Physik)</a>
+                      	</div>
+                    </div> 
+                    <a href="/content/news/news.html">News</a>
+                    <a href="/content/socials/socials.html">Socials</a>
+					<script src="/js/navbar.js"></script>
+                    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="dreibalkensymbol()">&#9776;</a>
+                </div>
+            </div>              
+        </div>
+	</div>
+	<div id="main">
+		<div id="light-dark">
+			<label class="theme-input" for="checkbox">Dark Mode?
+                <input type="checkbox" id="checkbox" title="Darkmode aktivieren/deaktivieren">
+            </label>
+            <script src="/js/mode.js"></script>
+		</div>
+		<div class="content">
+			<h1>Über mich:</h1>
+			<div class="flex">
+				<div class="bild">
+					<img src="https://jan-albrecht05.github.io/bilder/cards/klettern.jpg" class="nohover">
+				</div>
+				<div class="text">
+					Hi,<br>
+					Ich bin Jan, 18 Jahre, und gehe in die 12. Klasse der <a href="https://www.homburgschule.de">Prinz-von-Homburg-Schule</a>. In meiner Freizeit arbeite ich an Projekten wie diesen <a href="#projekte">hier</a>.<br>
+					Nebenbei habe ich viele weitere <a href="#hobbies">Hobbies</a>. Die wichtigsten habe ich auch auf dieser Seite dargestellt. Ein wichtiges Hobby, welches hier nicht zu sehen sein wird ist die Schule. Damit meine ich aber nicht meine Lernbereitschaft oder wie gern ich Hausaufgaben mache.. Nein! Ich mache viel freiwillige Arbeit für die Schule. Zum Beispiel Teile der <a href="https://homburgschule.de">Homepage</a> und den <a href="https://www.youtube.com/channel/UCPUwf3rgM9DYQuv8lkOlkLg">Youtube Kanal</a>.
+				</div>
+			</div>
+		</div>
+		<div class="content" id="projekte">
+			<h1>Neueste Projekte:</h2>
+			<div class="grid">
+				<a href="/content/tools/geolocation/index.html" target="_blank"><img src="/content/tools/geolocation/geo.png"></a>
+				<a href="/content/tools/webuhr/index.html" target="_blank"><img src="/content/projects/bilder/uhr.png"></a>
+				<a href="/content/tools/text-to-QR/index.html" target="_blank"><img src="/content/projects/bilder/qrcode.png"></a>
+				<a href="/content/schule/info/timer.html" target="_blank"><img src="/content/schule/info/icon.png"></a>
+				<a href="https://youtube-crew.netlify.app" target="_blank"><img src="/content/projects/bilder/youtube-team.png"></a>
+				<a href="https://tontechnik.netlify.app/" target="_blank"><img src="/content/projects/bilder/tontechnik.png"></a>
+				<a href="https://mein-kochbuch.netlify.app/" target="_blank"><img src="/content/projects/bilder/kochbuch.png"></a>
+			</div>
+		</div>
+		<div class="content" id="hobbies">
+			<h1>Meine Hobbies:</h1>
+			<link rel="stylesheet" href="/css/expanding-cards.css">
+			<div class="container" oncontextmenu="return false">
+				<div class="panel active" style="background-image: url('/bilder/cards/tauchen.JPG');">
+					<h3 style="color: #262626;">Tauchen</h3>
+					<p>Schon im Jahr 2018 habe ich im Ferienlager am Stechlinsee meinen Grundtauchschein gemacht. In den weiteren Jahren kamen dann noch weitere Spezialkurse mit dazu. Heute bin ich zertifizierter "Master Diver" und damit Rettungstaucher.</p>
+				</div>
+				<div class="panel" style="background-image: url('/bilder/cards/drohne.JPG');">
+					<h3 style="color: #262626;">Drohnen fliegen</h3>
+					<p>Mit dem Drohnen fliegen habe ich erst dieses Jahr angefangen und schon habe ich einige schöne Aufnahmen und Videos mit meiner DJI mini 2 machen können.</p>
+				</div>
+				<div class="panel" style="background-image: url('/bilder/cards/Coden.JPG');">
+					<h3 style="color: #262626; background-color: #ffffff44; border-radius: 15px; padding: 0.5rem;">Coding</h3>
+					<p>Dieses, für mich sehr wichtige Hobby startete am Informitunterricht in der 9. Klasse. Seit dem habe ich die Sprachen HTML, CSS, JavaScript, PHP, Java und Pascal gelernt und auch bei verschiedenen Projekten angewendet.</p>
+				</div>
+				<div class="panel" style="background-image: url('/bilder/cards/klettern.jpg');">
+					<h3 style="color: #262626; backdrop-filter: blur(5px);">Klettern</h3>
+					<p>Es startete vor nun schon fast 13 Jahren mit einem Baum auf unserem Hof. Damals wie ein Kind von Ast zu Ast. Heute wie ein Industriekletterer an einem Seil gerade nach oben.</p>
+				</div>
+				<div class="panel" style="background-image: url('/bilder/cards/cardistry.JPG');">
+					<h3>cardistry</h3>
+					<p>Cardistry nennt man die Kunst, mit seinen Händen und Spielkarten Figuren und Bewegungen in der Luft zu machen.</p>
+				</div>
+				<div class="panel" style="background-image: url('/bilder/cards/sonnenuntergang.jpg');">
+					<h3>Fotografie</h3>
+					<p>Schon viele Jahre habe ich mir Papas Kamera geklaut, um gute Bilder zu scheißen. Seit einem Jahr habe ich meine eigene Olympus Systemkamera und es macht sehr viel Spaß damit zu fotografieren. Auch mit anderen KAmeras wie fliegenden oder wasserdichten Kameras habe ich es oft zu tun.</p>
+				</div>
+				<script src="/js/cards.js"></script>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer">
+		<span id="footimg"><img src="/bilder/logos/JA_Coding(green).png"></span>
+		<span id="foottext"><b><u>Disclaimer:</b></u> Für alle Inhalte verantwortlich: <b>Jan Albrecht</b></span>
+	</div>
+</body>
+</html>

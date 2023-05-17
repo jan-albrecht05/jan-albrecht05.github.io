@@ -1,0 +1,163 @@
+:root{
+    --keycolor: #0f0c1e;
+    --yellow: #cfd300;
+}
+::selection{
+    background-color: var(--yellow);
+    color: var(--keycolor);
+}
+html{
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--yellow) var(--keycolor);
+}
+body{
+    margin: 0;
+    background-color: var(--keycolor);
+    background-image: url(/content/schule/physik/schaltjahr/img/background.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 30%;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+img{
+    width: 100%;
+}
+#qr{
+    width: 25%;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    z-index: 2;
+    border: 5px solid white;
+}
+.box{
+    height: max-content;
+    width: 50%;
+    margin-left: 25%;
+    backdrop-filter: blur(5px);
+    background-color: #ffffff10;
+    color: white;
+    margin-top: 1rem;
+}
+#heading,
+.erklärung{
+    padding: 1rem;
+}
+.frage{
+    font-size: 150%;
+    user-select: none;
+    padding-left: 1rem;
+}
+summary {
+    position: relative;  
+    margin-left: -1rem;
+    list-style: none;
+    width: 100%;
+}
+summary span{
+    width: 88%;
+    display: inline-block;
+}
+summary::-webkit-details-marker {
+    display: none;
+}
+summary::after {
+    content:  "+"; 
+    position: absolute;
+    color: white;
+    font-size: 2em;
+    font-weight: bold; 
+    right: 1rem;
+    top: -0.8rem;
+    transition: all 0.5s;
+    font-family: 'Courier New', Courier, monospace;
+}
+details[open] summary::after {
+    color: var(--yellow);
+    transform: translate(0px,0) rotate(45deg);
+}
+li{
+    margin-left: 1rem;
+}
+#normal{
+    width: 48%;
+    margin-left: 26%;
+    margin-top: 3rem;
+    color: white;
+    margin-bottom: 5rem;
+}
+#normal-sum::after{
+    content: "";
+}
+#next{
+    width: 50%;
+    margin-left: 25%;
+}
+#knopf{
+    margin-left: 25%;
+    min-height: 3rem;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: var(--yellow);
+    border-radius: 10px;
+    border: var(--keycolor) 2px solid;
+}
+#knopf a{
+    text-decoration: none;
+    color: var(--keycolor);
+    font-size: 150%;
+    font-weight: bold;
+}
+#knopf span{
+    display: none;
+    margin-left: 1rem;
+}
+#next:hover span{
+    display: inline-block;
+}
+@media (max-width: 750px) {
+    #qr{
+        display: none;
+    }
+    #heading{
+        text-align: center;
+    }
+    .box{
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    .frage{
+        font-size: 120%;
+    }
+    summary::after{
+        margin-right: -0.7rem;
+    }
+    #normal{
+        max-width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    #next{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5rem;
+    }
+    #knopf{
+        
+        margin-left: 0;
+        width: max-content;
+        height: auto;
+        text-align: center;
+    }
+    #knopf span{
+        margin-left: 0.5rem;
+    }
+}

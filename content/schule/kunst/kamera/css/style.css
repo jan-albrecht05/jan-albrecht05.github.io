@@ -1,0 +1,203 @@
+html{
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+}
+body{
+    background-image: url(/content/schule/kunst/kamera/bilder/sonnenuntergang.jpg);
+    background-position: center;
+    background-attachment: fixed;
+    height: 100%;
+    width: 99vw;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    scroll-behavior: smooth;
+}
+img{
+    height: auto;
+    width: 100%;
+}
+img:hover{
+    transition: all 0.5s;
+    transform: scale(1.08);
+}
+#no-zoom:hover{
+    transform: scale(1);
+}
+#navbar{
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    height: 3rem;
+    width: 100%;
+    background-color: #262626;
+    z-index: 1;
+}
+.linkbox{
+    width: fit-content;
+    height: 3rem;
+    margin-left: 0.3rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.linkbox:hover{
+    background-color: #303030;
+}
+.linkbox a{
+    font-size: 200%;
+    color: #ccc;
+    text-decoration: none;
+    margin-top: 0.3rem;
+    user-select: none;
+}
+#content{
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    margin-bottom: 5rem;
+}
+h3{
+    margin-top: -0.5rem;
+}
+.box{
+    background-color: white;
+    width: 99%;
+    height: fit-content;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.mid-box{
+    height: fit-content;
+    min-height: 5rem;
+    width: 100%;
+    display: flex;
+    margin-bottom: 3rem;
+}
+.textbox{
+    background-color: #ffffff90;
+    width: 70%;
+    padding: 1rem;
+}
+.img{
+    height: auto;
+    width: 30%;
+    background-color: white;
+    margin-left: 2rem;
+}
+.img,
+.img--30,
+.img-30,
+.img-left,
+#top-pic{
+    overflow: hidden;
+    background-color: white;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.textbox-30{
+    background-color: #ffffff90;
+    width: 33%;
+    padding: 1rem;
+}
+.img--30{
+    height: auto;
+    width: 33%;
+    margin-right: 2rem;
+}
+.img-30{
+    height: auto;
+    width: 33%;
+    margin-left: 2rem;
+}
+.img-left{
+    height: auto;
+    width: 30%;
+    margin-right: 2rem;
+}
+.text{
+    padding-left: 1rem;
+    line-height: 25px;
+}
+.text::selection,
+li::selection,
+abbr::selection,
+h3::selection,
+h2::selection{
+    background-color: #f4a268;
+    color: white;
+}
+.num{
+    list-style-type: decimal;
+}
+@media (min-width: 700px) {
+    .linkbox{
+        width: 15rem;
+    }
+    #qr{
+        width: 25%;
+        height: auto;
+        position: fixed;
+        z-index: 2;
+        margin-top: auto;
+        bottom: 0;
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+        border: 5px solid black;
+    }
+    #top-pic{
+        display: none;
+    }
+}
+@media (max-width: 700px) {
+    #qr{
+        display: none;
+    }
+    img{
+        width: 100%;
+    }
+    .linkbox{
+        width: auto;
+        padding-top: 0.5rem;
+        max-height: 2.5rem;
+        border-left: 1px solid #404040;
+    }
+    #first-link{
+        width: 3.5rem;
+    }
+    #top-link{
+        width: fit-content;
+        width: 2rem;
+    }
+    .linkbox a{
+        font-size: 120%;
+    }
+    .box{
+        width: auto;
+    }
+    #content{
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    .mid-box{
+        display: block;
+        width: 100%;
+    }
+    .textbox,
+    .textbox-30,
+    .textbox--30{
+        width: auto;
+    }
+    .img,
+    .img--30,
+    .img-30,
+    .img-left{
+        width: auto;
+        margin: 0;
+    }
+}

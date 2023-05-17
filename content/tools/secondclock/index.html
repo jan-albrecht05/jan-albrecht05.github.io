@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">Digitaluhr / Bildschirmschoner</title>
+    <link rel="stylesheet" href="/content/tools/secondclock/style.css">
+    <link rel="icon" href="/content/projects/bilder/uhr.png">
+    <script src="/content/tools/secondclock/clock.js"></script>
+    <script src="/content/tools/secondclock/style.js"></script>
+</head>
+<body id="body" onkeydown="closeviakey()">
+    <div id="clock" onclick="bodyclick()">
+        00:00:00
+    </div>
+    <div id="openmenu" onclick="openmenu()">
+        <img src="/content/tools/secondclock/menu.png">
+    </div>
+    <div id="closemenu" onclick="closemenu()">
+        <img src="/content/tools/secondclock/menu.png">
+    </div>
+    <div id="menu">
+        <h2>Einstellungen</h2>
+        <label for="showclock">Uhr einblenden</label>
+        <input type="checkbox" id="showclock" oninput="show_hide()" checked="true"><br>
+        <label for="font-style" id="forfont">Font Style:</label>
+        <select id="style" name="font-style" oninput="changefont()">
+            <option value="'Courier New', Courier, monospace">Schreibmaschiene</option>
+            <option value="Arial, Helvetica, sans-serif">Arial</option>
+            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+            <option value="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Trebuchet MS</option>
+        </select><br>
+        <label for="size" id="forsize">Schriftgröße:</label>
+        <input type="range" id="size" value="300" min="50" max="350" oninput="changesize()">
+    </div>
+</body>
+</html>

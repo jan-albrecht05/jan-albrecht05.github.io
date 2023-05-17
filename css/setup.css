@@ -1,0 +1,73 @@
+#set-content{
+    margin-top: 2rem;
+}
+.cover{
+    width: 100%;
+    height: 50vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: var(--h-tophover2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 10px 0px 0px;
+}
+.cover:nth-last-child(1){
+    border-radius: 0px 0px 10px 10px;
+}
+.cover h1{
+    font-size: 300%;
+    text-decoration: underline;
+}
+.top{
+    z-index: 2;
+    margin-top: -0.5rem;
+    border-radius: 10px 10px 0px 0px;
+    filter: drop-shadow(#262626 0px 10px 15px);
+}
+.nottop{
+    z-index: 1;
+}
+
+.part{
+    width: 50%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+}
+.device{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+    background-color: var(--h-tophover3);
+}
+.deviceimg{
+    width: auto;
+    height: 90%;
+}
+@media (max-width:700px) {
+    .cover{
+        height: 100vh;
+    }
+    .top{
+        margin-top: -1rem;
+    }
+    .part{
+        width: 100%;
+    }
+    .deviceimg:nth-child(1){
+        padding-bottom: 7rem;
+        width: 90%;
+    }
+    .deviceimg{
+        width: 100%;
+        height: auto;
+    }
+    .cover:nth-child(1),
+    .cover:nth-last-child(1){
+        height: 50vh;
+    }
+}

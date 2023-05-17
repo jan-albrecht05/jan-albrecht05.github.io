@@ -1,0 +1,110 @@
+:root{
+    --eins: rgb(174, 0, 255);
+    --zwei: rgb(0, 255, 51);
+}
+body{
+    background-size: 500% 200%;
+    /*background-image: linear-gradient(
+        -135deg, 
+        red 0%,
+        orange 20%,
+        yellow 40%,
+        green 60%,
+        blue 80%,
+        rgb(191, 0, 255) 100%
+    );*/
+    background-image: linear-gradient(-45deg, var(--eins) 0%, rgb(255, 0, 0) 50%, rgb(255, 131, 0) 100%);
+    animation: AnimateBG 10s ease infinite;
+    height: 98vh;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    user-select: none;
+}
+@keyframes AnimateBG { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+img{
+    width: 100%;
+    height: auto;
+}
+#openmenu,
+#closemenu{
+    width: 3rem;
+    height: 3rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #000000;
+    padding: 1rem;
+    border-radius: 50%;
+    opacity: .5;
+    z-index: 5;
+}
+#openmenu{
+    display: block;
+}
+#closemenu{
+    display: none;
+}
+#menu{
+    display: none;
+    position: absolute;
+    background-color: #2a2a2ae0;
+    border: solid 1px #000000;
+    border-radius: 5px;
+    width: 50%;
+    height: 50%;
+    margin: 25%;
+    margin-top: 15rem;
+    z-index: 4;
+    text-align: center;
+    color: #ffffff;
+}
+select{
+    background-color: #262626;
+    color: white;
+    border: none;
+    outline: none;
+}
+option{
+    background-color: #262626;
+    color: white;
+}
+input{
+    accent-color: #303030;
+}
+#style{
+    margin-top: 3rem;
+}
+#size{
+    margin-top: 3rem;
+}
+#clock{
+    font-size: 300px;
+    height: 98vh;
+    width: 98vw;
+    /*display: none;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    z-index: 1;
+}
+
+@media (max-width: 600px) {
+    #openmenu,
+    #closemenu{
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: .7rem;
+    }
+    #menu{
+        width: 90%;
+        margin-left:1rem;
+    }
+}

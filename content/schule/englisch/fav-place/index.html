@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My favorite place to live</title>
+    <link rel="icon" href="/content/projects/bilder/home.png">
+    <style>
+        html{
+            scrollbar-width: thin;
+            scroll-behavior: smooth;
+        }
+        body{
+            margin: 0;
+            background-color: #262626;
+            background-image: url(/content/schule/englisch/fav-place/Haus3.png);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: 10%;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            height: 100%;
+        }
+        .mid{
+            margin-left: 25%;
+            margin-right: 25%;
+            width: auto;
+            background-color: #00000070;
+            backdrop-filter: blur(3px);
+            min-height: 3rem;
+            display: flex;
+            margin-bottom: 2rem;
+        }
+        .mid:nth-child(1){
+            justify-content: center;
+            align-items: center;
+        }
+        #heading{
+            width: auto;
+            text-align: center;
+            font-size: 200%;
+            font-weight: bold;
+        }
+        .image{
+            width: 100%;
+            overflow: hidden;
+            padding: 0.5rem;
+        }
+        img{
+            width: 100%;
+            height: auto;   
+        }
+        img:hover{
+            transform: scale(1.2);
+            transition: all 0.8s;
+        }
+        .text{
+            text-align: left;
+            margin-left: 1.5rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        @media (max-width: 400px) {
+            .mid{
+                margin-left: 1rem;
+                margin-right: 1rem;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mid" style="margin-top: 1rem;">
+        <div id="heading">
+            My favorite place to live
+        </div>
+    </div>
+    <div class="mid">
+        <div class="image">
+            <img src="/content/schule/englisch/fav-place/Haus1.jpg">
+        </div>
+    </div>
+    <div class="mid">
+        <div class="text">
+            <u>Why I want to live here:</u>
+            <ui>
+                <li>I already live here</li>
+                <li>It's an old building (from 1908)</li>
+                <li>I love old buildings</li>
+                <li>It's huge</li>
+                <li>We have a lot of space - also for all our hobbies (climbing, diving, etc.)</li>
+                <li>It's 100 percent individual</li>
+                <li>The building is in a very small village</li>
+                <li>I don't like modern houses with sharp edges and metal.</li>
+                <li>Everything needs to have a function</li>
+            </ui>
+        </div>
+    </div>
+    <div class="mid">
+        <div class="image">
+            <img src="/content/schule/englisch/fav-place/Haus2.jpg">
+        </div>
+    </div>
+    <div class="mid">
+        <div class="text">
+            <u>My Future Plans:</u>
+            <ui>
+                <li>I want to live here with my girlfriend/wife and our childrens.</li>
+                <li>This House ist the center of our lives. A lot of parties are planned here.</li>
+            </ui>
+        </div>
+    </div>
+</body>
+</html>

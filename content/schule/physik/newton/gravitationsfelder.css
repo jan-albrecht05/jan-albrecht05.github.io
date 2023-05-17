@@ -1,0 +1,97 @@
+:root{
+    --back: rgb(0, 0, 51);
+    --keycolor: orangered;
+    --greywhite: #bdbdbd;
+}
+html{
+    scrollbar-color: var(--keycolor) var(--back);
+    scrollbar-width: thin;
+}
+body{
+    margin: 0;
+    background-color: var(--back);
+    background-image: url(/content/schule/physik/newton/bilder-gravitaiton/background.png);
+    background-position: 50%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--greywhite);
+    height: 100%;
+    padding-bottom: 5rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+img{
+    width: 100%;
+    height: auto;
+}
+.box{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    background-color: #ffffff20;
+    backdrop-filter: blur(5px);
+    min-height: fit-content;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 130%;
+}
+.box:nth-child(2){
+    margin-top: 5rem;
+}
+#heading{
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    text-decoration: underline;
+    color: var(--keycolor);
+}
+#first-image{
+    margin-top: 1rem;
+    background-color: whitesmoke;
+}
+.center{
+    text-align: center;
+    margin-bottom: -0.5rem;
+}
+.pink{
+    color: var(--keycolor);
+    font-weight: bold;
+}
+li{
+    margin-left: 1.5rem;
+    list-style-type: none;
+}
+li::before{
+    content: "🚀";
+    margin-right: 0.2rem;
+}
+.flex{
+    display: flex;
+}
+.left-span{
+    width: 80%;
+}
+.right-span{
+    width: 20%;
+}
+@media (max-width: 700px) {
+    body{
+        background-image: url(/content/schule/physik/newton/bilder-gravitaiton/background_phone.png);
+    }
+    .box{
+        margin-left: 5%;
+        margin-right: 5%;
+        width: auto;
+    }
+    #heading{
+        font-size: 15px;
+    }
+    li{
+        margin-left: 0.3rem;
+    }
+    .left-span{
+        width: 60%;
+    }
+    .right-span{
+        width: 40%;
+    }
+}

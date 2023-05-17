@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count-Down Timer | janalbrecht.tech</title>
+    <link rel="stylesheet" href="/content/schule/info/style.css">
+    <link rel="icon" href="/content/schule/info/icon.png">
+    <script src="/content/schule/info/app.js"></script>
+    <meta name="description" content="Eine einfache App im Browser um eine beliebige Zeit ablaufen zu lassen.">
+    <meta name="author" content="Jan Albrecht">
+</head>
+<body>
+    <div id="inputs" class="field">
+        <h1>Zeit in Minuten:</h1>
+        <input type="number" id="timein" min="1" max="180" value="10"><br>
+        <button onclick="start()" id="start">start</button>
+    </div>
+    <!--made by Jan Albrecht-->
+    <!--janalbrecht.tech-->
+    <div id="timetogo" class="field">
+        <h1 id="h1">Verbleibende Zeit:</h1>
+        <div id="time">00:00</div>
+        <button onclick="stop()" id="stop">abbruch</button><br>
+        <input type="range" oninput="change()" id="change" min="150" max="2270" value="1000">
+    </div>
+    <!--
+        _______
+        \_____  \                  __
+          ____\  \_    ________    \  \_____
+          \   __   _\  \   __   \   \   __   \ 
+           \  \_\  \    \  \__\  \__ \  \  \  \
+            \_______\    \__________\ \__\  \__\
+    -->
+</body>
+</html>
