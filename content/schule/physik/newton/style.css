@@ -3,6 +3,13 @@ html{
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
+body{
+    width: 60%;
+    margin-inline: auto;
+}
+#bild{
+    text-align: center;
+}
 .center{
     text-align: center;
 }
@@ -30,4 +37,9 @@ a:hover{
 img{
     width: 100%;
     height: auto;
+}
+@media (max-width: 600px) {
+    body{
+        width: 90%;
+    }
 }
