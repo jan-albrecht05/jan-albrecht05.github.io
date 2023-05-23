@@ -7,7 +7,7 @@ function start(){
         let startTime = new Date().getTime();
         let remainingtime = 1000 * 60 * togo;
         let endTime = startTime + remainingtime;
-        time.innerHTML = togo+": 00";
+        time.innerHTML = togo+" : 00";
         setInterval(function() {
             let timer = document.getElementById("time");
             let timeLeft = endTime - new Date().getTime();
