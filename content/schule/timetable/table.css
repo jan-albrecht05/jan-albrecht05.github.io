@@ -26,10 +26,10 @@ body{
     font-size: 180%;
     margin-top: 5rem;
     margin-left: 20%;
-    display: none;
-
+    
 }
 table{
+    display: none;
     width: 100%;
     text-align: center;
     border: 1px solid whitesmoke;
