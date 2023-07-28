@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker</title>
+    <link rel="stylesheet" href="/content/tools/color-picker/style.css">
+</head>
+<body onload="settonull()">
+    <div id="main">
+        <script src="/content/tools/color-picker/app.js"></script>
+        <h1>Color- Picker</h1>
+        <div id="color-box">
+
+        </div>
+        <div id="input-field">
+            <div class="row">
+                <p class="code">#<span class="span1 active">0</span><span class="span2">0</span><span class="span3">0</span><span class="span4">0</span><span class="span5">0</span><span class="span6">0</span></p>
+                <p class="slider">
+                    <input type="range" id="first-input" min="0" max="15" step="1" value="0" oninput="change()">
+                </p>
+            </div>
+            <div class="row">
+                <p class="code">#<span class="span1">0</span><span class="span2 active">0</span><span class="span3">0</span><span class="span4">0</span><span class="span5">0</span><span class="span6">0</span></p>
+                <p class="slider">
+                    <input type="range" id="second-input" min="0" max="15" step="1" value="0" oninput="change()">
+                </p>
+            </div>
+            <div class="row">
+                <p class="code">#<span class="span1">0</span><span class="span2">0</span><span class="span3 active">0</span><span class="span4">0</span><span class="span5">0</span><span class="span6">0</span></p>
+                <p class="slider">
+                    <input type="range" id="third-input" min="0" max="15" step="1" value="0" oninput="change()">
+                </p>
+            </div>
+            <div class="row">
+                <p class="code">#<span class="span1">0</span><span class="span2">0</span><span class="span3">0</span><span class="span4 active">0</span><span class="span5">0</span><span class="span6">0</span></p>
+                <p class="slider">
+                    <input type="range" id="fourth-input" min="0" max="15" step="1" value="0" oninput="change()">
+                </p>
+            </div>
+            <div class="row">
+                <p class="code">#<span class="span1">0</span><span class="span2">0</span><span class="span3">0</span><span class="span4">0</span><span class="span5 active">0</span><span class="span6">0</span></p>
+                <p class="slider">
+                    <input type="range" id="fifth-input" min="0" max="15" step="1" value="0" oninput="change()">
+                </p>
+            </div>
+            <div class="row">
+                <p class="code">#<span class="span1">0</span><span class="span2">0</span><span class="span3">0</span><span class="span4">0</span><span class="span5">0</span><span class="span6 active">0</span></p>
+                <p class="slider">
+                    <input type="range" id="sixth-input" min="0" max="15" step="1" value="0" oninput="change()">
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
