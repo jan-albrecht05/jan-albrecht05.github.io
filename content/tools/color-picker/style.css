@@ -128,8 +128,9 @@ h2{
     }
     #sidebar{
         background-color: #404040;
-        width: 96%;
+        width: 95%;
         margin: 0;
+        margin-right: 1%;
         position: fixed;
         padding: .5rem;
         height: max-content;
@@ -161,7 +162,7 @@ h2{
         padding: 0px 8px 6px 8px;
     }
 }
-@media (max-width: 1200px){
+@media (min-width: 800px) and (max-width: 1200px){
     #main{
         width: 70%;
     }
