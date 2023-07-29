@@ -152,6 +152,7 @@ function init(){
     }
     let color = "#"+value1+value2+value3+value4+value5+value6;
     console.log(color);
+    document.getElementById("color-box").innerHTML = color;
     document.getElementById("color-box").style.backgroundColor = color;
     for (let i=0; i < 6; i++){
         document.getElementsByClassName("span1")[i].innerHTML = value1;
@@ -164,4 +165,108 @@ function init(){
 }
 function change(){
     init();
+}
+function towhite(){
+    document.getElementById("first-input").value = 15;
+    document.getElementById("second-input").value = 15;
+    document.getElementById("third-input").value = 15;
+    document.getElementById("fourth-input").value = 15;
+    document.getElementById("fifth-input").value = 15;
+    document.getElementById("sixth-input").value = 15;
+    init();
+}
+function tored(){
+    document.getElementById("first-input").value = 15;
+    document.getElementById("second-input").value = 15;
+    document.getElementById("third-input").value = 0;
+    document.getElementById("fourth-input").value = 0;
+    document.getElementById("fifth-input").value = 0;
+    document.getElementById("sixth-input").value = 0;
+    init();
+}
+function toblue(){
+    document.getElementById("first-input").value = 0;
+    document.getElementById("second-input").value = 0;
+    document.getElementById("third-input").value = 0;
+    document.getElementById("fourth-input").value = 0;
+    document.getElementById("fifth-input").value = 15;
+    document.getElementById("sixth-input").value = 15;
+    init();
+}
+function togreen(){
+    document.getElementById("first-input").value = 0;
+    document.getElementById("second-input").value = 0;
+    document.getElementById("third-input").value = 8;
+    document.getElementById("fourth-input").value = 0;
+    document.getElementById("fifth-input").value = 0;
+    document.getElementById("sixth-input").value = 0;
+    init();
+}
+function toyellow(){
+    document.getElementById("first-input").value = 15;
+    document.getElementById("second-input").value = 15;
+    document.getElementById("third-input").value = 15;
+    document.getElementById("fourth-input").value = 15;
+    document.getElementById("fifth-input").value = 0;
+    document.getElementById("sixth-input").value = 0;
+    init();
+}
+function topink(){
+    document.getElementById("first-input").value = 14;
+    document.getElementById("second-input").value = 0;
+    document.getElementById("third-input").value = 0;
+    document.getElementById("fourth-input").value = 0;
+    document.getElementById("fifth-input").value = 15;
+    document.getElementById("sixth-input").value = 0;
+    init();
+}
+function toaqua(){
+    document.getElementById("first-input").value = 0;
+    document.getElementById("second-input").value = 0;
+    document.getElementById("third-input").value = 15;
+    document.getElementById("fourth-input").value = 15;
+    document.getElementById("fifth-input").value = 15;
+    document.getElementById("sixth-input").value = 11;
+    init();
+}
+function tolgreen(){
+    document.getElementById("first-input").value = 0;
+    document.getElementById("second-input").value = 9;
+    document.getElementById("third-input").value = 15;
+    document.getElementById("fourth-input").value = 15;
+    document.getElementById("fifth-input").value = 0;
+    document.getElementById("sixth-input").value = 0;
+    init();
+}
+function tobeige(){
+    document.getElementById("first-input").value = 15;
+    document.getElementById("second-input").value = 15;
+    document.getElementById("third-input").value = 15;
+    document.getElementById("fourth-input").value = 15;
+    document.getElementById("fifth-input").value = 13;
+    document.getElementById("sixth-input").value = 3;
+    init();
+}
+function reset(){
+    document.getElementById("first-input").value = 0;
+    document.getElementById("second-input").value = 0;
+    document.getElementById("third-input").value = 0;
+    document.getElementById("fourth-input").value = 0;
+    document.getElementById("fifth-input").value = 0;
+    document.getElementById("sixth-input").value = 0;
+    init();
+}
+let popen = false;
+function movesidebar(){
+    if (popen == true){
+        document.getElementById("sidebar").style.display = "none";
+        popen = false;
+        document.getElementById("zeichen").innerHTML = "<";
+        document.getElementById("zeichen").style.transform = "rotate(-90deg)";
+    }else{
+        document.getElementById("sidebar").style.display = "block";
+        popen = true;
+        document.getElementById("zeichen").innerHTML = "+";
+        document.getElementById("zeichen").style.transform = "rotate(-45deg)";
+    }
 }
