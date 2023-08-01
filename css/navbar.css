@@ -75,7 +75,7 @@
 .dropdown:hover .dropdown-content{
     display: block;
 }
-@media (min-width:700px) {
+@media (min-width:940px) {
     #navbar{
         padding-left: 5rem;
     }
