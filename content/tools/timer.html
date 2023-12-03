@@ -52,7 +52,7 @@
             .points{
                 font-size: 50px;
                 margin-top: 2rem;
-        }
+            }
         }
     </style>
     <script>
@@ -69,7 +69,6 @@
             const hoursRemaining = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutesRemaining = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
             // Display the results
-            console.log(`Days: ${daysRemaining} | Hours: ${hoursRemaining} | Minutes: ${minutesRemaining}`);
             document.getElementById("days").innerHTML = daysRemaining;
             document.getElementById("hours").innerHTML = hoursRemaining;
             document.getElementById("minutes").innerHTML = minutesRemaining;
@@ -80,9 +79,6 @@
 <body class="center">
     <div id="box">
         <div id="text" class="center">Zeit bis wir uns sehen:</div>
-        <div id="test1"></div>
-        <div id="test2"></div>
-        <div id="test3"></div>
         <div id="timer">
             <div class="number">
                 <div id="days">00</div>
