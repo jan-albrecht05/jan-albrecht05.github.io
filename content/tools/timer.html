@@ -35,11 +35,15 @@
             border-radius: 20px;
             border: 2px solid black
         }
+        .info{
+            font-size: 50px;
+            text-align: center;
+        }
         .points{
             font-size: 180px;
             margin-top: 3rem;
         }
-        @media (max-width: 640px) {
+        @media (max-width: 1060px) {
             #text{
                 font-size: 150%;
             }
@@ -48,6 +52,9 @@
                 height: 8rem;
                 font-size: 70px;
                 margin-inline: -.3rem;
+            }
+            .info{
+                font-size: 20px;
             }
             .points{
                 font-size: 50px;
@@ -69,6 +76,7 @@
             const hoursRemaining = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutesRemaining = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
             // Display the results
+            //daysRemaining = daysRemaining < 10 ? "0" + daysRemaining : daysRemaining;
             document.getElementById("days").innerHTML = daysRemaining;
             document.getElementById("hours").innerHTML = hoursRemaining;
             document.getElementById("minutes").innerHTML = minutesRemaining;
@@ -81,15 +89,25 @@
         <div id="text" class="center">Zeit bis wir uns sehen:</div>
         <div id="timer">
             <div class="number">
-                <div id="days">00</div>
+                <div class="content">
+                    <div id="days">00</div>
+                    <div class="info">days</div>
+                </div>
             </div>
             <span class="points">:</span>
             <div class="number">
-                <div id="hours">00</div>
+                <div class="content">
+                    <div id="hours">00</div>
+                    <div class="info">hours</div>
+                </div>
             </div>
             <span class="points">:</span>
             <div class="number">
-                <div id="minutes">00</div>
+                <div class="content">
+                    <div id="minutes">00</div>
+                    <div class="info">minutes</div>
+                </div>
+            </div>
             </div>
         </div>
     </div>
