@@ -19,6 +19,7 @@
         }
         #text{
             font-size: 300%;
+            margin-bottom: 3rem;
         }
         #timer{
             display: flex;
@@ -47,6 +48,7 @@
         @media (max-width: 1060px) {
             #text{
                 font-size: 150%;
+                margin-bottom: 1rem;
             }
             .number{
                 width: 6rem;
@@ -64,6 +66,9 @@
         }
     </style>
     <script>
+        let days = "";
+        let hours = "";
+        let minutes = "";
         setInterval(showTime, 1000);
         function showTime() 
         {
@@ -76,11 +81,26 @@
             const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
             const hoursRemaining = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutesRemaining = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            //making the results pretty
+            if (daysRemaining < 10){
+                days = "0" + daysRemaining;
+            }else{
+                days = daysRemaining;
+            }
+            if (hoursRemaining < 10){
+                hours = "0" + hoursRemaining;
+            }else{
+                hours = hoursRemaining;
+            }
+            if (minutesRemaining < 10){
+                minutes = "0" + minutesRemaining;
+            }else{
+                minutes = minutesRemaining;
+            }
             // Display the results
-            //daysRemaining = daysRemaining < 10 ? "0" + daysRemaining : daysRemaining;
-            document.getElementById("days").innerHTML = daysRemaining;
-            document.getElementById("hours").innerHTML = hoursRemaining;
-            document.getElementById("minutes").innerHTML = minutesRemaining;
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
         }
         showTime();
     </script>
