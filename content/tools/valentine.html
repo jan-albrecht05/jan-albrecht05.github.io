@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wil you be me Valentine?</title>
+    <style>
+        body{
+            height: 98lvh;
+            background-image: linear-gradient(#303030 0%, #181818 100%);
+            background-size: contain;
+            background-repeat: no-repeat;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #row{
+            display: flex;
+            max-width: 100%;
+        }
+        button{
+            width: 45%;
+            margin-inline: 5%;
+            height: 5rem;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+            border: 3px solid;
+            display: inline;
+            font-size: 200%;
+        }
+        #yes{
+            background-image: linear-gradient(yellowgreen 0%, limegreen 100%);
+            border-color: green;
+        }
+        #no{
+            background-image: linear-gradient(rgb(255, 60, 0) 0%, rgb(230, 0, 0) 100%);
+            border-color: red;
+        }
+    </style>
+    <script>
+        function yes(){
+
+        }
+        function no(){
+            let yesw = document.getElementById("yes").offsetWidth;
+            let now = document.getElementById("no").offsetWidth;
+            newnow = now - 30;
+            newyesw = yesw + 30;
+            document.getElementById("yes").style.width = newyesw+"px";
+            document.getElementById("no").style.width = newnow+"px";
+            let yesh = document.getElementById("yes").offsetHeight;
+            let noh = document.getElementById("no").offsetHeight;
+            newnoh = noh - 30;
+            newyesh = yesh + 30;
+            document.getElementById("yes").style.height = newyesh+"px";
+            document.getElementById("no").style.height = newnoh+"px";
+            let yessize = newyesw / 0.5;
+            document.getElementById("yes").style.fontSize = yessize+"%";
+            let nosize = newnow / 2;
+            document.getElementById("no").style.fontSize = nosize+"%";
+        }
+    </script>
+</head>
+<body>
+    <div id="main">
+        <h1>Wil you be me Valentine?</h1>
+        <div id="row">
+            <button id="yes" onclick="yes()">yes</button>
+            <button id="no" onclick="no()">no</button>
+        </div>
+    </div>
+</body>
+</html>
