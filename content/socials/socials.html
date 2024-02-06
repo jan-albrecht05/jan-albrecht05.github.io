@@ -42,6 +42,8 @@
             </label>
             <script src="/js/mode.js"></script>
 		</div>
+		<!--Social Links-->
+		<h1>Socials:</h1>
 		<div id="socials">
 			<a href="https://instagram.com/jan_albrecht/" class="social" target="_blank">
 				<div class="soc-img">
@@ -139,6 +141,57 @@
 					@jan_albrecht
 				</div>
 			</a>
+		</div>
+		<!--E-Mail Form-->
+		<h1>Kontakt</h1>
+		<div id="kontakt-form">
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+			<script type="text/javascript">
+				(function() {
+					emailjs.init('MBAugWJ_TNMYMsUT-');
+				})();
+			</script>
+			<script type="text/javascript">
+				window.onload = function() {
+					document.getElementById('contact-form').addEventListener('submit', function(event) {
+						event.preventDefault();
+						// generate a five digit number for the contact_number variable
+						this.contact_number.value = Math.random() * 100000 | 0;
+						// these IDs from the previous steps
+						emailjs.sendForm('service_0m8hric', 'template_31p6d4b', this)
+							.then(function() {
+								console.log('SUCCESS!');
+								document.getElementById("complete").style.display = "block";
+							}, function(error) {
+								console.log('FAILED...', error);
+								document.getElementById("error-msg").style.display = "block";
+								document.getElementById("error-msg").innerHTML = error;
+							});
+					});
+				}
+			</script>
+			<form id="contact-form">
+				<input type="hidden" name="contact_number">
+				<div class="row">
+					<label>Name:</label>
+					<input type="text" name="user_name" placeholder="Name" required>
+				</div>
+				<div class="row">
+					<label>Email:</label>
+					<input type="email" name="user_email" placeholder="E-Mail Adresse" required>
+				</div>
+				<div class="row">
+					<label>Nachricht:</label>
+					<textarea name="message" placeholder="Deine Nachricht an mich" required></textarea><br>
+				</div>
+				<input type="submit" value="Absenden" id="btn">
+				<div id="complete" class="message">
+					Deine Nachricht wurde erfoldreich gesendet!
+				</div>
+				<div id="error-msg" class="message">
+					Error..
+				</div>
+			</form>
 		</div>
 	</div>
 	<div id="footer">

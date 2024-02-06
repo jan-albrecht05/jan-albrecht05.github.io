@@ -232,6 +232,9 @@ a::selection{
     transform: scale(0.95);
     transition: all ease-in-out 0.4s;
 }
+#socials{
+    margin-bottom: 5rem;
+}
 #socials:hover .social:hover .soc-img{
     filter: grayscale(0);
 }
@@ -285,6 +288,65 @@ a::selection{
 .social:hover #bereal{
     color: #000000;
 }
+/*Emal Form*/
+#contact-form{
+    width: 100%;
+    display: block;
+}
+#contact-form .row{
+    margin-inline: 5rem;
+    font-size: 200%;
+    width: auto;
+    display: flex;
+    margin-bottom: 1rem;
+}
+#contact-form .row label{
+    width: 12%;
+    display: inline-block;
+}
+#contact-form .row input,
+#contact-form .row textarea{
+    min-width: 88%;
+    display: inline-block;
+}
+#contact-form .row input{
+    font-size: 60%;
+}
+#contact-form .row textarea{
+    min-height: 5rem;
+    resize: vertical;
+    font-size: 80%;
+}
+#contact-form #btn{
+    background-color: var(--m-lightgrey);
+    border: 2px solid var(--m-green);
+    border-radius: 10px;
+    color: var(--m-green);
+    width: 10rem;
+    height: 3rem;
+    font-size: 180%;
+    margin-left: 15%;
+    transition: all .3s;
+}
+#contact-form #btn:hover{
+    background-color: var(--m-green);
+    filter: drop-shadow(0px 0px 5px var(--m-green));
+    color: var(--m-lightgrey);
+}
+.message{
+    margin-left: 15%;
+    margin-top: 1rem;
+    width: 80%;
+    padding: 2px;
+    display: none;
+}
+#complete{
+    border: 1px solid var(--m-green);
+}
+#error-msg{
+    border: 1px solid red;
+}
+
 legend{
     margin-left: auto;
     margin-right: auto;
@@ -461,6 +523,26 @@ fieldset:hover{
     }
     #socials{
         grid-template-columns: repeat(6, 1fr);
+    }
+}
+@media (max-width: 1600px) {
+    #contact-form .row{
+        margin-inline: 0rem;
+        font-size: 100%;
+        width: auto;
+        display: block;
+        margin-bottom: 1rem;
+    }
+    #contact-form .row input,
+    #contact-form .row textarea{
+        width: 100%;
+        display: inline-block;
+    }
+    #contact-form .row textarea{
+        font-size: 100%;
+    }
+    #contact-form #btn{
+        margin-left: 0rem;
     }
 }
 @keyframes fade {
