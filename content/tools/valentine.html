@@ -6,8 +6,9 @@
     <title>Wil you be me Valentine?</title>
     <style>
         body{
-            height: 98lvh;
+            height: 97.5lvh;
             background-image: linear-gradient(#303030 0%, #181818 100%);
+            background-color: #181818;
             background-size: contain;
             background-repeat: no-repeat;
             color: white;
@@ -15,6 +16,11 @@
             justify-content: center;
             align-items: center;
             font-family: Arial, Helvetica, sans-serif;
+            scrollbar-width: thin;
+        }
+        img{
+            width: 100%;
+            height: auto;
         }
         #row{
             display: flex;
@@ -40,38 +46,69 @@
             background-image: linear-gradient(rgb(255, 60, 0) 0%, rgb(230, 0, 0) 100%);
             border-color: red;
         }
+        #img{
+            display: none;
+            width: 100vw;
+            max-width: 500px;
+            height: auto;
+            margin-left: -2rem;
+        }
+        @media (max-width: 600px) {
+            h1{
+                margin-left: 2rem;
+            }
+        }
     </style>
     <script>
+        
         function yes(){
-
+            var main = document.getElementById("main");
+            var img = document.getElementById("img");
+            main.style.display = "none";
+            img.style.display = "block";
+            img.innerHTML = "<h1>Yay!<h1><img src='/bilder/valentine_yay.jpg'>";
         }
         function no(){
-            let yesw = document.getElementById("yes").offsetWidth;
-            let now = document.getElementById("no").offsetWidth;
+            var yes = document.getElementById("yes");
+            var no = document.getElementById("no");
+            //get width
+            let yesw = yes.offsetWidth;
+            let now = no.offsetWidth;
             newnow = now - 30;
             newyesw = yesw + 30;
-            document.getElementById("yes").style.width = newyesw+"px";
-            document.getElementById("no").style.width = newnow+"px";
-            let yesh = document.getElementById("yes").offsetHeight;
-            let noh = document.getElementById("no").offsetHeight;
+            //set width
+            yes.style.width = newyesw+"px";
+            if (newnow <= 30){
+                no.style.display = "none";//hide button when too small
+                yes.style.width = "100%";
+            }
+            else{
+                no.style.width = newnow+"px";
+            }
+            //get height
+            let yesh = yes.offsetHeight;
+            let noh = no.offsetHeight;
             newnoh = noh - 30;
             newyesh = yesh + 30;
-            document.getElementById("yes").style.height = newyesh+"px";
-            document.getElementById("no").style.height = newnoh+"px";
+            //set height
+            yes.style.height = newyesh+"px";
+            no.style.height = newnoh+"px";
+            //changing the font size
             let yessize = newyesw / 0.5;
-            document.getElementById("yes").style.fontSize = yessize+"%";
+            yes.style.fontSize = yessize+"%";
             let nosize = newnow / 2;
-            document.getElementById("no").style.fontSize = nosize+"%";
+            no.style.fontSize = nosize+"%";
         }
     </script>
 </head>
 <body>
     <div id="main">
-        <h1>Wil you be me Valentine?</h1>
+        <h1>Will you be me Valentine?</h1>
         <div id="row">
             <button id="yes" onclick="yes()">yes</button>
             <button id="no" onclick="no()">no</button>
         </div>
     </div>
+    <div id="img"></div>
 </body>
 </html>
