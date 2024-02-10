@@ -246,11 +246,13 @@ a::selection{
 }
 .social:hover #insta{
     background: linear-gradient(45deg, #fa8f20 30%, #b13495 70%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 .social:hover #facebook{
     background: linear-gradient(#00b1ff 30%, #006eff 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -265,6 +267,7 @@ a::selection{
 }
 .social:hover #github{
     background: linear-gradient(45deg, #258036 30%, #4bb0fe 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -273,6 +276,7 @@ a::selection{
 }
 .social:hover #netlify{
     background: linear-gradient(90deg, #4d9abf 30%, #37afbb 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
