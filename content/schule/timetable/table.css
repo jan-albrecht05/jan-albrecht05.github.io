@@ -83,3 +83,8 @@ td{
         margin-top: 45vh;
     }
 }
+@media (min-width: 1000px) {
+    dialog{
+        margin-top: 35vh;
+    }
+}
