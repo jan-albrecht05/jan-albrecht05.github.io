@@ -9,6 +9,63 @@
     <link rel="icon" href="/bilder/icons/timetable.png">
     <meta name="author" content="Jan Albrecht">
     <meta name="description" content="Das ist der aktuellste Stundenplan von Jan Albrecht und der Klasse 13.">
+    <script>
+        let time = 2500; //Zeit in Millisekunden, die das Script wartet
+        function openmodal1(){
+            document.getElementById("modal_1").showModal();
+            setTimeout(function() {
+                document.getElementById("modal_1").close();
+            }, time);
+        }
+        function openmodal2(){
+            document.getElementById("modal_2").showModal();
+            setTimeout(function() {
+                document.getElementById("modal_2").close();
+            }, time);
+        }
+        function openmodal3(){
+            document.getElementById("modal_3").showModal();
+            setTimeout(function() {
+                document.getElementById("modal_3").close();
+            }, time);
+        }
+        function openmodal4(){
+            document.getElementById("modal_4").showModal();
+            setTimeout(function() {
+                document.getElementById("modal_4").close();
+            }, time);
+        }
+        function openmodal5(){
+            document.getElementById("modal_5").showModal();
+            setTimeout(function() {
+                document.getElementById("modal_5").close();
+            }, time);
+        }
+        function openmodal6(){
+            document.getElementById("modal_6").showModal();
+            setTimeout(function() {
+                document.getElementById("modal_6").close();
+            }, time);
+        }
+        function openmodal7(){
+            document.getElementById("modal_7").showModal();
+            setTimeout(function() {
+                document.getElementById("modal_7").close();
+            }, time);
+        }
+        function openmodal8(){
+            document.getElementById("modal_8").showModal();
+            setTimeout(function() {
+                document.getElementById("modal_8").close();
+            }, time);
+        }
+        function openmodal9(){
+            document.getElementById("modal_9").showModal();
+            setTimeout(function() {
+                document.getElementById("modal_9").close();
+            }, time);
+        }
+    </script>
 </head>
 <body>
     <div id="heading">
@@ -18,6 +75,17 @@
         es sind Ferien.. <br>
         Kümmere dich doch nicht um den Stundenplan<br>
         <p id="draußen">geh lieber raus spielen</p>
+    </div>
+    <div id="modals">
+        <dialog id="modal_1" closed>1. Stunde:<br>07:30 - 08:15</dialog>
+        <dialog id="modal_2" closed>2. Stunde:<br>08:25 - 09:10</dialog>
+        <dialog id="modal_3" closed>3. Stunde:<br>09:25 - 10:10</dialog>
+        <dialog id="modal_4" closed>4. Stunde:<br>10:20 - 11:05</dialog>
+        <dialog id="modal_5" closed>5. Stunde:<br>11:10 - 11:55</dialog>
+        <dialog id="modal_6" closed>6. Stunde:<br>12:40 - 13:25</dialog>
+        <dialog id="modal_7" closed>7. Stunde:<br>13:30 - 14:15</dialog>
+        <dialog id="modal_8" closed>8. Stunde:<br>14:20 - 15:05</dialog>
+        <dialog id="modal_9" closed>9. Stunde:<br>15:10 - 15:55</dialog>
     </div>
     <div id="table">
         <table>
@@ -29,7 +97,7 @@
                 <td class="wochentag">Do</td>
                 <td class="wochentag">Fr</td>
             </tr>
-            <tr id="erste" title="07:30 - 08:15">
+            <tr id="erste" title="07:30 - 08:15" onclick="openmodal1()">
                 <td class="stunde">1</td>
                 <td class="fach">En<br>1.16</td>
                 <td class="fach">Phy<br>1.39</td>
@@ -37,7 +105,7 @@
                 <td class="fach">En<br>1.16</td>
                 <td class="fach">D<br>1.16</td>
             </tr>
-            <tr id="zweite" title="08:25 - 09:10">
+            <tr id="zweite" title="08:25 - 09:10" onclick="openmodal2()">
                 <td class="stunde">2</td>
                 <td class="fach">En<br>1.16</td>
                 <td class="fach">Phy<br>1.39</td>
@@ -45,7 +113,7 @@
                 <td class="fach">Ma<br>1.43</td>
                 <td class="fach">D<br>1.16</td>
             </tr>
-            <tr id="dritte" title="09:25 - 10:10">
+            <tr id="dritte" title="09:25 - 10:10" onclick="openmodal3()">
                 <td class="stunde">3</td>
                 <td class="fach">Ku<br>0.38</td>
                 <td class="fach">Ge<br>2.16</td>
@@ -53,7 +121,7 @@
                 <td class="fach">Info<br>1.38</td>
                 <td class="fach"></td>
             </tr>
-            <tr id="vierte" title="10:20 - 11:05">
+            <tr id="vierte" title="10:20 - 11:05"  onclick="openmodal4()">
                 <td class="stunde">4</td>
                 <td class="fach">Ku<br>0.38</td>
                 <td class="fach">Ge<br>2.16</td>
@@ -61,7 +129,7 @@
                 <td class="fach"></td>
                 <td class="fach"></td>
             </tr>
-            <tr id="fünfte" title="11:10 - 11:55">
+            <tr id="fünfte" title="11:10 - 11:55"  onclick="openmodal5()">
                 <td class="stunde">5</td>
                 <td class="fach">D<br>1.16</td>
                 <td class="fach">Ma<br>1.43</td>
@@ -69,7 +137,7 @@
                 <td class="fach">Ge<br>2.14</td>
                 <td class="fach">Ru<br>1.12</td>
             </tr>
-            <tr id="sechste" title="12:40 - 13:25">
+            <tr id="sechste" title="12:40 - 13:25"  onclick="openmodal6()">
                 <td class="stunde">6</td>
                 <td class="fach">Sp<br>TU1</td>
                 <td class="fach">Ma<br>1.43</td>
@@ -77,7 +145,7 @@
                 <td class="fach"></td>
                 <td class="fach">Ma<br>1.43</td>
             </tr>
-            <tr id="siebente" title="13:30 - 14:15">
+            <tr id="siebente" title="13:30 - 14:15"  onclick="openmodal7()">
                 <td class="stunde">7</td>
                 <td class="fach">AG LB<br>A1</td>
                 <td class="fach">Info<br>1.38</td>
@@ -85,7 +153,7 @@
                 <td class="fach"></td>
                 <td class="fach">Ku<br>0.38</td>
             </tr>
-            <tr id="achte" title="14:20 - 15:05">
+            <tr id="achte" title="14:20 - 15:05"  onclick="openmodal8()">
                 <td class="stunde">8</td>
                 <td class="fach">AG TT<br>0.44</td>
                 <td class="fach">Info<br>1.38</td>
@@ -93,7 +161,7 @@
                 <td class="fach">Sp<br>TU1</td>
                 <td class="fach">Semi<br>A1</td>
             </tr>
-            <tr id="neunte" title="15:10 - 15:55">
+            <tr id="neunte" title="15:10 - 15:55"  onclick="openmodal9()">
                 <td class="stunde">9</td>
                 <td class="fach">AG YT<br>0.44</td>
                 <td class="fach">Ru<br>0.24</td>
