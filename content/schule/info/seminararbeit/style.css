@@ -1,0 +1,136 @@
+:root{
+    --green: #09ff00;
+}
+html{
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #000;
+    scroll-behavior: smooth;
+}
+body{
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+.screen{
+    height: 100lvh;
+    background-color: #111;
+    border-bottom: 2px solid #ccc;
+}
+.task{
+    color: #ccc;
+    font-size: 200%;
+    padding: .5rem 1rem;
+    border: 1px solid #ccc;
+    width: fit-content;
+}
+.field{
+    height: 65%;
+    width: 100%;
+}
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*Presets for DIVs*/
+#div1{
+    color: #ccc;
+    height: 3rem;
+    width: 7rem;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200%;
+}
+#div2,
+#div3,
+#div4{
+    color: #ccc;
+    height: 20%;
+    width: 20%;
+    border: 2px solid #ccc;
+    font-size: 200%;
+    background-color: #111;
+}
+@media (max-width: 600px) {
+    #div2,#div3,#div4{
+        width: 80%;
+        height: 30%;
+    }
+}
+/*Answers*/
+.answers{
+    min-height: 20%;
+    display: flex;
+    margin-inline: auto;
+}
+.answer{
+    min-height: 95%;
+    width: 25%;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    color: white;
+    margin-inline: auto;
+    padding: 1rem;
+    font-size: 120%;
+    background-color: #111;
+    transition: all .1s;
+}
+.answer:hover{
+    filter: drop-shadow(0px 0px 5px #ccc);
+}
+.answer.correct:hover{
+    filter: drop-shadow(0px 0px 5px var(--green));
+}
+.answer.false:hover{
+    filter: drop-shadow(0px 0px 5px red);
+}
+.answer .yellow{
+    color: yellow;
+    margin-left: 0;
+}
+.answer p{
+    margin-left: 2rem;
+}
+.answer .value{
+    color: orange;
+}
+.answer .value2{
+    color: rgb(223, 190, 0);
+}
+.answer .pink{
+    color: rgb(255, 0, 200);
+}
+.answer .green{
+    color: rgb(0, 187, 62);
+}
+
+/*Correct - false*/
+.correct{
+    border-color: var(--green);
+    filter: drop-shadow(0px 0px 5px var(--green));
+}
+.false{
+    border-color: red;
+    filter: drop-shadow(0px 0px 5px red);
+}
+@media (max-width: 600px) {
+    .screen{
+        height: fit-content;
+        padding-bottom: 2rem;
+    }
+    .field{
+        height: 50lvh;
+    }
+    .answers{
+        display: block;
+        width: 100%;
+    }
+    .answer{
+        width: 80%;
+        height: fit-content;
+        margin-bottom: .5rem;
+        font-size: 100%;
+        padding: .2rem .5rem;
+    }
+}
