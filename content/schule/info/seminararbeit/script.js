@@ -106,3 +106,24 @@ function answer12(){
     let a12 = document.getElementById("answer12");
     a12.classList.add("false")
 }
+//Seite 5
+function answer13(){
+    let a13 = document.getElementById("answer13");
+    a13.classList.add("false");
+}
+function answer14(){
+    let a13 = document.getElementById("answer13");
+    let a14 = document.getElementById("answer14");
+    let a15 = document.getElementById("answer15");
+    let div5 = document.getElementById("div5");
+    div5.style.borderColor = "var(--green)";
+    div5.classList.add("correct");
+    a14.classList.add("correct");
+    a13.classList.remove("false");
+    a15.classList.remove("false");
+    document.getElementById("hidden-css").innerHTML = '<link rel="stylesheet" href="/content/schule/info/seminararbeit/test-style.css">';
+}
+function answer15(){
+    let a15 = document.getElementById("answer15");
+    a15.classList.add("false");
+}

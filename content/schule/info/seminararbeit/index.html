@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS-Test</title>
     <link rel="stylesheet" href="/content/schule/info/seminararbeit/style.css">
-    <link rel="stylesheet" href="/content/schule/info/seminararbeit/test-style.css">
     <script src="/content/schule/info/seminararbeit/script.js"></script>
 </head>
 <body>
@@ -107,5 +106,32 @@
             </div>
         </div>
     </div>
+    <div class="screen" id="screen5">
+        <div class="task">Die DIV soll bei hover anfangen zu schweben!</div>
+        <div class="field center" id="field5">
+            <div id="div5" class="center">DIV 5</div>
+        </div>
+        <div class="answers">
+            <div id="answer13" class="answer" onclick="answer13()">
+                <p class="yellow">#div5:mouse-over{</p>
+                    <p>hover: <span class="value">15px</span>;</p>
+                    <p>transition: <span class="value">all</span> <span class="green">.2s</span>;</p>
+                <p class="yellow">}</p>
+            </div>
+            <div id="answer14" class="answer" onclick="answer14()">
+                <p class="yellow">#div5:hover{</p>
+                    <p>transform: <span class="value2">translateY</span><span class="pink">(</span><span class="green">-15px</span><span class="pink">)</span>;</p>
+                    <p>transition: <span class="value">all</span> <span class="green">.2s</span>;</p>
+                <p class="yellow">}</p>
+            </div>
+            <div id="answer15" class="answer" onclick="answer15()">
+                <p class="yellow">#div5:hover{</p>
+                    <p>move: <span class="value2">translateY</span><span class="pink">(</span><span class="green">-15px</span><span class="pink">)</span>;</p>
+                    <p>transition: <span class="value">all</span> <span class="green">.2s</span>;</p>
+                <p class="yellow">}</p>
+            </div>
+        </div>
+    </div>
+    <span id="hidden-css"></span>
 </body>
 </html>
