@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bullshit-Buzzer</title>
+    <link rel="icon" href="/bilder/icons/knopf.png"> 
+    <style>
+        body{
+            height: 97lvh;
+            background-image: linear-gradient(#262626 0%, #111 100%);
+            background-repeat: no-repeat;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        img{
+            width: 100%;
+            height: auto;
+        }
+        #box{
+            width: 90%;
+            max-width: 512px;
+            margin-inline: auto;
+        }
+        #img:hover{
+            filter: drop-shadow(#4b4b4b 0px 0px 15px);
+            transition: all .2s;
+        }
+        #img:active{
+            transform: scale(.95) translateY(5px);
+        }
+    </style>
+    <script>
+        let audio = new Audio('/js/bullshit.wav');
+        function playbullshit(){
+            audio.play();
+        }
+    </script>
+</head>
+<body>
+    <div id="box">
+        <img id="img" src="/bilder/icons/knopf.png" onclick="playbullshit()">
+    </div>
+</body>
+</html>
