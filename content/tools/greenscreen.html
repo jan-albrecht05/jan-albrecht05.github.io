@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenscrenn with tracking points</title>
+    <style>
+        :root{
+            --lightgreen: rgb(128, 255, 0);
+            --lighter_green: rgb(165, 255, 123);
+        }
+        body{
+            background-color: var(--lightgreen);
+            color: var(--lighter_green);
+            font-size: 500%;
+            font-weight: bold;
+            overflow: hidden;
+            height: 100lvh;
+        }
+        .row{
+            width: max-content;
+            letter-spacing: 60px;
+            overflow: hidden;
+            margin-left: 5%;
+        }
+        #dialog{
+            display: absolute;
+            background-color: #26262670;
+            border-radius: 10px;
+            border-width: 2px;
+            width: 90%;
+            max-width: 500px;
+            min-height: 40lvh;
+            max-height: 430px;
+            margin-inline: auto;
+            font-size: initial;
+            margin-top: 25%;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #parted{
+            display: flex;
+        }
+        #left, #right{
+            width: 50%;
+            height: 100%;
+            text-align: center;
+        }
+        input{
+            display: block;
+            margin-inline: auto;
+        }
+        button{
+            display: block;
+            background: none;
+            margin-top: 3rem;
+            margin-inline: auto;
+            width: 50%;
+            height: 3rem;
+            font-size: 120%;
+            border-radius: 5px;
+            border: 2px solid black;
+            transition: all .2s;
+        }
+        button:hover{
+            background-color: #00000020;
+        }
+    </style>
+    <script>
+        let open = false;
+        function openchangedialog(){
+            let dialog = document.getElementById("dialog");
+            if (open == false){
+                dialog.showModal();
+                open = true;
+            }else{
+                dialog.close();
+                open = false;
+            }
+            return false;
+        }
+        function use(){
+            dialog.close()
+            open = false;
+        }
+        function change(){
+            let bg_color = document.getElementById("bg_color").value;
+            let ft_color = document.getElementById("ft_color").value;
+            document.getElementById("body").style.backgroundColor = bg_color;
+            document.getElementById("body").style.color = ft_color;
+        }
+    </script>
+</head>
+<body oncontextmenu="openchangedialog()" id="body">
+    <dialog id="dialog" open>
+        <h2>Change the colors acccording to your needs</h2>
+        <div id="parted">
+            <div id="left">
+                <h3>Background-Color</h3>
+                <input id="bg_color" type="color" oninput="change()" value="rgb(128, 255, 0)">
+            </div>
+            <div id="right">
+                <h3>Tracker-Color</h3>
+                <input id="ft_color" type="color" oninput="change()">
+            </div>
+        </div>
+        <button id="anwenden" onclick="use()">Anwenden</button>
+    </dialog>
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+    <div class="row">+++++++++++++++++++++++</div>    
+</body>
+</html>
