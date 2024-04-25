@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="/content/tools/color-picker/style.css">
     <link rel="icon" href="/content/tools/color-picker/color-slider-icon.png">
 </head>
-<body onload="settonull()">
+<body>
     <div id="main">
         <script src="/content/tools/color-picker/app.js"></script>
         <h1>Color- Picker</h1>
-        <div id="color-box"></div>
+        <div id="color-box" onclick="copyTextToClipBoard()" title="Click to copy HEX-Code"></div>
         <div id="input-field">
             <div class="row">
                 <p class="code">#<span class="span1 active">0</span><span class="span2">0</span><span class="span3">0</span><span class="span4">0</span><span class="span5">0</span><span class="span6">0</span></p>

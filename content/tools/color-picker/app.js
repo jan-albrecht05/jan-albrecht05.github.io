@@ -1,4 +1,5 @@
 let colorbox = document.getElementById("color-box");
+let color = "";
 function init(){
     let value1 = document.getElementById("first-input").value;
     let value2 = document.getElementById("second-input").value;
@@ -150,7 +151,7 @@ function init(){
             }
         }
     }
-    let color = "#"+value1+value2+value3+value4+value5+value6;
+    color = "#"+value1+value2+value3+value4+value5+value6;
     console.log(color);
     document.getElementById("color-box").innerHTML = color;
     document.getElementById("color-box").style.backgroundColor = color;
@@ -163,6 +164,11 @@ function init(){
         document.getElementsByClassName("span6")[i].innerHTML = value6;
     }
 }
+function copyTextToClipBoard(){
+    navigator.clipboard.writeText(color);
+    alert("HEX-Code is copied! " +color)
+}
+
 function change(){
     init();
 }
