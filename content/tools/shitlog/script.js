@@ -8,7 +8,7 @@ let tabcontent = "";
 window.addEventListener('load', () => {
     check();
 })
-
+//Überprüfen ob schon Einträge vorhanden sind
 function check(){
     if (datasheet == null){
         document.getElementById("newpage").style.display = "block";
@@ -18,6 +18,7 @@ function check(){
         showTable();
     }
 }
+//Öffnen des Modals
 function addData(){
     document.getElementById("input-field").showModal();
     getActualTime();
@@ -88,7 +89,7 @@ function blut(){
 function brocken(){
     document.getElementById("extra").value = "Bröckchen";
 }
-
+//Speichern des neuen Eintrags
 function saveData(){
     var zeit = document.getElementById("time").value;
     var farbe = document.getElementById("farbe").value;
@@ -101,12 +102,13 @@ function saveData(){
     showTable();
     check();
 }
+//Anzeigen der Tabelle
 function showTable(){
     tabcontent = localStorage.getItem('datasheet');
     table = "<table>"+tabcontent+"</table>";
     document.getElementById("table").innerHTML = table;
 }
-
+//Schießen des Dialogfensters
 function closedialog(){
     document.getElementById("input-field").close();
 }
