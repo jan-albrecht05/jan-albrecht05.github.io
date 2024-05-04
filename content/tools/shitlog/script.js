@@ -29,6 +29,8 @@ function getActualTime(){
     hour = date.getHours();
     minute = date.getMinutes();
     showTime();
+    today = (date.getDay()-2)+"."+(date.getMonth()+1)+"."+(date.getYear()-100);
+    console.log(today);
 }
 //calculating starting time
 function minustwo(){
@@ -95,7 +97,7 @@ function saveData(){
     var farbe = document.getElementById("farbe").value;
     var konsistenz = document.getElementById("konsistenz").value;
     var extra = document.getElementById("extra").value;
-    var row = "<tr><td>"+zeit+"</td><td>"+farbe+","+konsistenz+","+extra+"</td><tr>";
+    var row = "<tr><td>"+zeit+"</td><td>"+farbe+","+konsistenz+","+extra+"</td></tr>";
     tabcontent = localStorage.getItem('datasheet')+row;
     closedialog();
     localStorage.setItem('datasheet', tabcontent);
@@ -111,4 +113,12 @@ function showTable(){
 //Schießen des Dialogfensters
 function closedialog(){
     document.getElementById("input-field").close();
+}
+
+//PDF erstellen
+function downloadPDF() {
+    var doc = new jsPDF();
+    var element = document.getElementById("table");
+    doc.fromHTML(element, 15, 15);
+    doc.save("Stuhlprotokoll"+today+".pdf");
 }
