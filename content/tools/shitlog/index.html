@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shitlog</title>
+    <link rel="stylesheet" href="/content/tools/shitlog/style.css">
+    <script src="/content/tools/shitlog/script.js"></script>
+</head>
+<body>
+    <div id="newpage">
+        Kein Datensatz vorhanden!<br>
+        <span id="first_add" onclick="addData()">Datensatz hinzufügen?</span>
+    </div>
+    <div id="main">
+        <h1 id="heading">Stuhlgangsprotokoll</h1>
+        <div id="table"></div>
+    </div>
+    <dialog id="input-field">
+        <span id="closedialog" onclick="closedialog()">+</span>
+        <label for="time">Zeit:</label>
+        <input id="time" type="text" required>
+        <div id="btnrow">
+            <button onclick= "minustwo()">-2min</button>
+            <button onclick="minusthree()">-3min</button>
+            <button onclick="minusfive()">-5min</button>
+        </div>
+        <label for="farbe">Farbe:</label>
+        <input id="farbe" type="text" required>
+        <div id="btnrow">
+            <button onclick="braun()">braun</button>
+            <button onclick="gelb()">gelb</button>
+            <button onclick="grun()">grün</button>
+        </div>
+        <label for="konsistenz">Konsistenz:</label>
+        <input id="konsistenz" type="text" required>
+        <div id="btnrow">
+            <button onclick="flussig()">flüssig</button>
+            <button onclick="cremig()">cremig</button>
+            <button onclick="fest()">fest</button>
+        </div>
+        <label for="extra">Zusatz:</label>
+        <input id="extra" type="text" required>
+        <div id="btnrow">
+            <button onclick="blut()">Blut</button>
+            <button onclick="brocken()">Bröckchen</button>
+        </div>
+        <button id="save" onclick="saveData()">speichern</button>
+    </dialog>
+    <div id="add" onclick="addData()">+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+:root{
+    --bg: #262626;
+    --ft: #ccc;
+    --blue1: blue;
+}
+html{
+
+}
+body{
+    min-height: 100lvh;
+    background-color: var(--bg);
+    color: var(--ft);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+#add{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50px;
+    background-color: var(--blue1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 180%;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    user-select: none;
+}
+#newpage{
+    font-size: 130%;
+    margin-top: 5rem;
+    margin-left: 1rem;
+    display: none;
+}
+#newpage span{
+    color: var(--blue1);
+    text-decoration: underline;
+    cursor: pointer;
+}
+#main{
+    margin-inline: 1rem;
+}
+table{
+    width: 100%;
+}
+td:first-child{
+    width: 20%;
+}
+#input-field{
+    width: auto;
+    margin-inline: 1rem;
+    background-color: #303030;
+    border: 2px solid #8d8d8d;
+    color: var(--ft);
+    font-size: 120%;
+    padding: 1rem;
+    overflow: hidden;
+}
+#closedialog{
+    position: absolute;
+    right: 0;
+    margin-right: .5rem;
+    margin-top: -.7rem;
+    transform: rotate(45deg);
+    font-size: 150%;
+    cursor: pointer;
+}
+input{
+    background-color: #303030;
+    border: 2px solid #8d8d8d;
+    color: var(--ft);
+    font-size: 120%;
+    width: 98%;
+}
+input:focus{
+    outline: none;
+}
+#btnrow{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+button{
+    background-color: #303030;
+    color: var(--blue1);
+    border: 2px solid var(--blue1);
+    border-radius: 5px;
+    font-size: 100%;
+    margin-top: .5rem;
+    min-width: 30%;
+}
+#save{
+    width: 100%;
+    height: 2.3rem;
+}
