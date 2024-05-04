@@ -1,4 +1,4 @@
-const datasheet = localStorage.getItem('datasheet') ? localStorage.getItem('datasheet') : null;
+const datasheet = localStorage.getItem('datasheet');
 let date = "";
 let hour = "";
 let minute = "";
@@ -113,12 +113,4 @@ function showTable(){
 //Schießen des Dialogfensters
 function closedialog(){
     document.getElementById("input-field").close();
-}
-
-//PDF erstellen
-function downloadPDF() {
-    var doc = new jsPDF();
-    var element = document.getElementById("table");
-    doc.fromHTML(element, 15, 15);
-    doc.save("Stuhlprotokoll"+today+".pdf");
 }
