@@ -53,6 +53,12 @@ function minusfive(){
 }
 //show the time
 function showTime(){
+    if (hour < 10) {
+        hour = '0' + hour;
+    }
+    if (minute < 10) {
+        minute = '0' + minute;
+    }
     document.getElementById("time").value = hour+":"+minute;
 }
 //farben
@@ -89,15 +95,16 @@ function saveData(){
     var konsistenz = document.getElementById("konsistenz").value;
     var extra = document.getElementById("extra").value;
     var row = "<tr><td>"+zeit+"</td><td>"+farbe+","+konsistenz+","+extra+"</td><tr>";
-    tabcontent = tabcontent+row;
-    table = "<table>"+tabcontent+"</table>";
+    tabcontent = localStorage.getItem('datasheet')+row;
     closedialog();
-    localStorage.setItem('datasheet', table);
+    localStorage.setItem('datasheet', tabcontent);
     showTable();
     check();
 }
 function showTable(){
-    document.getElementById("table").innerHTML = localStorage.getItem('datasheet');
+    tabcontent = localStorage.getItem('datasheet');
+    table = "<table>"+tabcontent+"</table>";
+    document.getElementById("table").innerHTML = table;
 }
 
 function closedialog(){
