@@ -1,7 +1,7 @@
 :root{
     --bg: #262626;
     --ft: #ccc;
-    --blue1: blue;
+    --blue1: #ccc;
 }
 body{
     min-height: 90lvh;
@@ -25,7 +25,7 @@ body{
     margin-bottom: 1rem;
     cursor: pointer;
     user-select: none;
-    background-color: var(--blue1);
+    background-color: blue;
     right: 0;
     margin-right: 1rem;
 }
