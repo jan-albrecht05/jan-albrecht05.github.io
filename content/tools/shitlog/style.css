@@ -45,6 +45,7 @@ body{
 }
 table{
     width: 100%;
+    margin-bottom: 2rem;
 }
 td:first-child{
     width: 20%;
@@ -102,6 +103,9 @@ button{
     #add,
     #input-field{
         display: none !important;
+    }
+    table{
+        margin-bottom: 0rem;
     }
 }
 @media (min-width: 600px) {

@@ -98,7 +98,11 @@ function saveData(){
     var konsistenz = document.getElementById("konsistenz").value;
     var extra = document.getElementById("extra").value;
     var row = "<tr><td>"+zeit+"</td><td>"+farbe+","+konsistenz+","+extra+"</td></tr>";
-    tabcontent = localStorage.getItem('datasheet')+row;
+    if (localStorage.getItem('datasheet') == null){
+        tabcontent = row;
+    }else{
+        tabcontent = localStorage.getItem('datasheet')+row;
+    }
     closedialog();
     localStorage.setItem('datasheet', tabcontent);
     showTable();
