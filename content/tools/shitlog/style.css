@@ -49,6 +49,7 @@ table{
 }
 td:first-child{
     width: 20%;
+    vertical-align: top;
 }
 #input-field{
     width: auto;
