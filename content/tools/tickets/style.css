@@ -1,0 +1,51 @@
+body{
+    margin: 0;
+}
+.ticket{
+    width: 21.1cm;
+    height: 6.8cm;
+    background-color: brown;
+    padding-top: .5cm;
+    border-bottom: 1px solid black;
+    /*margin-bottom: 1rem;*/
+}
+.t_content{
+    margin-left: .5cm;
+    margin-right: .5cm;
+    margin-bottom: .5cm;
+    width: auto;
+    height: 93%;
+    background-color: rgb(241, 205, 0);
+    display: flex;
+}
+.left{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.qr{
+    display: block;
+}
+img{
+    height: 100%;
+    width: auto;
+}
+.qrcode{
+    height: 10rem;
+}
+.token{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 120%;
+    margin-top: .1rem;
+}
+.text{
+    text-align: center;
+}

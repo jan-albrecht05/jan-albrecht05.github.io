@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <link rel="stylesheet" href="/content/tools/tickets/readout.css">
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.js"></script>
+    <script src="/content/tools/tickets/readout.js"></script>
+</head>
+<body>
+    <h1>Ticket Scanner</h1>
+    <div id="videoframe">
+        <img src="/content/tools/tickets/frame.png" id="scanframe">
+        <div id="animatedline"></div>
+        <video id="video" autoplay></video>
+    </div>
+    <button id="stop" onclick="stopScanning()">freeze video</button>
+    <button id="scan" onclick="continueScanning()">continue video</button>
+    <div id="scannedNumbers">
+        <h2>Scanned Numbers</h2>
+        <ul id="scannedList"></ul>
+    </div>
+    
+</body>
+</html>
