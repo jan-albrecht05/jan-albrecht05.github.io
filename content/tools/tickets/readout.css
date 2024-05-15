@@ -4,6 +4,9 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
 }
+h1, h2{
+    margin-left: 20%;
+}
 #videoframe{
     width: 100%;
     max-width: 300px;
@@ -41,7 +44,8 @@ img{
 }
 button{
     width: 50%;
-    margin-left: 25%;
+    max-width: 600px;
+    margin-inline: auto;
     margin-top: 1rem;
     height: 2rem;
     
@@ -64,15 +68,17 @@ button{
 table {
     border-collapse: collapse;
     width: 100%;
-  }
-  table, th, td {
+    max-width: 600px;
+    margin-inline: auto;
+}
+table, th, td {
     border: 1px solid black;
     padding: 8px;
     text-align: center;
-  }
-  .highlight {
+}
+.highlight {
     color: rgb(54, 255, 47);
-  }
+}
 
 @keyframes scan {
     0%{

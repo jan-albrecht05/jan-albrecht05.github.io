@@ -1,4 +1,5 @@
 var isCoolingDown = false;
+const savedNumbers = localStorage.getItem('ticket-table');
 function startScanning() {
     var video = document.getElementById('video');
     // Check if getUserMedia is available
@@ -6,7 +7,7 @@ function startScanning() {
         navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(function(stream) {
             video.srcObject = stream;
             // Start scanning when metadata is loaded
-            video.onloadedmetadata = function(e) {
+            video.onloadedmetadata = function() {
                 scan();
             };
         }).catch(function(error) {
@@ -50,51 +51,50 @@ function scan() {
 
     // Display scanned result
     if (code && code.data.length <= 5 && code.data.match(/^\?\d{1,4}$/)) {
-      var scannedNumber = parseInt(code.data.substring(1)); // Extract number from code
-      updateTable(scannedNumber);
-      if (scannedNumbers[scannedNumber]) {
-        // If number is already scanned, show error message
-        alert("Duplicate scan detected for number " + scannedNumber);
-      } else {
-        // Add number to scanned numbers
-        scannedNumbers[scannedNumber] = true;
-        // Update table and highlight scanned number
-      }
+      	var scannedNumber = parseInt(code.data.substring(1)); // Extract number from code
+      	updateTable(scannedNumber);
+        console.log("number extracted")
+      	if (savedNumbers[scannedNumber]) {
+        	// If number is already scanned, show error message
+        	alert("Duplicate scan detected for number " + scannedNumber);
+      	} else {
+        	// Add number to scanned numbers
+        	savedNumbers[scannedNumber] = true;
+        	// Update table and highlight scanned number
+        	localStorage.setItem('ticket-table', scannedNumber);
+      	}
+      	setTimeout(function() {
+        	isCoolingDown = false;
+        	console.log("pause");
+      	}, 1000);
+            // Continue scanning
+            requestAnimationFrame(scan);
     }
-    if (!isCoolingDown) {
-        isCoolingDown = true;
-        setTimeout(function() {
-          isCoolingDown = false;
-          scan();
-        }, 1000); // 1 second cooldown
-      }
-    // Continue scanning
-    requestAnimationFrame(scan);
-  }
+}
 
-  // Function to update the table and highlight scanned number
-  function updateTable(scannedNumber) {
+// Function to update the table and highlight scanned number
+function updateTable(scannedNumber) {
     var table = document.getElementById('numbersTable');
     var row = Math.floor((scannedNumber - 1) / 10);
     var col = (scannedNumber - 1) % 10;
     var cells = table.getElementsByTagName('td');
     if (row >= 0 && row < 90 && col >= 0 && col < 10) {
-      cells[row * 10 + col].classList.add('highlight');
+        cells[row * 10 + col].classList.add('highlight');
     }
-  }
+}
 
-  // Function to initialize the table
-  function initializeTable() {
+// Function to initialize the table
+function initializeTable() {
     var table = document.getElementById('numbersTable');
     for (var i = 0; i < 10; i++) {
-      var row = table.insertRow();
-      for (var j = 0; j < 10; j++) {
-        var cell = row.insertCell();
-        var number = i * 10 + j + 1;
-        cell.textContent = number;
-      }
+        var row = table.insertRow();
+        for (var j = 0; j < 10; j++) {
+            var cell = row.insertCell();
+            var number = i * 10 + j + 1;
+            cell.textContent = number;
+        }
     }
-  }
+}
 
   // Start scanning when the page loads
 window.onload = function(){
