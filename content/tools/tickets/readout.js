@@ -63,10 +63,14 @@ function scan() {
         // Add number to scanned numbers
         alert("Nummer "+scannedNumber+" gescannt.")
         scannedNumbers.push(scannedNumber);
-        localStorage.setItem('savedNumbers', savedNumbers+JSON.stringify(scannedNumbers));
         console.log(scannedNumbers);
-    // Update table and highlight scanned number
-       updateTable(scannedNumber);
+        // Update table and highlight scanned number
+        updateTable(scannedNumber);
+        //Save new array to localstorage
+        var alte_werte = JSON.parse(localStorage.getItem('savedNumbers'));
+        console.log(alte_werte);
+        var alle_werte = alte_werte +','+ scannedNumbers;
+        localStorage.setItem('savedNumbers', JSON.stringify(alle_werte));
     }
     }if (!isCoolingDown) {
         isCoolingDown = true;
@@ -109,15 +113,11 @@ function addsavednumbers(){
         updateTable(savedNumbers[k]);
     }
 }
-function start(){
-   //scannedNumbers.push(localStorage.getItem(JSON.parse("savedNumbers")));
-}
 
 
 // Start scanning when the page loads
 window.onload = function() {
   initializeTable();
-  start();
   startScanning();
   addsavednumbers();
 };
