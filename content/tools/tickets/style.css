@@ -75,3 +75,34 @@ h2{
     font-size: 80%;
     line-height: 1.5rem;
 }
+#download{
+    margin: 1rem;
+    background-color: lime;
+    width: 25%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 150%;
+    transition: all .2s;
+    border: 1px solid lime;
+}
+path{
+    fill: black;
+}
+svg{
+    margin-right: 1rem;
+}
+#download:hover{
+    border: 1px solid black;
+    filter: drop-shadow(0px 0px 5px lime);
+}
+@media print{
+    #download{
+        display: none;
+    }
+}
