@@ -56,13 +56,14 @@ function scan() {
   if (code && code.data.length <= 5 && code.data.match(/^\?\d{1,4}$/)) {
     let scannedNumber = parseInt(code.data.substring(1)); // Extract number from code
     console.log(scannedNumber);
-    localStorage.setItem('savedNumbers', scannedNumbers);
-    if (scannedNumbers.includes(scannedNumber)) {
+    if (scannedNumbers.includes(scannedNumber) || savedNumbers.includes(scannedNumber)) {
         // If number is already scanned, show error message
-        alert("Duplicate scan detected for number " + scannedNumber);
+        alert("diese Nummer wurde bereits gescannt: " + scannedNumber);
     } else {
         // Add number to scanned numbers
+        alert("Nummer "+scannedNumber+" gescannt.")
         scannedNumbers.push(scannedNumber);
+        localStorage.setItem('savedNumbers', savedNumbers+JSON.stringify(scannedNumbers));
         console.log(scannedNumbers);
     // Update table and highlight scanned number
        updateTable(scannedNumber);
@@ -108,10 +109,15 @@ function addsavednumbers(){
         updateTable(savedNumbers[k]);
     }
 }
+function start(){
+   //scannedNumbers.push(localStorage.getItem(JSON.parse("savedNumbers")));
+}
+
 
 // Start scanning when the page loads
 window.onload = function() {
   initializeTable();
+  start();
   startScanning();
   addsavednumbers();
 };
