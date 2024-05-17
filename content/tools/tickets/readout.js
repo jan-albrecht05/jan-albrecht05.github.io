@@ -1,7 +1,16 @@
 // Variable to store scanned numbers
 let scannedNumbers = [];
 let isCoolingDown = false;
-let savedNumbers = localStorage.getItem('savedNumbers')
+let canvasElement = document.createElement('canvas');
+let canvas = canvasElement.getContext('2d');
+let savedNumbers = JSON.parse(localStorage.getItem('savedNumbers'));
+
+function checkforlocalstorage(){
+  var savedNumbers = localStorage.getItem('savedNumbers');
+  if(savedNumbers == null){
+    localStorage.setItem('savedNumbers', 0)
+  }
+}
 
 // Function to start QR code scanning
 function startScanning() {
@@ -27,20 +36,13 @@ function startScanning() {
 
 // Function to stop QR code scanning
 function stopScanning() {
-  // Get video element
-  var video = document.getElementById('video');
   // Stop video stream
   video.srcObject.getTracks().forEach(track => track.stop());
 }
 
 // Function to scan QR codes
 function scan() {
-  // Get video element
   var video = document.getElementById('video');
-  // Get canvas element
-  var canvasElement = document.createElement('canvas');
-  var canvas = canvasElement.getContext('2d');
-
   // Set canvas size to match video dimensions
   canvasElement.width = video.videoWidth;
   canvasElement.height = video.videoHeight;
@@ -58,14 +60,14 @@ function scan() {
     console.log(scannedNumber);
     if (scannedNumbers.includes(scannedNumber) || savedNumbers.includes(scannedNumber)) {
         // If number is already scanned, show error message
-        alert("diese Nummer wurde bereits gescannt: " + scannedNumber);
+        alert("Nummer " + scannedNumber + " wurde bereits gescannt!");
     } else {
         // Add number to scanned numbers
-        alert("Nummer "+scannedNumber+" gescannt.")
         scannedNumbers.push(scannedNumber);
         console.log(scannedNumbers);
         // Update table and highlight scanned number
         updateTable(scannedNumber);
+        alert("Nummer "+scannedNumber+" gescannt.")
         //Save new array to localstorage
         var alte_werte = JSON.parse(localStorage.getItem('savedNumbers'));
         console.log(alte_werte);
@@ -109,7 +111,8 @@ function initializeTable() {
     }
 }
 function addsavednumbers(){
-    for (var k = 0; k < 900; k++){
+    for (var k = 0; k < 900; k++){    
+        console.log("Bereits gespeicherte Nummern: "+savedNumbers[k]);
         updateTable(savedNumbers[k]);
     }
 }
@@ -117,7 +120,8 @@ function addsavednumbers(){
 
 // Start scanning when the page loads
 window.onload = function() {
+  checkforlocalstorage()
   initializeTable();
-  startScanning();
   addsavednumbers();
+  startScanning();
 };
