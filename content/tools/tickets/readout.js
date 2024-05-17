@@ -14,6 +14,8 @@ function checkforlocalstorage(){
 
 // Function to start QR code scanning
 function startScanning() {
+  document.getElementById("stop").style.display = "block";
+  document.getElementById("scan").style.display = "none";
   // Get video element
   var video = document.getElementById('video');
 
@@ -38,6 +40,8 @@ function startScanning() {
 function stopScanning() {
   // Stop video stream
   video.srcObject.getTracks().forEach(track => track.stop());
+  document.getElementById("stop").style.display = "none";
+  document.getElementById("scan").style.display = "block";
 }
 
 // Function to scan QR codes
