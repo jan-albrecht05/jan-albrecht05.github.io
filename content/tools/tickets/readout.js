@@ -76,6 +76,7 @@ function scan() {
             alert("Nummer " + scannedNumber + " gescannt.")
             //Save new array to localstorage
             savedNumbers.push(scannedNumber);
+            document.getElementById('data').innerHTML = "Anzahl der gescannten Tickets: "+ savedNumbers.length;
             console.log("Alle gescannten Nummern:", savedNumbers);
             localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
         }
@@ -100,7 +101,7 @@ function updateTable(scannedNumber) {
     var cells = table.getElementsByTagName('td');
     if (row >= 0 && row < 90 && col >= 0 && col < 10) {
         cells[row * 10 + col].classList.add('highlight');
-    }
+    };
 }
 
 // Function to initialize the table
@@ -117,6 +118,7 @@ function initializeTable() {
 }
 function addsavednumbers() {
     savedNumbers.forEach(updateTable);
+    document.getElementById('data').innerHTML = "Anzahl der gescannten Tickets: "+ savedNumbers.length;
 }
 
 
