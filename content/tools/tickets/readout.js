@@ -6,9 +6,11 @@ let canvas = canvasElement.getContext('2d');
 let savedNumbers = JSON.parse(localStorage.getItem('savedNumbers'));
 
 function checkforlocalstorage(){
-  var savedNumbers = localStorage.getItem('savedNumbers');
-  if(savedNumbers == null){
-    localStorage.setItem('savedNumbers', 0)
+  if(!savedNumbers.includes){
+    localStorage.setItem('savedNumbers', "[]")
+    savedNumbers = [];
+  } else {
+    console.log("Gespeicherte Nummern:", savedNumbers);
   }
 }
 
@@ -68,15 +70,14 @@ function scan() {
     } else {
         // Add number to scanned numbers
         scannedNumbers.push(scannedNumber);
-        console.log(scannedNumbers);
+        console.log("Gerade gescannte Nummern:", scannedNumbers);
         // Update table and highlight scanned number
         updateTable(scannedNumber);
-        alert("Nummer "+scannedNumber+" gescannt.")
+        alert("Nummer " + scannedNumber + " gescannt.")
         //Save new array to localstorage
-        var alte_werte = JSON.parse(localStorage.getItem('savedNumbers'));
-        console.log(alte_werte);
-        var alle_werte = alte_werte +','+ scannedNumbers;
-        localStorage.setItem('savedNumbers', JSON.stringify(alle_werte));
+        savedNumbers.push(scannedNumber);
+        console.log("Alle gescannten Nummern:", savedNumbers);
+        localStorage.setItem('savedNumbers', JSON.stringify(savedNumbers));
     }
     }if (!isCoolingDown) {
         isCoolingDown = true;
@@ -115,10 +116,7 @@ function initializeTable() {
     }
 }
 function addsavednumbers(){
-    for (var k = 0; k < 900; k++){    
-        console.log("Bereits gespeicherte Nummern: "+savedNumbers[k]);
-        updateTable(savedNumbers[k]);
-    }
+  savedNumbers.forEach(updateTable);
 }
 
 
