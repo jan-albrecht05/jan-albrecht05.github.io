@@ -6,7 +6,7 @@ let canvas = canvasElement.getContext('2d');
 let savedNumbers = JSON.parse(localStorage.getItem('savedNumbers'));
 
 function checkforlocalstorage() {
-    if (!savedNumbers.includes) {
+    if (!savedNumbers || !savedNumbers.includes) {
         localStorage.setItem('savedNumbers', "[]")
         savedNumbers = [];
     } else {
