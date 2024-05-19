@@ -63,7 +63,7 @@ button{
     background-color: red;
     border: 2px solid rgb(219, 0, 0);
 }
-#data{
+#data,#data2{
     width: 50%;
     max-width: 600px;
     margin-inline: auto;
@@ -101,7 +101,7 @@ table, th, td {
     h2{
         margin-left: 5%;
     }
-    #data{
+    #data,#data2{
         width: 90%;
         font-size: 100%;
     }
