@@ -121,6 +121,10 @@ function addsavednumbers() {
     document.getElementById('data').innerHTML = "Anzahl der gescannten Tickets: "+ savedNumbers.length;
 }
 
+//start New Session
+function newsession(){
+
+}
 
 // Start scanning when the page loads
 window.onload = function () {
