@@ -4,7 +4,7 @@ let canvasElement = document.createElement('canvas');
 let canvas = canvasElement.getContext('2d');
 let savedNumbers = JSON.parse(localStorage.getItem('savedNumbers'));
 let countedTickets = 0;
-let sessionTickets = 0;
+let sessionTickets = localStorage.getItem('sessionTickets');
 
 function checkforlocalstorage() {
     if (!savedNumbers || !savedNumbers.includes) {
@@ -128,5 +128,8 @@ window.onload = function () {
     initializeTable();
     addsavednumbers();
     startScanning();
-    document.getElementById('data2').innerHTML = "Anzahl der jetzt gescannten Tickets: "+ localStorage.getItem('sessionTickets');
+    if (sessionTickets == null){
+        sessionTickets = 0;
+    }
+    document.getElementById('data2').innerHTML = "Anzahl der jetzt gescannten Tickets: "+ sessionTickets;
 };
