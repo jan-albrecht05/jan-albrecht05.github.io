@@ -510,6 +510,18 @@ fieldset:hover{
         width: 4rem;
         height: 4rem;
     }
+    #cookie-banner-content{
+        display: block;
+    }
+    #cookie-banner-content p{
+        text-align: center;
+    }
+    #buttons{
+        width: min-content;
+        margin: auto;
+        margin-top: -.5rem;
+        margin-bottom: .2rem;
+    }
 }
 @media (min-width: 300px) {
     .grid{
@@ -540,7 +552,7 @@ fieldset:hover{
         width: 200%;
     }
 }
-@media (min-width: 1000px) {
+@media (min-width: 1000px){
     .grid{
         grid-template-columns: repeat(4, 1fr);
     }
