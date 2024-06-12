@@ -22,11 +22,11 @@ function accept_cookies(){
     document.getElementById("cookie-banner").style.display = "none";
     localStorage.setItem('cookies-accepted', true);
 }
-window.onload = function(){
+window.addEventListener('load', function(){
     if(cookiesok){
         document.getElementById("cookie-banner").style.display = "none";
     }
-}
+})
 function decline(){
     document.getElementById("body").style.background = "#000";
     document.getElementById("body").style.color = "#fff";

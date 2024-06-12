@@ -6,6 +6,7 @@ function dreibalkensymbol() {
   x.className = "topnav";
   }
 }
-window.onload = () => {
+window.addEventListener('load', function() {
+	console.log("loaded");
     document.getElementsByClassName("dropdown-content")[0].innerHTML = '<a href="https://youtube-crew.netlify.app" target="_blank">YouTube- Team</a>'+'<a href="https://youtube.com/@Homburgschule" target="_blank">PvH YouTube- Kanal</a>';
-}
+})
