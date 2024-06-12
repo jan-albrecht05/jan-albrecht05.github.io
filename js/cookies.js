@@ -22,14 +22,15 @@ function accept_cookies(){
     document.getElementById("cookie-banner").style.display = "none";
     localStorage.setItem('cookies-accepted', true);
 }
-window.addEventListener('load', function(){
-    console.log("Loaded)");
-    if(cookiesok){
-        document.getElementById("cookie-banner").style.display = "none";
-    }
-})
 function decline(){
     document.getElementById("body").style.background = "#000";
     document.getElementById("body").style.color = "#fff";
 	document.getElementById("body").innerHTML = "nope";
 }
+
+window.addEventListener('load', function(){
+    console.log("cookies.js is loaded)");
+    if(cookiesok){
+        document.getElementById("cookie-banner").style.display = "none";
+    }
+})
