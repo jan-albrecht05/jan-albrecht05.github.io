@@ -6,7 +6,7 @@ function cookiefunction() {
       x.style.display = "none";
     }
 }
-cookiesok = localStorage.getItem("cookies-accepted") ? localStorage.getItem('theme') : false;
+cookiesok = localStorage.getItem("cookies-accepted") ? localStorage.getItem('cookies-accepted') : false;
 function changeback(){
     document.getElementById("buttons").style.flexDirection = "row-reverse";
 }
