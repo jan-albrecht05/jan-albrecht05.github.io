@@ -23,6 +23,7 @@ function accept_cookies(){
     localStorage.setItem('cookies-accepted', true);
 }
 window.addEventListener('load', function(){
+    console.log("Loaded)");
     if(cookiesok){
         document.getElementById("cookie-banner").style.display = "none";
     }
