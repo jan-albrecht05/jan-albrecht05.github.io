@@ -29,7 +29,7 @@ function decline(){
 }
 
 window.addEventListener('load', function(){
-    console.log("cookies.js is loaded)");
+    console.log("cookies.js is loaded");
     if(cookiesok){
         document.getElementById("cookie-banner").style.display = "none";
     }
