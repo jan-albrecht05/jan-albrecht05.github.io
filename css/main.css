@@ -165,7 +165,7 @@ a::selection{
 #accept{
     background-color: var(--m-green);
     margin-left: .5rem;
-    border: 2px solid grey;
+    border: 2px solid var(--m-green);
 }
 #decline{
     border: 2px solid var(--m-green);
@@ -457,6 +457,9 @@ fieldset:hover{
     }
     .content{
         font-size: 18px;
+    }
+    #hobbies{
+        display: none;
     }
     .content img:hover{
         border: 3px solid var(--m-green);
