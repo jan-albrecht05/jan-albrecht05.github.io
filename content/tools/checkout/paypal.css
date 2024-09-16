@@ -1,0 +1,140 @@
+html{
+    height: 99vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#outer_box{
+    margin-top: 8rem;
+    border: 1px solid #eaeced;
+    width: 30rem;
+    height: 60vh;
+    border-radius: 15px;
+}
+#logodiv{
+    width: 2rem;
+    margin-inline: auto;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+.input_box{
+    width: 80%;
+    height: 3rem;
+    margin-inline: auto;
+    border: 1px solid #6c7387;
+    border-radius: 5px;
+    padding: 7px;
+    cursor: text;
+}
+.input_box:hover{
+    border-color: #0070e0;
+}
+#email_input{
+    margin-bottom: 1rem;
+}
+.label{
+    color: #6c7387;
+    font-size: 16px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 600 bold;
+}
+input{
+    display: none;
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+#forgot_pw{
+    color: #0070E0;
+    font-size: 100%;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-left: 9%;
+    margin-bottom: 1rem;
+}
+#forgot_pw:hover{
+    color: #73A5FF;
+}
+button{
+    width: 80%;
+    margin-left: 10%;
+    height: 2.7rem;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    font-size: 110%;
+    cursor: pointer;
+}
+#login{
+    background-color: #0544b5;
+    color: white;
+    border: 1px solid #0544b5;
+}
+#neu{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+#devide{
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #6c7378;
+}
+#devide hr{
+    width: 27%;
+    height: 1px;
+    border: none;
+    border-top: 1px solid #cacaca;
+}
+#language_settings{
+    display: flex;
+    width: 40%;
+    margin-inline: auto;
+    margin-top: 8rem;
+    color: #656d74;
+}
+#language_settings span{
+    cursor: pointer;
+}
+#flag{
+    width: 1rem;
+    font-size: 120%;
+}
+#ger{
+    color: #545e6c;
+    font-weight: bold;
+    margin-right: -0.5rem;
+}
+#vertical{
+    width: 1px;
+    border: none;
+    border-right: solid 1px;
+    height: 1rem;
+    margin-top: -0rem;
+}
+
+#footer{
+    position: fixed;
+    bottom: 0;
+    background-color: #f7f9fa;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+#footer a{
+    color: #545D68;
+    text-decoration: none;
+    font-weight: 600 bold;
+    font-size: 60%;
+    margin-inline: 5px;
+    cursor: pointer;
+}
