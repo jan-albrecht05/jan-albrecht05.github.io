@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/content/tools/aspect-ratio/style.css">
+    <script src="/content/tools/aspect-ratio/script.js"></script>
+</head>
+<body>
+    <div id="main">
+        <h1>Aspect-Ratio</h1>
+        <h3>Choose in your aspect-ratio:</h3>
+        <div class="form" id="btn-input">
+            <button id="1-1" onclick="onetoone()">1:1</button>
+            <button id="2-1" onclick="twotoone()">2:1</button>
+            <button id="3-2" onclick="threetotwo()">3:2</button>
+            <button id="4-3" onclick="fourtothree()">4:3</button>
+            <button id="16-9" onclick="sixteentonine()">16:9</button>
+            <button id="16-10" onclick="sixteentoten()">16:10</button>
+        </div>
+        <h3>..or type in your aspect-ratio:</h3>
+        <div class="form" id="type-input">
+            <input type="number" id="first-nub" min="1">
+            <input type="number" id="second-nub" min="1">
+        </div>
+        <h3>Your Pixel dimentions:</h3>
+        <div class="form" id="pixel-input">
+            <input type="number" id="first-nub" min="1">
+            <input type="number" id="second-nub" min="1">
+        </div>
+    </div>
+    <hr>
+    <div id="output-box">
+        <div id="output"></div>
+    </div>
+</body>
+</html>
