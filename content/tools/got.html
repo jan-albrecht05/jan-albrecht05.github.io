@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Of Thones zum Abhaken</title>
+    <style>
+        body{
+            background-color: #0e0e10;
+            background-image: url(/content/tools/got-bg.jpg);
+            background-size: 110%;
+            background-position: 35% 0%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            user-select: none;
+        }
+        #main{
+            margin-inline: 5%;
+        }
+        h1, h3{
+            text-align: center;
+        }
+        details{
+            margin-bottom: 1rem;
+            backdrop-filter: blur(2px);
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        #staffel8{
+            margin-bottom: 4rem;
+        }
+        summary{
+            list-style: none;
+        }
+        summary::after {
+            content:  "+"; 
+            position: absolute;
+            font-size: 1.5em;
+            font-weight: bold; 
+            right: 1rem;
+            transition: all 0.5s;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        details[open] summary::after {
+            transform: translate(0px,0) rotate(45deg);
+        }
+        .folge{
+            font-size: 100%;
+            transition: all .2s;
+        }
+        .name{
+            font-size: 70%;
+        }
+        p{
+            margin-left: 0.5rem;
+        }
+        .strikethrough{
+            text-decoration: line-through;
+            color: #6d6d6d;
+            font-style: italic;
+            transition: all .2s;
+        }
+        @media (min-width: 600px) {
+            body{
+                background-size: 100%;
+                background-position: 0% 35%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <h1>Game Of Thones</h1>
+        <h3>Staffel 1 bis 8</h3>
+        <details id="staffel1">
+            <summary>Staffel 1</summary>
+            <p class="folge" data-id="s1e1">Folge 1<br><span class="name">Der Winter naht</span></p>
+            <p class="folge" data-id="s1e2">Folge 2<br><span class="name">Der Königsweg</span></p>
+            <p class="folge" data-id="s1e3">Folge 3<br><span class="name">Lord Schnee</span></p>
+            <p class="folge" data-id="s1e4">Folge 4<br><span class="name">Krüppel, Bastarde und Zerbrochenes</span></p>
+            <p class="folge" data-id="s1e5">Folge 5<br><span class="name">Der Wolf und der Löwe</span></p>
+            <p class="folge" data-id="s1e6">Folge 6<br><span class="name">Eine Goldene Krone</span></p>
+            <p class="folge" data-id="s1e7">Folge 7<br><span class="name">Gewinn oder Stirb</span></p>
+            <p class="folge" data-id="s1e8">Folge 8<br><span class="name">Das spitze Ende</span></p>
+            <p class="folge" data-id="s1e9">Folge 9<br><span class="name">Baelor</span></p>
+            <p class="folge" data-id="s1e10">Folge 10<br><span class="name">Feuer und Blut</span></p>
+        </details>
+        <details id="staffel2">
+            <summary>Staffel 2</summary>
+            <p class="folge" data-id="s2e1">Folge 1<br><span class="name">Der Norden vergisst nicht</span></p>
+            <p class="folge" data-id="s2e2">Folge 2<br><span class="name">Die Länder der Nacht</span></p>
+            <p class="folge" data-id="s2e3">Folge 3<br><span class="name">Was tot ist, kann niemals sterben</span></p>
+            <p class="folge" data-id="s2e4">Folge 4<br><span class="name">Der Garten der Knochen</span></p>
+            <p class="folge" data-id="s2e5">Folge 5<br><span class="name">Der Geist von Harrenhal</span></p>
+            <p class="folge" data-id="s2e6">Folge 6<br><span class="name">Alte und Neue Götter</span></p>
+            <p class="folge" data-id="s2e7">Folge 7<br><span class="name">Ein Mann ohne Ehre</span></p>
+            <p class="folge" data-id="s2e8">Folge 8<br><span class="name">Der Prinz von Winterfell</span></p>
+            <p class="folge" data-id="s2e9">Folge 9<br><span class="name">Schwarzwasser</span></p>
+            <p class="folge" data-id="s2e10">Folge 10<br><span class="name">Valar Morghulis</span></p>
+        </details>
+        <details id="staffel3">
+            <summary>Staffel 3</summary>
+            <p class="folge" data-id="s3e1">Folge 1<br><span class="name">Valar Dohaeris</span></p>
+            <p class="folge" data-id="s3e2">Folge 2<br><span class="name">Dunkle Schwingen, Dunkle Worte</span></p>
+            <p class="folge" data-id="s3e3">Folge 3<br><span class="name">Der Weg der Züchtigung</span></p>
+            <p class="folge" data-id="s3e4">Folge 4<br><span class="name">Und jetzt ist seine Wache zu Ende</span></p>
+            <p class="folge" data-id="s3e5">Folge 5<br><span class="name">Vom Feuer geküsst</span></p>
+            <p class="folge" data-id="s3e6">Folge 6<br><span class="name">Der Aufstieg</span></p>
+            <p class="folge" data-id="s3e7">Folge 7<br><span class="name">Der Bär und die Jungfrau Hehr</span></p>
+            <p class="folge" data-id="s3e8">Folge 8<br><span class="name">Die Zweitgeborenen</span></p>
+            <p class="folge" data-id="s3e9">Folge 9<br><span class="name">Der Regen von Castamaer</span></p>
+            <p class="folge" data-id="s3e10">Folge 10<br><span class="name">Mhysa</span></p>
+        </details>
+        <details id="staffel4">
+            <summary>Staffel 4</summary>
+            <p class="folge" data-id="s4e1">Folge 1<br><span class="name">Zwei Schwerter</span></p>
+            <p class="folge" data-id="s4e2">Folge 2<br><span class="name">Der Löwe und die Rose</span></p>
+            <p class="folge" data-id="s4e3">Folge 3<br><span class="name">Sprengerin der Ketten</span></p>
+            <p class="folge" data-id="s4e4">Folge 4<br><span class="name">Eidwahrer</span></p>
+            <p class="folge" data-id="s4e5">Folge 5<br><span class="name">Der erste seines Namens</span></p>
+            <p class="folge" data-id="s4e6">Folge 6<br><span class="name">Die Gesetze von Göttern und Menschen</span></p>
+            <p class="folge" data-id="s4e7">Folge 7<br><span class="name">Die Spattdrossel</span></p>
+            <p class="folge" data-id="s4e8">Folge 8<br><span class="name">Der Berg und die Viper</span></p>
+            <p class="folge" data-id="s4e9">Folge 9<br><span class="name">Die Wächter auf der Mauer</span></p>
+            <p class="folge" data-id="s4e10">Folge 10<br><span class="name">Die Kinder</span></p>
+        </details>
+        <details id="staffel5">
+            <summary>Staffel 5</summary>
+            <p class="folge" data-id="s5e1">Folge 1<br><span class="name">Die Kriege, die da kommen</span></p>
+            <p class="folge" data-id="s5e2">Folge 2<br><span class="name">Das Haus von schwarz und weiß</span></p>
+            <p class="folge" data-id="s5e3">Folge 3<br><span class="name">Der hohe Spatz</span></p>
+            <p class="folge" data-id="s5e4">Folge 4<br><span class="name">Die Söhne der Harpyie</span></p>
+            <p class="folge" data-id="s5e5">Folge 5<br><span class="name">Töte den Jungen</span></p>
+            <p class="folge" data-id="s5e6">Folge 6<br><span class="name">Ungebeugt, Ungezähmt, Ungebrochen</span></p>
+            <p class="folge" data-id="s5e7">Folge 7<br><span class="name">Das Geschenk</span></p>
+            <p class="folge" data-id="s5e8">Folge 8<br><span class="name">Hartheim</span></p>
+            <p class="folge" data-id="s5e9">Folge 9<br><span class="name">Der Tanz der Drachen</span></p>
+            <p class="folge" data-id="s5e10">Folge 10<br><span class="name">Die Grade der Mutter</span></p>
+        </details>
+        <details id="staffel6">
+            <summary>Staffel 6</summary>
+            <p class="folge" data-id="s6e1">Folge 1<br><span class="name">Die rote Frau</span></p>
+            <p class="folge" data-id="s6e2">Folge 2<br><span class="name">Zuhause</span></p>
+            <p class="folge" data-id="s6e3">Folge 3<br><span class="name">Eidbrecher</span></p>
+            <p class="folge" data-id="s6e4">Folge 4<br><span class="name">Das Buch des Fremden</span></p>
+            <p class="folge" data-id="s6e5">Folge 5<br><span class="name">Das Tor</span></p>
+            <p class="folge" data-id="s6e6">Folge 6<br><span class="name">Blut von meinem Blut</span></p>
+            <p class="folge" data-id="s6e7">Folge 7<br><span class="name">Der Gebrochene</span></p>
+            <p class="folge" data-id="s6e8">Folge 8<br><span class="name">Niemand</span></p>
+            <p class="folge" data-id="s6e9">Folge 9<br><span class="name">Die Schlacht der Bastarde</span></p>
+            <p class="folge" data-id="s6e10">Folge 10<br><span class="name">Die Winde des Winters</span></p>
+        </details>
+        <details id="staffel7">
+            <summary>Staffel 7</summary>
+            <p class="folge" data-id="s7e1">Folge 1<br><span class="name">Drachenstein</span></p>
+            <p class="folge" data-id="s7e2">Folge 2<br><span class="name">Sturmtochter</span></p>
+            <p class="folge" data-id="s7e3">Folge 3<br><span class="name">Die Gerechtigkeit der Königin</span></p>
+            <p class="folge" data-id="s7e4">Folge 4<br><span class="name">Kriegsbeute</span></p>
+            <p class="folge" data-id="s7e5">Folge 5<br><span class="name">Ostwacht</span></p>
+            <p class="folge" data-id="s7e6">Folge 6<br><span class="name">Jenseits der Mauer</span></p>
+            <p class="folge" data-id="s7e7">Folge 7<br><span class="name">Der Drache und der Wolf</span></p>
+        </details>
+        <details id="staffel8">
+            <summary>Staffel 8</summary>
+            <p class="folge" data-id="s8e1">Folge 1<br><span class="name">Winterfell</span></p>
+            <p class="folge" data-id="s8e2">Folge 2<br><span class="name">Ein Ritter der sieben Königslande</span></p>
+            <p class="folge" data-id="s8e3">Folge 3<br><span class="name">Die lange Nacht</span></p>
+            <p class="folge" data-id="s8e4">Folge 4<br><span class="name">Die letzten der Starks</span></p>
+            <p class="folge" data-id="s8e5">Folge 5<br><span class="name">Die Glocken</span></p>
+            <p class="folge" data-id="s8e6">Folge 6<br><span class="name">Der eiserne Thron</span></p>
+        </details>
+    </div>
+    <script>
+        // Function to load saved episode state
+        function loadEpisodes() {
+            const episodes = document.querySelectorAll('.folge');
+            episodes.forEach(episode => {
+                const episodeId = episode.getAttribute('data-id');
+                const isStruck = localStorage.getItem(episodeId);
+                if (isStruck === 'true') {
+                    episode.classList.add('strikethrough');
+                }
+            });
+        }
+
+        // Function to toggle strikethrough and save state
+        function toggleEpisode(event) {
+            const episode = event.target.closest('.folge');
+            if (episode) {
+                const episodeId = episode.getAttribute('data-id');
+                episode.classList.toggle('strikethrough');
+                const isStruck = episode.classList.contains('strikethrough');
+                localStorage.setItem(episodeId, isStruck);
+            }
+        }
+
+        // Load saved state on page load
+        document.addEventListener('DOMContentLoaded', loadEpisodes);
+
+        // Add event listeners to episodes
+        document.querySelectorAll('.folge').forEach(episode => {
+            episode.addEventListener('click', toggleEpisode);
+        });
+    </script>
+</body>
+</html>
