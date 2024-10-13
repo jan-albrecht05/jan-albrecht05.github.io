@@ -63,6 +63,13 @@
             font-style: italic;
             transition: all .2s;
         }
+        a{
+            text-align: center;
+            width: 100%;
+            display: inline-block;
+            color: #6d6d6d;
+
+        }
         @media (min-width: 600px) {
             body{
                 background-size: 100%;
@@ -86,7 +93,7 @@
             <p class="folge" data-id="s1e7">Folge 7<br><span class="name">Gewinn oder Stirb</span></p>
             <p class="folge" data-id="s1e8">Folge 8<br><span class="name">Das spitze Ende</span></p>
             <p class="folge" data-id="s1e9">Folge 9<br><span class="name">Baelor</span></p>
-            <p class="folge" data-id="s1e10" onclick="strikes1()">Folge 10<br><span class="name">Feuer und Blut</span></p>
+            <p class="folge" data-id="s1e10">Folge 10<br><span class="name">Feuer und Blut</span></p>
         </details>
         <details id="staffel2">
             <summary>Staffel 2</summary>
@@ -173,12 +180,14 @@
             <p class="folge" data-id="s8e6">Folge 6<br><span class="name">Der eiserne Thron</span></p>
         </details>
     </div>
+    <a onclick="resetStorage()">reset</a>
     <script>
+        const PREFIX = "got_";
         // Load saved episode state and check completion
         function loadEpisodes() {
             const episodes = document.querySelectorAll('.folge');
             episodes.forEach(episode => {
-                const episodeId = episode.getAttribute('data-id');
+                const episodeId = PREFIX + episode.getAttribute('data-id');
                 const isStruck = localStorage.getItem(episodeId);
                 if (isStruck === 'true') {
                     episode.classList.add('strikethrough');
@@ -190,7 +199,7 @@
         function toggleEpisode(event) {
             const episode = event.target.closest('.folge');
             if (episode) {
-                const episodeId = episode.getAttribute('data-id');
+                const episodeId = PREFIX + episode.getAttribute('data-id');
                 episode.classList.toggle('strikethrough');
                 const isStruck = episode.classList.contains('strikethrough');
                 localStorage.setItem(episodeId, isStruck);
@@ -205,22 +214,31 @@
                 const summary = detail.querySelector('summary');
                 if (allStruck) {
                     summary.classList.add('strikethrough');
-                    localStorage.setItem(detail.id + '_completed', true);
+                    localStorage.setItem(PREFIX + detail.id + '_completed', true);
                 } else {
                     summary.classList.remove('strikethrough');
-                    localStorage.setItem(detail.id + '_completed', false);
+                    localStorage.setItem(PREFIX + detail.id + '_completed', false);
                 }
             });
         }
         // Restore strikethrough state for summaries on page load
         function loadSummaries() {
             document.querySelectorAll('details').forEach(detail => {
-                const isCompleted = localStorage.getItem(detail.id + '_completed') === 'true';
+                const isCompleted = localStorage.getItem(PREFIX + detail.id + '_completed') === 'true';
                 const summary = detail.querySelector('summary');
                 if (isCompleted) {
                     summary.classList.add('strikethrough');
                 }
             });
+        }
+        // Function to reset only the keys created by this script in localStorage
+        function resetStorage() {
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith(PREFIX)) {
+                    localStorage.removeItem(key);
+                }
+            });
+            document.querySelectorAll('.strikethrough').forEach(el => el.classList.remove('strikethrough'));
         }
         // Load saved state on page load
         document.addEventListener('DOMContentLoaded', () => {
