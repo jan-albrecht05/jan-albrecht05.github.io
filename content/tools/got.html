@@ -86,7 +86,7 @@
             <p class="folge" data-id="s1e7">Folge 7<br><span class="name">Gewinn oder Stirb</span></p>
             <p class="folge" data-id="s1e8">Folge 8<br><span class="name">Das spitze Ende</span></p>
             <p class="folge" data-id="s1e9">Folge 9<br><span class="name">Baelor</span></p>
-            <p class="folge" data-id="s1e10">Folge 10<br><span class="name">Feuer und Blut</span></p>
+            <p class="folge" data-id="s1e10" onclick="strikes1()">Folge 10<br><span class="name">Feuer und Blut</span></p>
         </details>
         <details id="staffel2">
             <summary>Staffel 2</summary>
@@ -174,7 +174,7 @@
         </details>
     </div>
     <script>
-        // Function to load saved episode state
+        // Load saved episode state and check completion
         function loadEpisodes() {
             const episodes = document.querySelectorAll('.folge');
             episodes.forEach(episode => {
@@ -184,9 +184,9 @@
                     episode.classList.add('strikethrough');
                 }
             });
+            checkCompletion();
         }
-
-        // Function to toggle strikethrough and save state
+        // Toggle episode strikethrough and save state
         function toggleEpisode(event) {
             const episode = event.target.closest('.folge');
             if (episode) {
@@ -194,12 +194,39 @@
                 episode.classList.toggle('strikethrough');
                 const isStruck = episode.classList.contains('strikethrough');
                 localStorage.setItem(episodeId, isStruck);
+                checkCompletion();
             }
         }
-
+        // Check if all episodes in a details section are struck
+        function checkCompletion() {
+            document.querySelectorAll('details').forEach(detail => {
+                const episodes = detail.querySelectorAll('.folge');
+                const allStruck = Array.from(episodes).every(ep => ep.classList.contains('strikethrough'));
+                const summary = detail.querySelector('summary');
+                if (allStruck) {
+                    summary.classList.add('strikethrough');
+                    localStorage.setItem(detail.id + '_completed', true);
+                } else {
+                    summary.classList.remove('strikethrough');
+                    localStorage.setItem(detail.id + '_completed', false);
+                }
+            });
+        }
+        // Restore strikethrough state for summaries on page load
+        function loadSummaries() {
+            document.querySelectorAll('details').forEach(detail => {
+                const isCompleted = localStorage.getItem(detail.id + '_completed') === 'true';
+                const summary = detail.querySelector('summary');
+                if (isCompleted) {
+                    summary.classList.add('strikethrough');
+                }
+            });
+        }
         // Load saved state on page load
-        document.addEventListener('DOMContentLoaded', loadEpisodes);
-
+        document.addEventListener('DOMContentLoaded', () => {
+            loadEpisodes();
+            loadSummaries();
+        });
         // Add event listeners to episodes
         document.querySelectorAll('.folge').forEach(episode => {
             episode.addEventListener('click', toggleEpisode);
