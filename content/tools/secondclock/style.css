@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/seven-segment');       
 :root{
     --eins: rgb(174, 0, 255);
     --zwei: rgb(0, 255, 51);
@@ -17,7 +18,7 @@ body{
     animation: AnimateBG 10s ease infinite;
     height: 98vh;
     margin: 0;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Seven Segment', monospace;
     font-weight: bold;
     user-select: none;
 }
