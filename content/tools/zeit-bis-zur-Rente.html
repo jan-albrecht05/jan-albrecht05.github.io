@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeit bis zur Rente</title>
+    <link rel="icon" href="/content/schule/info/icon.png">
+    <style>
+        html{
+            scrollbar-width: thin;
+        }
+        body{
+            height: 98vh;
+            background-color: #262626;
+            color: #eee;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        .part{
+            width: 100%;
+            font-size: 300%;
+            padding-top: 30lvh;
+        }
+        .line1,
+        .line2{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .line1{
+            font-size: 200%;
+            margin-bottom: 2rem;
+        }
+        #days{
+            margin-left: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        @media (max-width: 600px) {
+            .part{
+                font-size: 100%;
+            }
+            .line1,
+            .line2{
+                display: block;
+                align-items: center;
+                text-align: center;
+            }
+            .line2{
+                font-size: 120%;
+            }
+            #days{
+                margin-left: .5rem;
+            }
+        }
+    </style>
+    <script>
+        setInterval(showTime, 1000);
+        function showTime() 
+        {
+            const targetDate = new Date('July 31 2026');
+            // Current date and time
+            const currentDate = new Date();
+            // Calculate the difference in milliseconds
+            const timeDifference = targetDate - currentDate;
+
+            // Convert milliseconds to weeks, days, and hours
+            const weeksRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 7));
+            const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60));
+
+            // Format the results
+            const weeks = weeksRemaining < 10 ? "0" + weeksRemaining : weeksRemaining;
+            const days = daysRemaining < 10 ? "0" + daysRemaining : daysRemaining;
+            const hours = hoursRemaining < 10 ? "0" + hoursRemaining : hoursRemaining;
+
+            // Display the results
+            document.getElementById("weeks").innerHTML = weeks;
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+        }
+        showTime();
+    </script>
+</head>
+<body>
+    <div id="box" class="center">
+        <div class="part">
+            <div class="line1">
+                Tage bis zur Rente:
+                <div id="days">00</div>
+            </div>
+            <div class="line2">
+                <div class="other_numbers">
+                    <span>Das sind</span>
+                    <span id="weeks">00</span>
+                    <span>Wochen</span>
+                    <span>oder</span>
+                    <span id="hours">00</span><nobr>
+                    <span>Stunden.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
