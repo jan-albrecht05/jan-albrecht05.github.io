@@ -838,7 +838,7 @@
                         explanation: 'CIDR ignoriert klassische Netzklassen, nutzt Adressen effizienter und ermöglicht Route Aggregation.'
                     },
                     {
-                        text: 'In welchem Subnetz befindet sich 10.20.143.67/18?',
+                        text: 'In welchem Subnetz befindet sich die Host-IP-Adresse 10.20.143.67/18?',
                         options: [
                             '10.20.128.0/18',
                             '10.20.0.0/18',
@@ -849,7 +849,7 @@
                         explanation: '/18 = Maske 255.255.192.0. Schrittweite im 3. Oktett: 64. 143/64 = 2 → Netzwerk beginnt bei 128.'
                     },
                     {
-                        text: 'Wie viele Class-C-Äquivalente (/24) sind in einem /20-Netzwerk?',
+                        text: 'Wie viele /24er Subnetze sind in einem /20-Netzwerk möglich?',
                         options: [
                             '16',
                             '8',
@@ -875,7 +875,7 @@
                         options: [
                             'Tritt auf, wenn Pakete größer als MTU sind',
                             'Kann die Performance beeinträchtigen',
-                            'Path MTU Discovery kann helfen, sie zu vermeiden',
+                            'Path MTU Discovery kann helfen, Fragmentierung zu vermeiden',
                             'Fragmentierung findet nur am Sender statt'
                         ],
                         correct: ['a', 'b', 'c'],
