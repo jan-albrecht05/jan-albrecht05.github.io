@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulations-Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#eef5f0;color:#1a2e1a;font-family:'Outfit',sans-serif;font-size:14px;line-height:1.4;padding:.7rem .4rem}
+.c{max-width:980px;margin:0 auto}
+h1{font-size:1.25rem;font-weight:800;text-align:center;color:#0e6b2b;margin-bottom:.1rem}
+.sub{text-align:center;color:#5a7a5a;font-size:.78rem;margin-bottom:.5rem}
+.nav-row{display:flex;gap:.2rem;justify-content:center;margin-bottom:.3rem;flex-wrap:wrap}
+.tb{padding:.35rem .75rem;border:2px solid #a8cdb5;background:#fff;color:#5a7a5a;font-family:'Outfit',sans-serif;font-size:.75rem;font-weight:700;cursor:pointer;transition:.2s}
+.tb:hover{border-color:#1a8a3e;color:#1a8a3e}
+.tb.a-fw{border-color:#1a8a3e;color:#fff;background:#1a8a3e}
+.tb.a-rw{border-color:#1a6aa8;color:#fff;background:#1a6aa8}
+.tb.a-df{border-color:#8a5a1a;color:#fff;background:#8a5a1a}
+.tb.a-ref{border-color:#6a3a8a;color:#fff;background:#6a3a8a}
+.tb.a-easy{border-color:#2a9a4e;color:#fff;background:#2a9a4e}
+.tb.a-hard{border-color:#c44;color:#fff;background:#c44}
+.diff-label{font-size:.68rem;color:#5a7a5a;text-align:center;margin-bottom:.4rem}
+.view{display:none}.view.act{display:block}
+.info{background:#fff;border:2px solid #a8cdb5;padding:.4rem .5rem;margin-bottom:.4rem;font-size:.78rem;color:#5a7a5a;text-align:center}
+.info strong{color:#0e6b2b}
+.df-mode .info strong{color:#6b3d0e}
+.timer-bar{text-align:center;margin-bottom:.3rem;font-size:.78rem;color:#5a7a5a}
+.timer-bar span{font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a2e1a}
+.pools{display:grid;grid-template-columns:1fr 1fr;gap:.3rem;margin-bottom:.4rem}
+.pools.single{grid-template-columns:1fr}
+@media(max-width:600px){.pools{grid-template-columns:1fr}}
+.pool{background:#fff;border:2px solid #a8cdb5;padding:.35rem .45rem;min-height:42px}
+.pool-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#5a7a5a;margin-bottom:.25rem}
+.pool-items{display:flex;flex-wrap:wrap;gap:.2rem;min-height:28px}
+.drag-item{padding:.18rem .38rem;background:#fff;font-size:.7rem;font-weight:600;cursor:grab;user-select:none;transition:.15s;white-space:nowrap;border:2px solid}
+.drag-item:hover{transform:translateY(-1px)}
+.drag-item.placed{opacity:.25;pointer-events:none}
+.drag-item.selected{outline:3px solid #ff8800;outline-offset:1px}
+.drag-item.type-name{border-color:#1a8a3e;color:#0e6b2b;background:#f0faf2;font-family:'Outfit',sans-serif}
+.drag-item.type-name:hover{background:#d6f0dd}
+.drag-item.type-formula{border-color:#1a6aa8;color:#0e4f7b;background:#f0f5fa;font-family:'JetBrains Mono',monospace}
+.drag-item.type-formula:hover{background:#d6e8f5}
+.rw-mode .drag-item.type-name{border-color:#1a6aa8;color:#0e4f7b;background:#f0f5fa}
+.rw-mode .drag-item.type-formula{border-color:#2a7aaa}
+.df-mode .drag-item.type-name{border-color:#8a5a1a;color:#6b3d0e;background:#faf5f0}
+.df-mode .drag-item.type-formula{border-color:#aa7a3a;color:#6b3d0e;background:#faf5f0}
+.drag-item.in-zone{opacity:1;pointer-events:auto;cursor:grab}
+.schema{width:100%;border-collapse:collapse;margin-bottom:.5rem;background:#fff;border:2px solid #a8cdb5}
+.schema th{background:#1a8a3e;color:#fff;padding:.28rem .35rem;font-size:.65rem;text-transform:uppercase;letter-spacing:1px;text-align:left;border:1px solid #158533}
+.schema td{padding:.22rem .3rem;border:1px solid #c8dece;vertical-align:middle;height:34px}
+.schema tr:nth-child(even) td{background:#f5faf6}
+.rw-mode .schema th{background:#1a6aa8;border-color:#1560a0}
+.df-mode .schema th{background:#8a5a1a;border-color:#7a4e15}
+.row-num{font-weight:700;font-size:.7rem;color:#5a7a5a;width:22px;text-align:center}
+.fixed-name{font-weight:600;font-size:.78rem;color:#1a2e1a}
+.drop-zone{min-height:26px;border:2px dashed #b8d4c0;background:#f8fcf9;display:flex;align-items:center;justify-content:center;transition:.2s;padding:1px 3px}
+.drop-zone.over{border-color:#1a8a3e;background:#d6f0dd}
+.rw-mode .drop-zone.over{border-color:#1a6aa8;background:#d6e8f5}
+.df-mode .drop-zone.over{border-color:#8a5a1a;background:#f5e8d6}
+.drop-zone.correct{border:2px solid #1a8a3e;background:#d6f0dd}
+.drop-zone.wrong{border:2px solid #c44;background:#fde8e8}
+.drop-zone.has-item{border-style:solid;border-color:#a8cdb5}
+.btns{display:flex;gap:.3rem;justify-content:center;margin-bottom:.6rem;flex-wrap:wrap}
+.btn{padding:.4rem 1.1rem;border:2px solid #1a8a3e;background:#1a8a3e;color:#fff;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;transition:.2s}
+.btn:hover{background:#158533}
+.btn.sec{background:#fff;color:#1a8a3e}.btn.sec:hover{background:#d6f0dd}
+.rw-mode .btn{border-color:#1a6aa8;background:#1a6aa8}
+.rw-mode .btn.sec{background:#fff;color:#1a6aa8}
+.df-mode .btn{border-color:#8a5a1a;background:#8a5a1a}
+.df-mode .btn.sec{background:#fff;color:#8a5a1a}
+.results{background:#fff;border:2px solid #a8cdb5;padding:.7rem;margin-bottom:.6rem;display:none;text-align:center}
+.results.show{display:block}
+.score{font-size:1.7rem;font-weight:800;margin:.2rem 0}
+.score.great{color:#1a8a3e}.score.ok{color:#c8a820}.score.bad{color:#c44}
+.score-text{font-size:.82rem;color:#5a7a5a;margin-bottom:.3rem}
+.details{text-align:left;font-size:.74rem;margin-top:.4rem;max-height:280px;overflow-y:auto}
+.detail-row{padding:.25rem .35rem;border-bottom:1px solid #e8f0ea}
+.dr-head{display:flex;align-items:center;gap:.3rem}
+.dr-label{font-weight:700;font-size:.78rem}
+.dr-sub{font-size:.7rem;margin-top:.08rem;padding-left:1.1rem}
+.dr-sub span{font-family:'JetBrains Mono',monospace}
+.dr-wrong{color:#c44}.dr-right{color:#1a8a3e}
+.special-row td{background:#fff8e0 !important}
+.special-tag{display:inline-block;font-size:.55rem;background:#c8a820;color:#fff;padding:0 3px;font-weight:700;margin-left:2px}
+.touch-hint{text-align:center;font-size:.68rem;color:#8aaa8a;margin-bottom:.25rem;display:none}
+@media(pointer:coarse){.touch-hint{display:block}}
+
+/* Header bar */
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;gap:.5rem;flex-wrap:wrap}
+.header-left{display:flex;align-items:center;gap:.5rem}
+.amo-logo{height:38px;width:auto;image-rendering:crisp-edges;image-rendering:-webkit-optimize-contrast}
+.certified-badge{display:flex;align-items:center;gap:.3rem;background:#fff;border:2px solid #1a8a3e;padding:.2rem .5rem;font-size:.65rem;font-weight:700;color:#0e6b2b}
+.certified-badge .check{color:#1a8a3e;font-size:.9rem}
+.header-right{background:#fff;border:2px solid #a8cdb5;padding:.35rem .5rem;max-width:340px}
+.header-right .kond-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#5a7a5a;margin-bottom:.2rem}
+.kond-grid{display:grid;grid-template-columns:1fr 1fr;gap:.1rem .6rem;font-size:.7rem}
+.kond-grid .kl{color:#5a7a5a}.kond-grid .kv{font-family:'JetBrains Mono',monospace;font-weight:600;color:#1a2e1a;text-align:right}
+
+/* Reference table */
+.ref-table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #a8cdb5;margin-bottom:.6rem;font-size:.7rem}
+.ref-table th{padding:.3rem .3rem;font-size:.6rem;text-transform:uppercase;letter-spacing:.7px;text-align:left;color:#fff;border:1px solid rgba(255,255,255,.2)}
+.ref-table td{padding:.3rem .35rem;border:1px solid #d8e8dc;vertical-align:top;line-height:1.55}
+.ref-table tr:nth-child(even) td{background:#f7fbf8}
+.th-nr{background:#555;width:20px}
+.th-name{background:#444;min-width:100px}
+.th-fw{background:#1a8a3e}
+.th-rw{background:#1a6aa8}
+.th-df{background:#8a5a1a}
+.cell-fw{color:#0e6b2b}.cell-rw{color:#0e4f7b}.cell-df{color:#6b3d0e}
+.cell-name{font-weight:600;color:#1a2e1a}
+.ref-formula{font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:600;display:block}
+.ref-calc{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#888;display:block;margin-top:1px}
+.same-cell{background:#f0fff0}
+.diff-rw{background:#e8f0ff;border-left:3px solid #4080e0}
+.diff-df{background:#fff5e8;border-left:3px solid #d09030}
+.ref-legend{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-bottom:.4rem;font-size:.7rem;color:#5a7a5a}
+.ref-legend-item{display:flex;align-items:center;gap:.25rem}
+.ref-dot{width:13px;height:13px;border:1px solid #ccc}
+</style>
+</head>
+<body>
+<div class="c">
+
+<div class="header">
+  <div class="header-left">
+    <svg viewBox="0 0 160 42" height="42" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+      <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#D97706"/><stop offset="100%" stop-color="#B45309"/></linearGradient></defs>
+      <rect width="160" height="42" rx="6" fill="url(#cg)"/>
+      <circle cx="22" cy="21" r="13" fill="#fff" opacity=".95"/>
+      <text x="22" y="26.5" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="800" font-size="16" fill="#D97706">C</text>
+      <text x="92" y="28" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="700" font-size="17" fill="#fff">Claude</text>
+    </svg>
+    <div class="certified-badge"><span class="check">✔</span> Zertifiziert von Claude AI</div>
+  </div>
+  <div class="header-right" id="konditionen-box"></div>
+</div>
+
+<h1>Kalkulations-Quiz</h1>
+<p class="sub">Ziehe die Elemente in die richtigen Felder!</p>
+<div class="nav-row">
+<button class="tb a-fw" id="btn-fw" onclick="sw('fw')">⬇ Vorwärts</button>
+<button class="tb" id="btn-rw" onclick="sw('rw')">⬆ Rückwärts</button>
+<button class="tb" id="btn-df" onclick="sw('df')">↕ Differenz</button>
+<button class="tb" id="btn-ref" onclick="sw('ref')">📊 Übersicht</button>
+</div>
+<div class="nav-row" id="diff-row">
+<div class="diff-label">Schwierigkeit:</div>
+<button class="tb a-easy" id="btn-easy" onclick="setDiff('easy')">😊 Einfach</button>
+<button class="tb" id="btn-hard" onclick="setDiff('hard')">🔥 Schwer</button>
+</div>
+<div class="touch-hint">📱 Tippe Element → tippe Zielfeld</div>
+
+<div id="view-fw" class="view act">
+<div class="info">Vorwärtskalkulation: Listeneinkaufspreis = <strong>250 €</strong></div>
+<div class="timer-bar">⏱ <span id="timer-fw">00:00</span></div>
+<div class="pools" id="pools-fw"></div>
+<table class="schema" id="schema-fw"></table>
+<div class="btns"><button class="btn" onclick="check('fw')">✔ Auswerten</button><button class="btn sec" onclick="rst('fw')">↺ Neu</button></div>
+<div class="results" id="results-fw"></div>
+</div>
+
+<div id="view-rw" class="view rw-mode">
+<div class="info">Rückwärtskalkulation: Listenverkaufspreis = <strong>310 €</strong></div>
+<div class="timer-bar">⏱ <span id="timer-rw">00:00</span></div>
+<div class="pools" id="pools-rw"></div>
+<table class="schema" id="schema-rw"></table>
+<div class="btns"><button class="btn" onclick="check('rw')">✔ Auswerten</button><button class="btn sec" onclick="rst('rw')">↺ Neu</button></div>
+<div class="results" id="results-rw"></div>
+</div>
+
+<div id="view-df" class="view df-mode">
+<div class="info">Differenz: Listeneinkaufspreis = <strong>100 €</strong>, Listenverkaufspreis = <strong>310 €</strong></div>
+<div class="timer-bar">⏱ <span id="timer-df">00:00</span></div>
+<div class="pools" id="pools-df"></div>
+<table class="schema" id="schema-df"></table>
+<div class="btns"><button class="btn" onclick="check('df')">✔ Auswerten</button><button class="btn sec" onclick="rst('df')">↺ Neu</button></div>
+<div class="results" id="results-df"></div>
+</div>
+
+<div id="view-ref" class="view">
+<div class="info" style="border-color:#b8a8d4"><strong style="color:#6a3a8a">Komplettübersicht</strong> — Alle 3 Kalkulationsarten mit Formel und Beispielrechnung</div>
+<div class="ref-legend">
+<div class="ref-legend-item"><div class="ref-dot same-cell"></div>Gleiche Formel</div>
+<div class="ref-legend-item"><div class="ref-dot diff-rw"></div>Abweichend (Rückwärts)</div>
+<div class="ref-legend-item"><div class="ref-dot diff-df"></div>Abweichend (Differenz)</div>
+</div>
+<div style="overflow-x:auto"><table class="ref-table" id="ref-table"></table></div>
+</div>
+</div>
+
+<script>
+// Quiz data: formulas WITHOUT results
+const D={
+fw:[
+{name:"Lieferrabatt",formula:"250 × 0,06",result:"15,00 €"},
+{name:"Zieleinkaufspreis",formula:"250 − 15",result:"235,00 €"},
+{name:"Lieferskonto",formula:"235 × 0,03",result:"7,05 €"},
+{name:"Bareinkaufspreis",formula:"235 − 7,05",result:"227,95 €"},
+{name:"Einstandspreis",formula:"227,95 + 0",result:"227,95 €"},
+{name:"Handlungskosten",formula:"227,95 × 0,20",result:"45,59 €"},
+{name:"Selbstkosten",formula:"227,95 + 45,59",result:"273,54 €"},
+{name:"Gewinn",formula:"273,54 × 0,05",result:"13,68 €"},
+{name:"Barverkaufspreis",formula:"273,54 + 13,68",result:"287,22 €"},
+{name:"Kundenskonto",formula:"287,22 × 0,04 ÷ 0,96",result:"11,97 €"},
+{name:"Zielverkaufspreis",formula:"287,22 + 11,97",result:"299,18 €"},
+{name:"Kundenrabatt",formula:"299,18 × 0,08 ÷ 0,92",result:"26,02 €"},
+{name:"Listenverkaufspreis",formula:"299,18 + 26,02",result:"325,20 €"}
+],
+rw:[
+{name:"Kundenrabatt",formula:"310 × 0,08",result:"24,80 €"},
+{name:"Zielverkaufspreis",formula:"310 − 24,80",result:"285,20 €"},
+{name:"Kundenskonto",formula:"285,20 × 0,04",result:"11,41 €"},
+{name:"Barverkaufspreis",formula:"285,20 − 11,41",result:"273,79 €"},
+{name:"Selbstkosten",formula:"273,79 ÷ 1,04",result:"263,26 €"},
+{name:"Gewinn",formula:"273,79 − 263,26",result:"10,53 €"},
+{name:"Einstandspreis",formula:"263,26 ÷ 1,20",result:"219,38 €"},
+{name:"Handlungskosten",formula:"263,26 − 219,38",result:"43,88 €"},
+{name:"Bareinkaufspreis",formula:"219,38 − 0",result:"219,38 €"},
+{name:"Zieleinkaufspreis",formula:"219,38 ÷ 0,97",result:"226,17 €"},
+{name:"Lieferskonto",formula:"226,17 × 0,03",result:"6,79 €"},
+{name:"Listeneinkaufspreis",formula:"226,17 ÷ 0,94",result:"240,61 €"},
+{name:"Lieferrabatt",formula:"240,61 × 0,06",result:"14,44 €"}
+],
+df:[
+{name:"Lieferrabatt",formula:"100 × 0,06",result:"6,00 €",dir:"⬇"},
+{name:"Zieleinkaufspreis",formula:"100 − 6",result:"94,00 €",dir:"⬇"},
+{name:"Lieferskonto",formula:"94 × 0,03",result:"2,82 €",dir:"⬇"},
+{name:"Bareinkaufspreis",formula:"94 − 2,82",result:"91,18 €",dir:"⬇"},
+{name:"Einstandspreis",formula:"91,18 + 0",result:"91,18 €",dir:"⬇"},
+{name:"Handlungskosten",formula:"91,18 × 0,20",result:"18,24 €",dir:"⬇"},
+{name:"Selbstkosten",formula:"91,18 + 18,24",result:"109,42 €",dir:"⬇"},
+{name:"Gewinn ⭐",formula:"273,79 − 109,42",result:"164,38 €",dir:"↕",special:true},
+{name:"Barverkaufspreis",formula:"285,20 − 11,41",result:"273,79 €",dir:"⬆"},
+{name:"Kundenskonto",formula:"285,20 × 0,04",result:"11,41 €",dir:"⬆"},
+{name:"Zielverkaufspreis",formula:"310 − 24,80",result:"285,20 €",dir:"⬆"},
+{name:"Kundenrabatt",formula:"310 × 0,08",result:"24,80 €",dir:"⬆"},
+{name:"Listenverkaufspreis",formula:"gegeben: 310",result:"310,00 €",dir:"⬆"}
+]};
+
+// Reference table: full formulas + example calculations, no abbreviations
+const REF=[
+{label:"Listeneinkaufspreis (netto)",
+ fw:{f:"gegeben",calc:"250,00"},
+ rw:{f:"Zieleinkaufspreis ÷ (1 − Lieferrabatt)",calc:"226,17 ÷ 0,94 = 240,61",diff:true},
+ df:{f:"gegeben",calc:"100,00"}},
+{label:"− Lieferrabatt",
+ fw:{f:"Listeneinkaufspreis × Lieferrabatt",calc:"250 × 0,06 = 15,00"},
+ rw:{f:"Listeneinkaufspreis × Lieferrabatt",calc:"240,61 × 0,06 = 14,44"},
+ df:{f:"Listeneinkaufspreis × Lieferrabatt",calc:"100 × 0,06 = 6,00"}},
+{label:"= Zieleinkaufspreis",
+ fw:{f:"Listeneinkaufspreis − Lieferrabatt",calc:"250 − 15 = 235,00"},
+ rw:{f:"Bareinkaufspreis ÷ (1 − Lieferskonto)",calc:"219,38 ÷ 0,97 = 226,17",diff:true},
+ df:{f:"Listeneinkaufspreis − Lieferrabatt",calc:"100 − 6 = 94,00"}},
+{label:"− Lieferskonto",
+ fw:{f:"Zieleinkaufspreis × Lieferskonto",calc:"235 × 0,03 = 7,05"},
+ rw:{f:"Zieleinkaufspreis × Lieferskonto",calc:"226,17 × 0,03 = 6,79"},
+ df:{f:"Zieleinkaufspreis × Lieferskonto",calc:"94 × 0,03 = 2,82"}},
+{label:"= Bareinkaufspreis",
+ fw:{f:"Zieleinkaufspreis − Lieferskonto",calc:"235 − 7,05 = 227,95"},
+ rw:{f:"Einstandspreis − Bezugskosten",calc:"219,38 − 0 = 219,38",diff:true},
+ df:{f:"Zieleinkaufspreis − Lieferskonto",calc:"94 − 2,82 = 91,18"}},
+{label:"+ Bezugskosten",
+ fw:{f:"gegeben",calc:"0,00"},
+ rw:{f:"gegeben",calc:"0,00"},
+ df:{f:"gegeben",calc:"0,00"}},
+{label:"= Einstandspreis",
+ fw:{f:"Bareinkaufspreis + Bezugskosten",calc:"227,95 + 0 = 227,95"},
+ rw:{f:"Selbstkosten ÷ (1 + Handlungskostenzuschlag)",calc:"263,26 ÷ 1,20 = 219,38",diff:true},
+ df:{f:"Bareinkaufspreis + Bezugskosten",calc:"91,18 + 0 = 91,18"}},
+{label:"+ Handlungskosten",
+ fw:{f:"Einstandspreis × Handlungskostenzuschlag",calc:"227,95 × 0,20 = 45,59"},
+ rw:{f:"Selbstkosten − Einstandspreis",calc:"263,26 − 219,38 = 43,88",diff:true},
+ df:{f:"Einstandspreis × Handlungskostenzuschlag",calc:"91,18 × 0,20 = 18,24"}},
+{label:"= Selbstkosten",
+ fw:{f:"Einstandspreis + Handlungskosten",calc:"227,95 + 45,59 = 273,54"},
+ rw:{f:"Barverkaufspreis ÷ (1 + Gewinnzuschlag)",calc:"273,79 ÷ 1,04 = 263,26",diff:true},
+ df:{f:"Einstandspreis + Handlungskosten",calc:"91,18 + 18,24 = 109,42"}},
+{label:"+ Gewinn",
+ fw:{f:"Selbstkosten × Gewinnzuschlag",calc:"273,54 × 0,05 = 13,68"},
+ rw:{f:"Barverkaufspreis − Selbstkosten",calc:"273,79 − 263,26 = 10,53",diff:true},
+ df:{f:"Barverkaufspreis − Selbstkosten",calc:"273,79 − 109,42 = 164,38",diff:true}},
+{label:"= Barverkaufspreis",
+ fw:{f:"Selbstkosten + Gewinn",calc:"273,54 + 13,68 = 287,22"},
+ rw:{f:"Zielverkaufspreis − Kundenskonto",calc:"285,20 − 11,41 = 273,79",diff:true},
+ df:{f:"Zielverkaufspreis − Kundenskonto",calc:"285,20 − 11,41 = 273,79",diff:true}},
+{label:"+ Kundenskonto",
+ fw:{f:"Barverkaufspreis × Skonto ÷ (1 − Skonto)",calc:"287,22 × 0,04 ÷ 0,96 = 11,97"},
+ rw:{f:"Zielverkaufspreis × Kundenskonto",calc:"285,20 × 0,04 = 11,41",diff:true},
+ df:{f:"Zielverkaufspreis × Kundenskonto",calc:"285,20 × 0,04 = 11,41",diff:true}},
+{label:"= Zielverkaufspreis",
+ fw:{f:"Barverkaufspreis + Kundenskonto",calc:"287,22 + 11,97 = 299,18"},
+ rw:{f:"Listenverkaufspreis − Kundenrabatt",calc:"310 − 24,80 = 285,20",diff:true},
+ df:{f:"Listenverkaufspreis − Kundenrabatt",calc:"310 − 24,80 = 285,20",diff:true}},
+{label:"+ Kundenrabatt",
+ fw:{f:"Zielverkaufspreis × Rabatt ÷ (1 − Rabatt)",calc:"299,18 × 0,08 ÷ 0,92 = 26,02"},
+ rw:{f:"Listenverkaufspreis × Kundenrabatt",calc:"310 × 0,08 = 24,80",diff:true},
+ df:{f:"Listenverkaufspreis × Kundenrabatt",calc:"310 × 0,08 = 24,80",diff:true}},
+{label:"= Listenverkaufspreis (netto)",
+ fw:{f:"Zielverkaufspreis + Kundenrabatt",calc:"299,18 + 26,02 = 325,20"},
+ rw:{f:"gegeben",calc:"310,00",diff:true},
+ df:{f:"gegeben",calc:"310,00",diff:true}}
+];
+
+let timers={},secs={},selItem=null,difficulty='easy';
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=0|Math.random()*(i+1);[b[i],b[j]]=[b[j],b[i]];}return b;}
+function mid(m,t,i){return`di-${m}-${t}-${i}`;}
+function uid(){return'z'+Math.random().toString(36).slice(2,8);}
+
+function mkDrag(id,text,type,mode,idx){
+  const el=document.createElement('div');
+  el.className=`drag-item type-${type}`;
+  el.draggable=true;el.textContent=text;
+  el.id=id;el.dataset.mode=mode;el.dataset.type=type;el.dataset.idx=idx;
+  el.addEventListener('dragstart',ds);el.addEventListener('dragend',de);
+  el.addEventListener('click',()=>ic(el));return el;
+}
+
+function build(mode){
+  const data=D[mode],isH=difficulty==='hard';
+  const poolsDiv=document.getElementById('pools-'+mode);
+  const tb=document.getElementById('schema-'+mode);
+  let ph='';
+  if(isH){
+    ph=`<div class="pool"><div class="pool-label">Fachbegriffe</div><div class="pool-items" id="pn-${mode}"></div></div>`;
+    ph+=`<div class="pool"><div class="pool-label">Formeln (ohne Ergebnis)</div><div class="pool-items" id="pf-${mode}"></div></div>`;
+    poolsDiv.className='pools';
+  } else {
+    ph=`<div class="pool" style="grid-column:1/-1"><div class="pool-label">Formeln (ohne Ergebnis)</div><div class="pool-items" id="pf-${mode}"></div></div>`;
+    poolsDiv.className='pools single';
+  }
+  poolsDiv.innerHTML=ph;
+
+  let h='<tr><th style="width:22px">#</th>';
+  if(mode==='df')h+='<th style="width:18px">↕</th>';
+  h+='<th>Fachbegriff</th><th>Formel / Rechnung</th><th style="width:62px">Ergebnis</th></tr>';
+  data.forEach((r,i)=>{
+    const sp=r.special?'special-row':'';
+    h+=`<tr class="${sp}"><td class="row-num">${i+1}</td>`;
+    if(mode==='df')h+=`<td style="text-align:center;font-size:.7rem">${r.dir}</td>`;
+    if(isH) h+=`<td><div class="drop-zone" id="dz-${mode}-name-${i}" data-accept="name" data-idx="${i}" data-mode="${mode}"></div></td>`;
+    else h+=`<td class="fixed-name">${r.name}${r.special?'<span class="special-tag">DIFFERENZ</span>':''}</td>`;
+    h+=`<td><div class="drop-zone" id="dz-${mode}-formula-${i}" data-accept="formula" data-idx="${i}" data-mode="${mode}"></div></td>`;
+    h+=`<td style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;color:#5a7a5a">${r.result}</td></tr>`;
+  });
+  tb.innerHTML=h;
+  tb.querySelectorAll('.drop-zone').forEach(z=>{
+    z.addEventListener('dragover',dov);z.addEventListener('dragleave',dlv);
+    z.addEventListener('drop',ddr);z.addEventListener('click',()=>zc(z));
+  });
+  const pF=document.getElementById('pf-'+mode);
+  shuffle(data.map((_,i)=>i)).forEach(i=>{pF.appendChild(mkDrag(mid(mode,'formula',i),data[i].formula,'formula',mode,i));});
+  if(isH){const pN=document.getElementById('pn-'+mode);shuffle(data.map((_,i)=>i)).forEach(i=>{pN.appendChild(mkDrag(mid(mode,'name',i),data[i].name,'name',mode,i));});}
+  secs[mode]=0;if(timers[mode])clearInterval(timers[mode]);
+  timers[mode]=setInterval(()=>{secs[mode]++;document.getElementById('timer-'+mode).textContent=String(0|secs[mode]/60).padStart(2,'0')+':'+String(secs[mode]%60).padStart(2,'0');},1000);
+  document.getElementById('results-'+mode).classList.remove('show');
+  document.getElementById('results-'+mode).innerHTML='';
+}
+
+function ds(e){e.dataTransfer.setData('text/plain',e.target.id);e.dataTransfer.effectAllowed='move';setTimeout(()=>e.target.style.opacity='.35',0);}
+function de(e){e.target.style.opacity='';}
+function dov(e){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('over');}
+function dlv(e){e.currentTarget.classList.remove('over');}
+function ddr(e){e.preventDefault();e.currentTarget.classList.remove('over');const el=document.getElementById(e.dataTransfer.getData('text/plain'));if(!el||e.currentTarget.dataset.accept!==el.dataset.type)return;place(el,e.currentTarget);}
+function ic(el){if(selItem===el){el.classList.remove('selected');selItem=null;return;}if(selItem)selItem.classList.remove('selected');selItem=el;el.classList.add('selected');}
+function zc(z){if(!selItem||z.dataset.accept!==selItem.dataset.type)return;place(selItem,z);selItem.classList.remove('selected');selItem=null;}
+
+function place(item,zone){
+  const mode=item.dataset.mode,type=item.dataset.type,idx=item.dataset.idx;
+  const ex=zone.querySelector('.drag-item');if(ex)sendBack(ex);
+  if(item.parentElement&&item.parentElement.classList.contains('drop-zone'))item.parentElement.classList.remove('has-item');
+  const poolEl=document.getElementById(mid(mode,type,idx));
+  const el=mkDrag(uid(),item.textContent,type,mode,idx);el.classList.add('in-zone');
+  zone.innerHTML='';zone.appendChild(el);zone.classList.add('has-item');zone.classList.remove('correct','wrong');
+  if(poolEl)poolEl.classList.add('placed');
+  if(item.classList.contains('in-zone'))item.remove();
+}
+function sendBack(item){
+  const poolEl=document.getElementById(mid(item.dataset.mode,item.dataset.type,item.dataset.idx));
+  if(poolEl)poolEl.classList.remove('placed');
+  if(item.parentElement)item.parentElement.classList.remove('has-item');
+  item.remove();
+}
+
+function check(mode){
+  if(timers[mode])clearInterval(timers[mode]);
+  const data=D[mode],isH=difficulty==='hard';
+  let cN=0,cF=0,total=data.length;let html='';
+  data.forEach((r,i)=>{
+    const zf=document.getElementById(`dz-${mode}-formula-${i}`);
+    const inF=zf.querySelector('.drag-item');
+    const uF=inF?inF.textContent.trim():'—';
+    const okF=uF===r.formula;
+    if(okF){cF++;zf.classList.add('correct');zf.classList.remove('wrong');}else{zf.classList.add('wrong');zf.classList.remove('correct');}
+    let okN=true,uN=r.name;
+    if(isH){const zn=document.getElementById(`dz-${mode}-name-${i}`);const inN=zn.querySelector('.drag-item');uN=inN?inN.textContent.trim():'—';okN=uN===r.name;if(okN){cN++;zn.classList.add('correct');zn.classList.remove('wrong');}else{zn.classList.add('wrong');zn.classList.remove('correct');}}else{cN++;}
+    const icon=okN&&okF?'✅':okN||okF?'🟡':'❌';
+    html+=`<div class="detail-row"><div class="dr-head"><span class="icon">${icon}</span><span class="dr-label">#${i+1} ${r.name}</span></div><div class="dr-sub">`;
+    if(isH)html+=`Begriff: <span class="${okN?'dr-right':'dr-wrong'}">${uN}</span>${!okN?' → <span class="dr-right">'+r.name+'</span>':''}<br>`;
+    html+=`Formel: <span class="${okF?'dr-right':'dr-wrong'}">${uF}</span>${!okF?' → <span class="dr-right">'+r.formula+'</span>':''}`;
+    html+=`</div></div>`;
+  });
+  const pts=cN+cF,max=isH?total*2:total,pct=Math.round(pts/max*100);
+  const t=String(0|secs[mode]/60).padStart(2,'0')+':'+String(secs[mode]%60).padStart(2,'0');
+  let sc='bad',em='😔',msg='Weiter üben!';
+  if(pct>=85){sc='great';em='🎉';msg='Ausgezeichnet!';}else if(pct>=60){sc='ok';em='💪';msg='Gut, weiter so!';}else if(pct>=40){sc='ok';em='📚';msg='Noch etwas Übung!';}
+  let sub=`Formeln: ${cF}/${total}`;if(isH)sub=`Begriffe: ${cN}/${total} — `+sub;
+  const res=document.getElementById('results-'+mode);
+  res.innerHTML=`<div style="font-size:1.3rem">${em}</div><div class="score ${sc}">${pts} / ${max} Punkte (${pct}%)</div><div class="score-text">${sub} — Zeit: ${t} — ${msg}</div><div class="details">${html}</div>`;
+  res.classList.add('show');
+}
+
+function rst(mode){build(mode);if(selItem){selItem.classList.remove('selected');selItem=null;}}
+function sw(mode){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('act'));
+  document.querySelectorAll('.nav-row:first-of-type .tb').forEach(b=>b.classList.remove('a-fw','a-rw','a-df','a-ref'));
+  document.getElementById('view-'+mode).classList.add('act');
+  document.getElementById('btn-'+mode).classList.add('a-'+mode);
+  document.getElementById('diff-row').style.display=mode==='ref'?'none':'flex';
+  if(mode!=='ref')updateKond(mode);
+}
+function setDiff(d){
+  difficulty=d;
+  document.getElementById('btn-easy').className='tb'+(d==='easy'?' a-easy':'');
+  document.getElementById('btn-hard').className='tb'+(d==='hard'?' a-hard':'');
+  build('fw');build('rw');build('df');
+}
+
+function buildRef(){
+  let h='<tr><th class="th-nr">#</th><th class="th-name">Kalkulationszeile</th><th class="th-fw">⬇ Vorwärts (250 €)</th><th class="th-rw">⬆ Rückwärts (310 €)</th><th class="th-df">↕ Differenz (100 € / 310 €)</th></tr>';
+  REF.forEach((r,i)=>{
+    const rwC=r.rw.diff?'diff-rw':'same-cell';
+    const dfC=r.df.diff?'diff-df':'same-cell';
+    h+=`<tr>
+      <td style="text-align:center;font-size:.68rem;color:#888">${i+1}</td>
+      <td class="cell-name">${r.label}</td>
+      <td class="cell-fw same-cell"><span class="ref-formula">${r.fw.f}</span><span class="ref-calc">${r.fw.calc}</span></td>
+      <td class="cell-rw ${rwC}"><span class="ref-formula">${r.rw.f}</span><span class="ref-calc">${r.rw.calc}</span></td>
+      <td class="cell-df ${dfC}"><span class="ref-formula">${r.df.f}</span><span class="ref-calc">${r.df.calc}</span></td>
+    </tr>`;
+  });
+  document.getElementById('ref-table').innerHTML=h;
+}
+
+build('fw');build('rw');build('df');buildRef();
+
+// Konditionen per mode
+const KOND={
+fw:{title:"Konditionen für die Kalkulation",items:[
+["Listeneinkaufspreis (netto)","250,00 €"],["Lieferrabatt","6 %"],["Lieferskonto","3 %"],["Bezugskosten","0,00 €"],
+["Handlungskostenzuschlag","20 %"],["Gewinnzuschlag","5 %"],["Kundenskonto","4 %"],["Kundenrabatt","8 %"]]},
+rw:{title:"Konditionen für die Kalkulation",items:[
+["Listenverkaufspreis (netto)","310,00 €"],["Kundenrabatt","8 %"],["Kundenskonto","4 %"],["Gewinnzuschlag","4 %"],
+["Handlungskostenzuschlag","20 %"],["Bezugskosten","0,00 €"],["Lieferskonto","3 %"],["Lieferrabatt","6 %"]]},
+df:{title:"Konditionen für die Kalkulation",items:[
+["Listeneinkaufspreis (netto)","100,00 €"],["Listenverkaufspreis (netto)","310,00 €"],["Lieferrabatt","6 %"],["Lieferskonto","3 %"],
+["Handlungskostenzuschlag","20 %"],["Gewinnzuschlag","?"],["Kundenskonto","4 %"],["Kundenrabatt","8 %"]]}
+};
+function updateKond(mode){
+  const k=KOND[mode]||KOND.fw;
+  const box=document.getElementById('konditionen-box');
+  let h=`<div class="kond-title">${k.title}</div><div class="kond-grid">`;
+  k.items.forEach(([l,v])=>{h+=`<span class="kl">${l}</span><span class="kv">${v}</span>`;});
+  h+='</div>';box.innerHTML=h;
+}
+updateKond('fw');
+</script>
+</body>
+</html>
