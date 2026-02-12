@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPv4 Master Quiz - Alle Schwierigkeitsstufen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background particles */
+        .particle {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 15s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 3em;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .header-icon {
+            font-size: 1.2em;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3em;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Level selection screen */
+        #levelSelection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .level-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        
+        .level-card:hover::before {
+            opacity: 1;
+        }
+        
+        .level-easy {
+            border-top: 5px solid #10b981;
+        }
+        
+        .level-medium {
+            border-top: 5px solid #f59e0b;
+        }
+        
+        .level-hard {
+            border-top: 5px solid #ef4444;
+        }
+        
+        .level-god {
+            border-top: 5px solid #8b5cf6;
+            background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 100%);
+        }
+        
+        .level-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .level-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        
+        .level-description {
+            color: #6b7280;
+            font-size: 1em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .level-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        
+        .stat-label {
+            font-size: 0.85em;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+        
+        /* Quiz screen */
+        #quizScreen {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .quiz-header {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .quiz-title {
+            font-size: 1.8em;
+            color: #1f2937;
+            font-weight: bold;
+        }
+        
+        .progress-container {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+        
+        .progress-text {
+            font-size: 0.9em;
+            color: #6b7280;
+            text-align: right;
+        }
+        
+        .back-button {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .question {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+        
+        .question:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            transform: translateX(5px);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        
+        .question-text {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 1.15em;
+            line-height: 1.6;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px 18px;
+            margin: 10px 0;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .option:hover {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            transform: translateX(5px);
+        }
+        
+        .option input[type="checkbox"] {
+            margin-right: 15px;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #3b82f6;
+        }
+        
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            user-select: none;
+            font-size: 1.05em;
+            color: #374151;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2em;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.5);
+        }
+        
+        .submit-button:active {
+            transform: translateY(-1px);
+        }
+        
+        /* Results */
+        #result {
+            margin-top: 40px;
+            padding: 35px;
+            border-radius: 15px;
+            display: none;
+            animation: slideIn 0.5s;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        
+        .result-success {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 3px solid #10b981;
+        }
+        
+        .result-partial {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 3px solid #f59e0b;
+        }
+        
+        .result-fail {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 3px solid #ef4444;
+        }
+        
+        .result-title {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .result-score {
+            text-align: center;
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #1f2937;
+        }
+        
+        .result-details {
+            margin-top: 30px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .detail-item {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+        
+        .correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+        
+        .incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        
+        .correct-answer {
+            margin-top: 8px;
+            font-weight: 600;
+            padding: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 5px;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            font-size: 0.95em;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+            font-style: italic;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            #levelSelection {
+                grid-template-columns: 1fr;
+            }
+            
+            .quiz-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated particles -->
+    <script>
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 60 + 20 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+            document.body.appendChild(particle);
+        }
+    </script>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <span class="header-icon">🌐</span>
+                IPv4 Master Quiz
+                <span class="header-icon">🎯</span>
+            </h1>
+            <p class="subtitle">Wähle deinen Schwierigkeitsgrad und teste dein Wissen!</p>
+        </div>
+
+        <!-- Level Selection -->
+        <div id="levelSelection">
+            <div class="level-card level-easy" onclick="startQuiz('easy')">
+                <span class="level-icon">🌱</span>
+                <div class="level-title">Leicht</div>
+                <div class="level-description">Perfekt für Einsteiger. Grundlagen der IPv4-Adressierung.</div>
+                <div class="level-stats">
+                    <div class="stat">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Fragen</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">⭐</div>
+                        <div class="stat-label">Level 1</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-card level-medium" onclick="startQuiz('medium')">
+                <span class="level-icon">🔥</span>
+                <div class="level-title">Mittel</div>
+                <div class="level-description">Für Fortgeschrittene. Subnetting und CIDR-Notation.</div>
+                <div class="level-stats">
+                    <div class="stat">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Fragen</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">⭐⭐</div>
+                        <div class="stat-label">Level 2</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-card level-hard" onclick="startQuiz('hard')">
+                <span class="level-icon">💪</span>
+                <div class="level-title">Schwer</div>
+                <div class="level-description">Für Profis. Komplexe Netzwerkberechnungen und Routing.</div>
+                <div class="level-stats">
+                    <div class="stat">
+                        <div class="stat-value">10</div>
+                        <div class="stat-label">Fragen</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">⭐⭐⭐</div>
+                        <div class="stat-label">Level 3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-card level-god" onclick="startQuiz('god')">
+                <span class="level-icon">👑</span>
+                <div class="level-title">Gottes Wissen</div>
+                <div class="level-description">Nur für absolute Experten. Extrem anspruchsvoll!</div>
+                <div class="level-stats">
+                    <div class="stat">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Fragen</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">👑</div>
+                        <div class="stat-label">Master</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quizScreen">
+            <div class="quiz-header">
+                <div class="quiz-title" id="quizLevelTitle"></div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText"></div>
+                </div>
+                <button class="back-button" onclick="goBack()">← Zurück</button>
+            </div>
+
+            <form id="quizForm">
+                <div id="questionsContainer"></div>
+                
+                <div class="button-container">
+                    <button type="submit" class="submit-button">✓ Auswertung Anzeigen</button>
+                </div>
+            </form>
+
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = {
+            easy: {
+                title: '🌱 Leicht - Grundlagen',
+                questions: [
+                    {
+                        text: 'Was ist eine IPv4-Adresse?',
+                        options: [
+                            'Eine 32-Bit-Adresse',
+                            'Eine 64-Bit-Adresse',
+                            'Eine 128-Bit-Adresse',
+                            'Sie besteht aus 4 Oktetten'
+                        ],
+                        correct: ['a', 'd'],
+                        explanation: 'IPv4-Adressen bestehen aus 32 Bit (4 Bytes) und werden als 4 Oktette dargestellt (z.B. 192.168.1.1).'
+                    },
+                    {
+                        text: 'Welche Werte kann ein Oktett in einer IPv4-Adresse annehmen?',
+                        options: [
+                            '0 bis 255',
+                            '0 bis 256',
+                            '1 bis 255',
+                            '1 bis 256'
+                        ],
+                        correct: ['a'],
+                        explanation: 'Ein Oktett besteht aus 8 Bit, daher sind Werte von 0 (00000000) bis 255 (11111111) möglich.'
+                    },
+                    {
+                        text: 'Welche Aussagen über die Loopback-Adresse sind richtig?',
+                        options: [
+                            'Die Loopback-Adresse ist 127.0.0.1',
+                            'Sie wird verwendet, um das eigene Gerät zu adressieren',
+                            'Die Loopback-Adresse ist 192.168.1.1',
+                            'Der gesamte Bereich 127.0.0.0/8 ist für Loopback reserviert'
+                        ],
+                        correct: ['a', 'b', 'd'],
+                        explanation: '127.0.0.1 ist die bekannteste Loopback-Adresse, aber der gesamte Bereich 127.0.0.0/8 ist dafür reserviert.'
+                    },
+                    {
+                        text: 'Was bedeutet "privater IP-Adressbereich"?',
+                        options: [
+                            'Diese Adressen sind nur im lokalen Netzwerk gültig',
+                            'Sie werden nicht im Internet geroutet',
+                            'Sie können kostenlos verwendet werden',
+                            'Sie sind schneller als öffentliche IP-Adressen'
+                        ],
+                        correct: ['a', 'b', 'c'],
+                        explanation: 'Private IP-Adressen (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) sind für lokale Netzwerke reserviert und werden nicht im Internet geroutet.'
+                    },
+                    {
+                        text: 'Welcher Bereich gehört zu den privaten IP-Adressen?',
+                        options: [
+                            '10.0.0.0 bis 10.255.255.255',
+                            '172.16.0.0 bis 172.31.255.255',
+                            '192.168.0.0 bis 192.168.255.255',
+                            '8.8.8.0 bis 8.8.8.255'
+                        ],
+                        correct: ['a', 'b', 'c'],
+                        explanation: 'Die drei privaten Adressbereiche nach RFC 1918 sind: 10.0.0.0/8, 172.16.0.0/12 und 192.168.0.0/16.'
+                    },
+                    {
+                        text: 'Was ist die Broadcast-Adresse?',
+                        options: [
+                            'Eine Adresse, die an alle Geräte im Netzwerk sendet',
+                            'Immer die letzte Adresse im Subnetz',
+                            'Sie kann einem Host zugewiesen werden',
+                            'In einem /24-Netz endet sie auf .255'
+                        ],
+                        correct: ['a', 'b', 'd'],
+                        explanation: 'Die Broadcast-Adresse ist die letzte Adresse im Subnetz und sendet an alle Geräte. Sie kann keinem Host zugewiesen werden.'
+                    }
+                ]
+            },
+            medium: {
+                title: '🔥 Mittel - Subnetting',
+                questions: [
+                    {
+                        text: 'Was bedeutet die CIDR-Notation /24?',
+                        options: [
+                            '24 Bits für das Netzwerk',
+                            'Entspricht der Subnetzmaske 255.255.255.0',
+                            '24 mögliche Hosts',
+                            '8 Bits für Host-Adressen'
+                        ],
+                        correct: ['a', 'b', 'd'],
+                        explanation: '/24 bedeutet 24 Netzwerk-Bits, entspricht 255.255.255.0 und lässt 8 Bits (256 Adressen, 254 nutzbar) für Hosts übrig.'
+                    },
+                    {
+                        text: 'Wie viele nutzbare Host-Adressen hat ein /26-Netzwerk?',
+                        options: [
+                            '62',
+                            '64',
+                            '30',
+                            '126'
+                        ],
+                        correct: ['a'],
+                        explanation: '/26 = 32-26 = 6 Host-Bits = 2^6 = 64 Adressen. Abzüglich Netzwerk- und Broadcast-Adresse: 64 - 2 = 62 nutzbare Hosts.'
+                    },
+                    {
+                        text: 'Welche Subnetzmaske entspricht /28?',
+                        options: [
+                            '255.255.255.240',
+                            '255.255.255.224',
+                            '255.255.255.248',
+                            '255.255.255.252'
+                        ],
+                        correct: ['a'],
+                        explanation: '/28 = 28 Einsen = 11111111.11111111.11111111.11110000 = 255.255.255.240'
+                    },
+                    {
+                        text: 'Was sind gültige Host-Adressen im Netzwerk 192.168.1.0/24?',
+                        options: [
+                            '192.168.1.0',
+                            '192.168.1.1',
+                            '192.168.1.254',
+                            '192.168.1.255'
+                        ],
+                        correct: ['b', 'c'],
+                        explanation: '192.168.1.0 ist die Netzwerkadresse, 192.168.1.255 die Broadcast-Adresse. Gültig sind 192.168.1.1 bis 192.168.1.254.'
+                    },
+                    {
+                        text: 'Welche Aussagen über Subnetting sind korrekt?',
+                        options: [
+                            'Subnetting teilt ein großes Netzwerk in kleinere Netze',
+                            'Es verbessert die Netzwerksicherheit',
+                            'Es reduziert Broadcast-Traffic',
+                            'Es erhöht die Anzahl verfügbarer IP-Adressen'
+                        ],
+                        correct: ['a', 'b', 'c'],
+                        explanation: 'Subnetting unterteilt Netzwerke, verbessert Sicherheit und reduziert Broadcasts. Es erhöht aber nicht die Anzahl der IPs.'
+                    },
+                    {
+                        text: 'Was ist die Netzwerkadresse von 172.16.50.75/20?',
+                        options: [
+                            '172.16.48.0',
+                            '172.16.50.0',
+                            '172.16.0.0',
+                            '172.16.32.0'
+                        ],
+                        correct: ['a'],
+                        explanation: '/20 = 255.255.240.0. Das dritte Oktett: 50 AND 240 = 48. Also 172.16.48.0'
+                    },
+                    {
+                        text: 'Welche CIDR-Notation ermöglicht genau 30 nutzbare Hosts?',
+                        options: [
+                            '/27',
+                            '/28',
+                            '/29',
+                            '/30'
+                        ],
+                        correct: ['a'],
+                        explanation: '/27 = 5 Host-Bits = 32 Adressen - 2 = 30 nutzbare Hosts.'
+                    },
+                    {
+                        text: 'Was trifft auf Variable Length Subnet Masking (VLSM) zu?',
+                        options: [
+                            'Ermöglicht unterschiedliche Subnetzgrößen',
+                            'Nutzt IP-Adressen effizienter',
+                            'Alle Subnetze müssen gleich groß sein',
+                            'Reduziert Adressverschwendung'
+                        ],
+                        correct: ['a', 'b', 'd'],
+                        explanation: 'VLSM ermöglicht unterschiedlich große Subnetze, was IP-Adressen effizienter nutzt und Verschwendung reduziert.'
+                    }
+                ]
+            },
+            hard: {
+                title: '💪 Schwer - Experten',
+                questions: [
+                    {
+                        text: 'Wie viele /25-Subnetze können aus einem /22-Netzwerk erstellt werden?',
+                        options: [
+                            '8',
+                            '16',
+                            '4',
+                            '32'
+                        ],
+                        correct: ['a'],
+                        explanation: 'Von /22 zu /25 = 3 Bit Unterschied. 2^3 = 8 Subnetze.'
+                    },
+                    {
+                        text: 'Was ist die Broadcast-Adresse des Netzwerks 10.50.217.192/27?',
+                        options: [
+                            '10.50.217.223',
+                            '10.50.217.255',
+                            '10.50.217.191',
+                            '10.50.217.207'
+                        ],
+                        correct: ['a'],
+                        explanation: '/27 = Schrittweite 32. Netzwerk: 192-223. Broadcast: 223 (letzte Adresse).'
+                    },
+                    {
+                        text: 'Welche Subnetze entstehen beim Teilen von 192.168.1.0/24 in /26?',
+                        options: [
+                            '192.168.1.0/26',
+                            '192.168.1.64/26',
+                            '192.168.1.128/26',
+                            '192.168.1.192/26'
+                        ],
+                        correct: ['a', 'b', 'c', 'd'],
+                        explanation: '/26 hat Schrittweite 64. Die 4 Subnetze sind: .0, .64, .128, .192'
+                    },
+                    {
+                        text: 'Was ist das Supernetz (Aggregation) von 172.16.4.0/24 und 172.16.5.0/24?',
+                        options: [
+                            '172.16.4.0/23',
+                            '172.16.0.0/22',
+                            '172.16.4.0/22',
+                            '172.16.5.0/23'
+                        ],
+                        correct: ['a'],
+                        explanation: 'Beide Netze zusammen ergeben 172.16.4.0/23 (512 Adressen).'
+                    },
+                    {
+                        text: 'Wie lautet die Subnetzmaske in Binär für /19?',
+                        options: [
+                            '11111111.11111111.11100000.00000000',
+                            '11111111.11111111.11110000.00000000',
+                            '11111111.11111111.11111000.00000000',
+                            '11111111.11111111.10000000.00000000'
+                        ],
+                        correct: ['a'],
+                        explanation: '/19 = 19 Einsen: 11111111.11111111.11100000.00000000 = 255.255.224.0'
+                    },
+                    {
+                        text: 'Was ist bei Classless Inter-Domain Routing (CIDR) wichtig?',
+                        options: [
+                            'Klassengrenzen werden ignoriert',
+                            'Effizientere Adressnutzung',
+                            'Reduziert Routing-Tabellen-Einträge',
+                            'Nur Klasse-C-Netze können genutzt werden'
+                        ],
+                        correct: ['a', 'b', 'c'],
+                        explanation: 'CIDR ignoriert klassische Netzklassen, nutzt Adressen effizienter und ermöglicht Route Aggregation.'
+                    },
+                    {
+                        text: 'In welchem Subnetz befindet sich 10.20.143.67/18?',
+                        options: [
+                            '10.20.128.0/18',
+                            '10.20.0.0/18',
+                            '10.20.64.0/18',
+                            '10.20.192.0/18'
+                        ],
+                        correct: ['a'],
+                        explanation: '/18 = Maske 255.255.192.0. Schrittweite im 3. Oktett: 64. 143/64 = 2 → Netzwerk beginnt bei 128.'
+                    },
+                    {
+                        text: 'Wie viele Class-C-Äquivalente (/24) sind in einem /20-Netzwerk?',
+                        options: [
+                            '16',
+                            '8',
+                            '32',
+                            '4'
+                        ],
+                        correct: ['a'],
+                        explanation: 'Von /20 zu /24 = 4 Bit Unterschied. 2^4 = 16 /24-Netzwerke.'
+                    },
+                    {
+                        text: 'Was ist die erste nutzbare IP-Adresse in 192.168.100.96/28?',
+                        options: [
+                            '192.168.100.97',
+                            '192.168.100.96',
+                            '192.168.100.98',
+                            '192.168.100.101'
+                        ],
+                        correct: ['a'],
+                        explanation: '/28 Schrittweite: 16. Netzwerk: .96, erste nutzbare: .97'
+                    },
+                    {
+                        text: 'Welche Aussagen über IP-Fragmentierung sind korrekt?',
+                        options: [
+                            'Tritt auf, wenn Pakete größer als MTU sind',
+                            'Kann die Performance beeinträchtigen',
+                            'Path MTU Discovery kann helfen, sie zu vermeiden',
+                            'Fragmentierung findet nur am Sender statt'
+                        ],
+                        correct: ['a', 'b', 'c'],
+                        explanation: 'Fragmentierung tritt bei MTU-Überschreitung auf, kann Performance senken. Sie kann auch an Routern stattfinden.'
+                    }
+                ]
+            },
+            god: {
+                title: '👑 Gottes Wissen - Ultimativ',
+                questions: [
+                    {
+                        text: 'Ein Unternehmen benötigt 7 Subnetze mit mindestens 25 Hosts aus 192.168.10.0/24. Welche Subnet-Größe ist optimal?',
+                        options: [
+                            '/27 (30 nutzbare Hosts)',
+                            '/26 (62 nutzbare Hosts)',
+                            '/28 (14 nutzbare Hosts)',
+                            '/29 (6 nutzbare Hosts)'
+                        ],
+                        correct: ['a'],
+                        explanation: '/27 bietet 30 nutzbare Hosts (ausreichend für 25) und erlaubt 8 Subnetze aus einem /24 (2^3=8), was die 7 benötigten abdeckt.'
+                    },
+                    {
+                        text: 'Welches ist das größtmögliche zusammenhängende Supernetz für: 10.1.16.0/24, 10.1.17.0/24, 10.1.18.0/24, 10.1.19.0/24?',
+                        options: [
+                            '10.1.16.0/22',
+                            '10.1.16.0/23',
+                            '10.1.0.0/20',
+                            '10.1.16.0/21'
+                        ],
+                        correct: ['a'],
+                        explanation: 'Die 4 aufeinanderfolgenden /24-Netze (16-19) lassen sich zu einem /22 zusammenfassen (10.1.16.0/22).'
+                    },
+                    {
+                        text: 'Was ist der gültige Host-Bereich für 172.31.255.240/29?',
+                        options: [
+                            '172.31.255.241 - 172.31.255.246',
+                            '172.31.255.240 - 172.31.255.247',
+                            '172.31.255.241 - 172.31.255.247',
+                            '172.31.255.242 - 172.31.255.246'
+                        ],
+                        correct: ['a'],
+                        explanation: '/29: Schrittweite 8. Netzwerk: .240, Broadcast: .247. Nutzbar: .241-.246 (6 Hosts).'
+                    },
+                    {
+                        text: 'Wie viele /30-Subnetze (Point-to-Point Links) passen in 10.0.0.0/22?',
+                        options: [
+                            '256',
+                            '512',
+                            '128',
+                            '1024'
+                        ],
+                        correct: ['a'],
+                        explanation: 'Von /22 zu /30 = 8 Bit Unterschied. 2^8 = 256 /30-Subnetze.'
+                    },
+                    {
+                        text: 'Welche IP-Adresse gehört NICHT zum Netzwerk 192.168.50.0/23?',
+                        options: [
+                            '192.168.52.1',
+                            '192.168.50.1',
+                            '192.168.51.255',
+                            '192.168.51.1'
+                        ],
+                        correct: ['a'],
+                        explanation: '/23 umfasst 192.168.50.0-192.168.51.255. 192.168.52.1 liegt außerhalb.'
+                    },
+                    {
+                        text: 'Was ist das Wildcard-Mask-Äquivalent zu /21?',
+                        options: [
+                            '0.0.7.255',
+                            '0.0.3.255',
+                            '0.0.15.255',
+                            '0.0.31.255'
+                        ],
+                        correct: ['a'],
+                        explanation: '/21 = 255.255.248.0. Wildcard = invertiert = 0.0.7.255'
+                    },
+                    {
+                        text: 'Bei Route Summarization: Welche Summary-Route deckt 172.16.16.0/20, 172.16.32.0/20, 172.16.48.0/20 ab?',
+                        options: [
+                            '172.16.0.0/18',
+                            '172.16.16.0/18',
+                            '172.16.0.0/19',
+                            '172.16.32.0/19'
+                        ],
+                        correct: ['b'],
+                        explanation: 'Die 3 /20-Netze starten bei .16 und enden bei .63. Optimal: 172.16.16.0/18 (16-63 abgedeckt).'
+                    },
+                    {
+                        text: 'Wie viele IP-Adressen werden bei einem /13-Netzwerk verschwendet, wenn nur 500.000 Hosts benötigt werden?',
+                        options: [
+                            'Ca. 24.000',
+                            'Ca. 50.000',
+                            'Ca. 100.000',
+                            'Keine, /13 ist optimal'
+                        ],
+                        correct: ['a'],
+                        explanation: '/13 = 524.288 Adressen. Bei 500.000 benötigten: 524.288 - 500.000 = ca. 24.000 verschwendet.'
+                    },
+                    {
+                        text: 'Was ist die optimale Subnetzmaske für genau 1000 nutzbare Hosts?',
+                        options: [
+                            '/22 (1022 nutzbare)',
+                            '/21 (2046 nutzbare)',
+                            '/23 (510 nutzbare)',
+                            '/20 (4094 nutzbare)'
+                        ],
+                        correct: ['a'],
+                        explanation: 'Für 1000 Hosts benötigt man mind. 10 Bit (2^10=1024). /22 bietet 1022 nutzbare Adressen (optimal).'
+                    },
+                    {
+                        text: 'Welche RFC definiert die private IPv4-Adressbereiche?',
+                        options: [
+                            'RFC 1918',
+                            'RFC 791',
+                            'RFC 1918 und RFC 4193',
+                            'RFC 2460'
+                        ],
+                        correct: ['a'],
+                        explanation: 'RFC 1918 definiert die privaten IPv4-Bereiche. RFC 791 ist die IP-Spezifikation, RFC 4193 ist für IPv6, RFC 2460 ist IPv6-Spec.'
+                    },
+                    {
+                        text: 'Was trifft auf IP-Header-Checksum zu?',
+                        options: [
+                            'Prüft nur den IP-Header, nicht die Daten',
+                            'Muss an jedem Hop neu berechnet werden',
+                            'Verwendet CRC-32-Algorithmus',
+                            'Erkennt alle Übertragungsfehler'
+                        ],
+                        correct: ['a', 'b'],
+                        explanation: 'Die IP-Header-Checksum schützt nur den Header, wird an jedem Router neu berechnet (TTL ändert sich), nutzt einen einfachen Algorithmus und erkennt nicht alle Fehler.'
+                    },
+                    {
+                        text: 'Beim Variable Length Subnet Masking (VLSM): Du hast 10.0.0.0/24. Du brauchst 3 Subnetze: 100, 50, 10 Hosts. Wie teilst du optimal auf?',
+                        options: [
+                            '10.0.0.0/25 (126), 10.0.0.128/26 (62), 10.0.0.192/28 (14)',
+                            '10.0.0.0/26, 10.0.0.64/26, 10.0.0.128/26',
+                            '10.0.0.0/25, 10.0.0.128/27, 10.0.0.160/28',
+                            'Drei /26 Subnetze'
+                        ],
+                        correct: ['a'],
+                        explanation: 'VLSM erlaubt unterschiedliche Größen: /25 für 100 Hosts, /26 für 50, /28 für 10. Dies nutzt den Adressraum optimal.'
+                    }
+                ]
+            }
+        };
+
+        let currentLevel = null;
+        let currentAnswers = {};
+
+        function startQuiz(level) {
+            currentLevel = level;
+            currentAnswers = {};
+            
+            document.getElementById('levelSelection').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            
+            loadQuiz(level);
+            updateProgress();
+        }
+
+        function loadQuiz(level) {
+            const quiz = quizData[level];
+            document.getElementById('quizLevelTitle').textContent = quiz.title;
+            
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            
+            quiz.questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                
+                let optionsHTML = '';
+                q.options.forEach((option, optIndex) => {
+                    const optionId = `q${index}_${String.fromCharCode(97 + optIndex)}`;
+                    optionsHTML += `
+                        <div class="option">
+                            <input type="checkbox" id="${optionId}" name="q${index}" value="${String.fromCharCode(97 + optIndex)}">
+                            <label for="${optionId}">${option}</label>
+                        </div>
+                    `;
+                });
+                
+                questionDiv.innerHTML = `
+                    <span class="question-number">Frage ${index + 1} von ${quiz.questions.length}</span>
+                    <div class="question-text">${q.text}</div>
+                    ${optionsHTML}
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function updateProgress() {
+            const quiz = quizData[currentLevel];
+            const totalQuestions = quiz.questions.length;
+            const answeredQuestions = Object.keys(currentAnswers).length;
+            const percentage = (answeredQuestions / totalQuestions * 100);
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${answeredQuestions} von ${totalQuestions} beantwortet`;
+        }
+
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'checkbox') {
+                const questionNum = e.target.name;
+                const checkedBoxes = document.querySelectorAll(`input[name="${questionNum}"]:checked`);
+                
+                if (checkedBoxes.length > 0) {
+                    currentAnswers[questionNum] = true;
+                } else {
+                    delete currentAnswers[questionNum];
+                }
+                
+                updateProgress();
+            }
+        });
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const quiz = quizData[currentLevel];
+            let correctCount = 0;
+            let resultHTML = '';
+            
+            quiz.questions.forEach((q, index) => {
+                const questionName = `q${index}`;
+                const checkedBoxes = document.querySelectorAll(`input[name="${questionName}"]:checked`);
+                const userAnswers = Array.from(checkedBoxes).map(cb => cb.value).sort();
+                const correctAnswers = q.correct.sort();
+                
+                const isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAnswers);
+                
+                if (isCorrect) correctCount++;
+                
+                resultHTML += `
+                    <div class="detail-item ${isCorrect ? 'correct' : 'incorrect'}">
+                        <strong>Frage ${index + 1}:</strong> ${isCorrect ? '✓ Richtig' : '✗ Falsch'}<br>
+                        <em>${q.text}</em>
+                        ${!isCorrect ? `
+                            <div class="correct-answer">
+                                ✓ Richtige Antworten: ${correctAnswers.map(a => q.options[a.charCodeAt(0) - 97]).join(', ')}
+                            </div>
+                        ` : ''}
+                        <div class="explanation">💡 ${q.explanation}</div>
+                    </div>
+                `;
+            });
+            
+            const totalQuestions = quiz.questions.length;
+            const percentage = (correctCount / totalQuestions * 100).toFixed(0);
+            let resultClass, resultText, emoji;
+            
+            if (percentage === 100) {
+                resultClass = 'result-success';
+                resultText = 'Perfekt! Absolut fehlerfrei!';
+                emoji = '🏆';
+            } else if (percentage >= 80) {
+                resultClass = 'result-success';
+                resultText = 'Ausgezeichnet!';
+                emoji = '🎉';
+            } else if (percentage >= 60) {
+                resultClass = 'result-partial';
+                resultText = 'Gut gemacht!';
+                emoji = '👍';
+            } else if (percentage >= 40) {
+                resultClass = 'result-partial';
+                resultText = 'Noch Luft nach oben!';
+                emoji = '📚';
+            } else {
+                resultClass = 'result-fail';
+                resultText = 'Weiter üben!';
+                emoji = '💪';
+            }
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = resultClass;
+            resultDiv.innerHTML = `
+                <div class="result-title">${emoji} ${resultText}</div>
+                <div class="result-score">${percentage}%</div>
+                <div style="text-align: center; font-size: 1.3em; margin-bottom: 20px;">
+                    <strong>${correctCount}</strong> von <strong>${totalQuestions}</strong> Fragen richtig
+                </div>
+                <div class="result-details">
+                    <h3 style="margin-bottom: 20px; color: #1f2937; font-size: 1.4em;">📊 Detaillierte Auswertung</h3>
+                    ${resultHTML}
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="submit-button" onclick="startQuiz('${currentLevel}')" style="margin-right: 15px;">
+                        🔄 Nochmal versuchen
+                    </button>
+                    <button class="back-button" onclick="goBack()" style="padding: 18px 35px; font-size: 1.1em;">
+                        ← Andere Schwierigkeit
+                    </button>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        function goBack() {
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('levelSelection').style.display = 'grid';
+            document.getElementById('result').style.display = 'none';
+            currentLevel = null;
+            currentAnswers = {};
+        }
+    </script>
+</body>
+</html>
