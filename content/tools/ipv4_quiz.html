@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPv4 Quiz - Ankreuzaufgaben</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .question {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .question-text {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background: #e8ecff;
+        }
+        
+        .option input[type="checkbox"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            user-select: none;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        #result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            display: none;
+            animation: slideIn 0.5s;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        
+        .result-partial {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+        
+        .result-fail {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        
+        .result-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .result-details {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .detail-item {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .correct-answer {
+            margin-top: 5px;
+            font-weight: 600;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📡 IPv4 Quiz</h1>
+        <p class="subtitle">Teste dein Wissen über IPv4-Adressierung!</p>
+        
+        <form id="quizForm">
+            <!-- Frage 1 -->
+            <div class="question">
+                <div class="question-text">1. Welche der folgenden Aussagen über IPv4-Adressen sind korrekt?</div>
+                <div class="option">
+                    <input type="checkbox" id="q1a" name="q1" value="a">
+                    <label for="q1a">Eine IPv4-Adresse besteht aus 32 Bit</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q1b" name="q1" value="b">
+                    <label for="q1b">IPv4-Adressen werden in 4 Oktetten dargestellt</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q1c" name="q1" value="c">
+                    <label for="q1c">Jedes Oktett kann Werte von 0 bis 256 annehmen</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q1d" name="q1" value="d">
+                    <label for="q1d">Es gibt insgesamt etwa 4,3 Milliarden IPv4-Adressen</label>
+                </div>
+            </div>
+
+            <!-- Frage 2 -->
+            <div class="question">
+                <div class="question-text">2. Welche IP-Adressen gehören zu privaten Adressbereichen nach RFC 1918?</div>
+                <div class="option">
+                    <input type="checkbox" id="q2a" name="q2" value="a">
+                    <label for="q2a">10.0.0.0 bis 10.255.255.255</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q2b" name="q2" value="b">
+                    <label for="q2b">172.16.0.0 bis 172.31.255.255</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q2c" name="q2" value="c">
+                    <label for="q2c">192.168.0.0 bis 192.168.255.255</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q2d" name="q2" value="d">
+                    <label for="q2d">127.0.0.0 bis 127.255.255.255</label>
+                </div>
+            </div>
+
+            <!-- Frage 3 -->
+            <div class="question">
+                <div class="question-text">3. Was trifft auf die Subnetzmaske 255.255.255.0 zu?</div>
+                <div class="option">
+                    <input type="checkbox" id="q3a" name="q3" value="a">
+                    <label for="q3a">Sie entspricht der CIDR-Notation /24</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q3b" name="q3" value="b">
+                    <label for="q3b">Sie ermöglicht 256 Host-Adressen pro Subnetz</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q3c" name="q3" value="c">
+                    <label for="q3c">Sie ermöglicht 254 nutzbare Host-Adressen pro Subnetz</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q3d" name="q3" value="d">
+                    <label for="q3d">Die ersten 24 Bit identifizieren das Netzwerk</label>
+                </div>
+            </div>
+
+            <!-- Frage 4 -->
+            <div class="question">
+                <div class="question-text">4. Welche Aussagen über Klasse-C-Netzwerke sind richtig?</div>
+                <div class="option">
+                    <input type="checkbox" id="q4a" name="q4" value="a">
+                    <label for="q4a">Der Adressbereich beginnt bei 192.0.0.0</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q4b" name="q4" value="b">
+                    <label for="q4b">Die Standard-Subnetzmaske ist 255.255.255.0</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q4c" name="q4" value="c">
+                    <label for="q4c">Die ersten drei Bits einer Klasse-C-Adresse sind 110</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q4d" name="q4" value="d">
+                    <label for="q4d">Ein Klasse-C-Netzwerk kann bis zu 65.536 Hosts aufnehmen</label>
+                </div>
+            </div>
+
+            <!-- Frage 5 -->
+            <div class="question">
+                <div class="question-text">5. Was sind spezielle IPv4-Adressen?</div>
+                <div class="option">
+                    <input type="checkbox" id="q5a" name="q5" value="a">
+                    <label for="q5a">127.0.0.1 ist die Loopback-Adresse</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q5b" name="q5" value="b">
+                    <label for="q5b">0.0.0.0 repräsentiert "dieses Netzwerk"</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q5c" name="q5" value="c">
+                    <label for="q5c">255.255.255.255 ist eine Broadcast-Adresse</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q5d" name="q5" value="d">
+                    <label for="q5d">169.254.0.0/16 wird für APIPA (automatische Adressvergabe) verwendet</label>
+                </div>
+            </div>
+
+            <!-- Frage 6 -->
+            <div class="question">
+                <div class="question-text">6. Welche Aussagen über Subnetting sind korrekt?</div>
+                <div class="option">
+                    <input type="checkbox" id="q6a" name="q6" value="a">
+                    <label for="q6a">Subnetting teilt ein großes Netzwerk in kleinere Subnetze auf</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q6b" name="q6" value="b">
+                    <label for="q6b">Die Netzwerk-Adresse ist immer die erste Adresse im Subnetz</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q6c" name="q6" value="c">
+                    <label for="q6c">Die Broadcast-Adresse ist immer die letzte Adresse im Subnetz</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q6d" name="q6" value="d">
+                    <label for="q6d">Netzwerk- und Broadcast-Adressen können Hosts zugewiesen werden</label>
+                </div>
+            </div>
+
+            <!-- Frage 7 -->
+            <div class="question">
+                <div class="question-text">7. Was ist bei der CIDR-Notation zu beachten?</div>
+                <div class="option">
+                    <input type="checkbox" id="q7a" name="q7" value="a">
+                    <label for="q7a">/32 bezeichnet eine einzelne Host-Adresse</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q7b" name="q7" value="b">
+                    <label for="q7b">/16 entspricht der Subnetzmaske 255.255.0.0</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q7c" name="q7" value="c">
+                    <label for="q7c">Je kleiner die CIDR-Zahl, desto mehr Hosts passen ins Netzwerk</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q7d" name="q7" value="d">
+                    <label for="q7d">/0 würde das gesamte IPv4-Adressspektrum umfassen</label>
+                </div>
+            </div>
+
+            <!-- Frage 8 -->
+            <div class="question">
+                <div class="question-text">8. Welche IP-Adressen sind NICHT gültig für die Zuweisung an einen Host?</div>
+                <div class="option">
+                    <input type="checkbox" id="q8a" name="q8" value="a">
+                    <label for="q8a">192.168.1.0 (bei Subnetzmaske 255.255.255.0)</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q8b" name="q8" value="b">
+                    <label for="q8b">192.168.1.255 (bei Subnetzmaske 255.255.255.0)</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q8c" name="q8" value="c">
+                    <label for="q8c">192.168.1.128</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q8d" name="q8" value="d">
+                    <label for="q8d">10.0.0.0 (bei Subnetzmaske 255.0.0.0)</label>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button type="submit">✓ Auswertung anzeigen</button>
+            </div>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: ['a', 'b', 'd'],
+            q2: ['a', 'b', 'c'],
+            q3: ['a', 'c', 'd'],
+            q4: ['a', 'b', 'c'],
+            q5: ['a', 'b', 'c', 'd'],
+            q6: ['a', 'b', 'c'],
+            q7: ['a', 'b', 'c', 'd'],
+            q8: ['a', 'b', 'd']
+        };
+
+        const explanations = {
+            q1: "Eine IPv4-Adresse besteht aus 32 Bit (4 Bytes), dargestellt in 4 Oktetten. Jedes Oktett kann Werte von 0 bis 255 annehmen (nicht 256!). Insgesamt gibt es 2^32 ≈ 4,3 Milliarden Adressen.",
+            q2: "Die privaten Adressbereiche sind: 10.0.0.0/8, 172.16.0.0/12 und 192.168.0.0/16. Der Bereich 127.0.0.0/8 ist für Loopback reserviert.",
+            q3: "255.255.255.0 = /24 bedeutet 24 Netzwerk-Bits. Es gibt 256 Adressen, aber nur 254 nutzbare (Netzwerk- und Broadcast-Adresse abgezogen).",
+            q4: "Klasse C: 192.0.0.0 - 223.255.255.255, erste Bits: 110, Standard-Maske: /24. Ein Standard-C-Netz hat 254 nutzbare Hosts, nicht 65.536.",
+            q5: "Alle Aussagen sind korrekt. Diese Adressen haben spezielle Bedeutungen im IPv4-Protokoll.",
+            q6: "Netzwerk- und Broadcast-Adressen können NICHT an Hosts vergeben werden. Die anderen Aussagen sind korrekt.",
+            q7: "Alle Aussagen über CIDR sind korrekt. Je kleiner die Zahl nach dem /, desto größer das Netzwerk.",
+            q8: "192.168.1.0 ist die Netzwerkadresse, 192.168.1.255 ist die Broadcast-Adresse (bei /24). 10.0.0.0 ist ebenfalls eine Netzwerkadresse bei /8."
+        };
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let totalQuestions = Object.keys(correctAnswers).length;
+            let correctCount = 0;
+            let resultHTML = '';
+            
+            for (let question in correctAnswers) {
+                const checkedBoxes = document.querySelectorAll(`input[name="${question}"]:checked`);
+                const userAnswers = Array.from(checkedBoxes).map(cb => cb.value).sort();
+                const correct = correctAnswers[question].sort();
+                
+                const isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correct);
+                
+                if (isCorrect) {
+                    correctCount++;
+                }
+                
+                const questionNum = question.replace('q', '');
+                resultHTML += `
+                    <div class="detail-item ${isCorrect ? 'correct' : 'incorrect'}">
+                        <strong>Frage ${questionNum}:</strong> ${isCorrect ? '✓ Richtig' : '✗ Falsch'}<br>
+                        ${!isCorrect ? `<div class="correct-answer">Richtige Antworten: ${correct.join(', ').toUpperCase()}</div>` : ''}
+                        <div style="margin-top: 8px; font-size: 0.95em;">${explanations[question]}</div>
+                    </div>
+                `;
+            }
+            
+            const percentage = (correctCount / totalQuestions * 100).toFixed(0);
+            let resultClass, resultText;
+            
+            if (percentage >= 80) {
+                resultClass = 'result-success';
+                resultText = '🎉 Ausgezeichnet!';
+            } else if (percentage >= 60) {
+                resultClass = 'result-partial';
+                resultText = '👍 Gut gemacht!';
+            } else {
+                resultClass = 'result-fail';
+                resultText = '📚 Übung macht den Meister!';
+            }
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = resultClass;
+            resultDiv.innerHTML = `
+                <div class="result-title">${resultText}</div>
+                <div style="font-size: 1.2em; margin-bottom: 10px;">
+                    Du hast <strong>${correctCount} von ${totalQuestions}</strong> Fragen richtig beantwortet (${percentage}%)
+                </div>
+                <div class="result-details">
+                    <h3 style="margin-bottom: 15px; color: #667eea;">Detaillierte Auswertung:</h3>
+                    ${resultHTML}
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+</body>
+</html>
