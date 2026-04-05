@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Geocode Zielanzeige</title>
+	<style>
+		:root {
+			--bg-1: #e8f7ff;
+			--bg-2: #f4f7ff;
+			--card: rgba(255, 255, 255, 0.78);
+			--text: #132033;
+			--muted: #4d5c70;
+			--accent: #00c01a;
+			--ok: #1bb85d;
+			--warn: #e06a00;
+			--shadow: 0 10px 30px rgba(20, 45, 90, 0.15);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+			color: var(--text);
+			background: radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 25%),
+				radial-gradient(circle at 85% 15%, #d7ecff 0%, transparent 30%),
+				linear-gradient(145deg, var(--bg-1), var(--bg-2));
+			display: grid;
+			place-items: center;
+			padding: 1rem;
+		}
+
+		.panel {
+			width: min(720px, 100%);
+			backdrop-filter: blur(7px);
+			background: var(--card);
+			border: 1px solid rgba(255, 255, 255, 0.7);
+			border-radius: 24px;
+			box-shadow: var(--shadow);
+			padding: 1.1rem;
+			display: grid;
+			gap: 1rem;
+		}
+
+		.title {
+			margin: 0;
+			font-size: clamp(1.4rem, 4vw, 2rem);
+			font-weight: 800;
+			letter-spacing: 0.2px;
+		}
+
+		.subtitle {
+			margin: 0;
+			color: var(--muted);
+			font-size: 0.95rem;
+		}
+
+		.coords {
+			display: grid;
+			grid-template-columns: 1fr 1fr auto;
+			gap: 0.6rem;
+		}
+
+		.coord-string {
+			grid-column: 1 / -1;
+		}
+
+		.coords input {
+			width: 100%;
+			border-radius: 12px;
+			border: 1px solid #c8d7eb;
+			background: #fff;
+			padding: 0.72rem 0.8rem;
+			color: var(--text);
+			font: inherit;
+		}
+
+		.coords button {
+			border: none;
+			border-radius: 12px;
+			background: var(--accent);
+			color: #fff;
+			font: inherit;
+			font-weight: 700;
+			padding: 0.72rem 1rem;
+			cursor: pointer;
+		}
+
+		.coords button:hover {
+			filter: brightness(1.05);
+		}
+
+		.status {
+			border-radius: 16px;
+			background: rgba(255, 255, 255, 0.84);
+			border: 1px solid rgba(199, 216, 240, 0.9);
+			padding: 0.9rem;
+			color: var(--muted);
+			font-size: 0.95rem;
+			line-height: 1.4;
+		}
+
+		.indicator {
+			border-radius: 20px;
+			background: #fff;
+			border: 1px solid #d2dff2;
+			min-height: 320px;
+			padding: 1rem;
+			display: grid;
+			place-items: center;
+			text-align: center;
+			gap: 0.7rem;
+		}
+
+		.icon-wrap {
+			display: grid;
+			place-items: center;
+			width: min(220px, 52vw);
+			aspect-ratio: 1 / 1;
+			border-radius: 50%;
+			background: radial-gradient(circle at 30% 30%, #f2f8ff, #e5efff);
+			border: 1px solid #d4e1f7;
+		}
+
+		.arrow {
+			width: 112px;
+			height: 112px;
+			transform-origin: center;
+			transition: transform 280ms ease;
+			filter: drop-shadow(0 8px 10px rgba(15, 127, 255, 0.25));
+		}
+
+		.check {
+			font-size: clamp(4rem, 15vw, 8rem);
+			line-height: 1;
+			color: var(--ok);
+			font-weight: 900;
+			text-shadow: 0 8px 18px rgba(27, 184, 93, 0.3);
+			animation: pop 420ms ease;
+		}
+
+		@keyframes pop {
+			0% {
+				transform: scale(0.7);
+				opacity: 0;
+			}
+			100% {
+				transform: scale(1);
+				opacity: 1;
+			}
+		}
+
+		.distance {
+			margin: 0;
+			font-size: clamp(1.1rem, 3.8vw, 1.7rem);
+			font-weight: 800;
+			color: var(--text);
+		}
+
+		.direction {
+			margin: 0;
+			color: var(--muted);
+			font-size: 1rem;
+		}
+
+		.small {
+			font-size: 0.9rem;
+			color: var(--muted);
+		}
+
+		.goal-ok {
+			color: var(--ok);
+			font-weight: 700;
+		}
+
+		.goal-warn {
+			color: var(--warn);
+			font-weight: 700;
+		}
+
+		@media (max-width: 640px) {
+			.coords {
+				grid-template-columns: 1fr;
+			}
+
+			.coords button {
+				width: 100%;
+			}
+
+			.indicator {
+				min-height: 260px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<main class="panel">
+		<header>
+			<h1 class="title">Live Standort-Check</h1>
+			<p class="subtitle">Vergleicht dauerhaft deinen Standort mit einem Zielpunkt.</p>
+		</header>
+
+		<section class="coords" aria-label="Zielkoordinaten">
+			<input
+				id="targetCoordString"
+				class="coord-string"
+				type="text"
+				placeholder="Koordinate z.B. 52°53'13.9\"N 12°24'13.4\"E oder 52.123, 13.456"
+				value="52°53'13.9\"N 12°24'13.4\"E"
+			/>
+			<input id="targetLat" type="number" step="any" placeholder="Ziel Breitengrad (lat)" value="52.520008" />
+			<input id="targetLon" type="number" step="any" placeholder="Ziel Laengengrad (lon)" value="13.404954" />
+			<button id="applyTarget" type="button">Ziel setzen</button>
+		</section>
+
+		<section id="status" class="status" role="status" aria-live="polite">
+			Standort wird initialisiert ...
+		</section>
+
+		<section class="indicator" aria-label="Ergebnisanzeige">
+			<div class="icon-wrap" id="iconWrap"></div>
+			<p class="distance" id="distanceText">-</p>
+			<p class="direction" id="directionText">Richtung: -</p>
+			<p class="small" id="metaText">Warte auf Positionsdaten ...</p>
+		</section>
+	</main>
+
+	<script>
+		const targetCoordStringInput = document.getElementById("targetCoordString");
+		const targetLatInput = document.getElementById("targetLat");
+		const targetLonInput = document.getElementById("targetLon");
+		const applyTargetBtn = document.getElementById("applyTarget");
+		const statusEl = document.getElementById("status");
+		const iconWrapEl = document.getElementById("iconWrap");
+		const distanceTextEl = document.getElementById("distanceText");
+		const directionTextEl = document.getElementById("directionText");
+		const metaTextEl = document.getElementById("metaText");
+
+		const ARRIVAL_RADIUS_METERS = 15;
+		let targetLat = Number(targetLatInput.value);
+		let targetLon = Number(targetLonInput.value);
+
+		function toRad(degrees) {
+			return (degrees * Math.PI) / 180;
+		}
+
+		function toDeg(radians) {
+			return (radians * 180) / Math.PI;
+		}
+
+		function haversineDistance(lat1, lon1, lat2, lon2) {
+			const R = 6371000;
+			const dLat = toRad(lat2 - lat1);
+			const dLon = toRad(lon2 - lon1);
+			const a =
+				Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+				Math.sin(dLon / 2) * Math.sin(dLon / 2);
+			const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+			return R * c;
+		}
+
+		function bearingDegrees(lat1, lon1, lat2, lon2) {
+			const phi1 = toRad(lat1);
+			const phi2 = toRad(lat2);
+			const lambda1 = toRad(lon1);
+			const lambda2 = toRad(lon2);
+
+			const y = Math.sin(lambda2 - lambda1) * Math.cos(phi2);
+			const x =
+				Math.cos(phi1) * Math.sin(phi2) -
+				Math.sin(phi1) * Math.cos(phi2) * Math.cos(lambda2 - lambda1);
+			return (toDeg(Math.atan2(y, x)) + 360) % 360;
+		}
+
+		function directionFromBearing(bearing) {
+			const sectors = [
+				"Nord", "Nordost", "Ost", "Suedost",
+				"Sued", "Suedwest", "West", "Nordwest"
+			];
+			const index = Math.round(bearing / 45) % 8;
+			return sectors[index];
+		}
+
+		function renderArrow(bearing) {
+			iconWrapEl.innerHTML = `
+				<svg class="arrow" viewBox="0 0 100 100" aria-hidden="true" style="transform: rotate(${bearing}deg)">
+					<defs>
+						<linearGradient id="arrGrad" x1="0" y1="0" x2="1" y2="1">
+							<stop offset="0%" stop-color="#46a6ff" />
+							<stop offset="100%" stop-color="#0f7fff" />
+						</linearGradient>
+					</defs>
+					<path fill="url(#arrGrad)" d="M50 6 L78 54 H58 V92 H42 V54 H22 Z" />
+				</svg>
+			`;
+		}
+
+		function renderCheck() {
+			iconWrapEl.innerHTML = '<div class="check" aria-hidden="true">&#10004;</div>';
+		}
+
+		function metersLabel(distanceMeters) {
+			if (distanceMeters < 1000) {
+				return `${Math.round(distanceMeters)} m`;
+			}
+			return `${(distanceMeters / 1000).toFixed(2)} km`;
+		}
+
+		function dmsToDecimal(deg, min, sec, hemisphere) {
+			const abs = Math.abs(deg) + (min || 0) / 60 + (sec || 0) / 3600;
+			return hemisphere === "S" || hemisphere === "W" ? -abs : abs;
+		}
+
+		function parseCoordinateText(input) {
+			const raw = input.trim().toUpperCase();
+			if (!raw) {
+				return null;
+			}
+
+			const decimalMatch = raw.match(/^([+-]?\d+(?:[\.,]\d+)?)\s*[,;\s]\s*([+-]?\d+(?:[\.,]\d+)?)$/);
+			if (decimalMatch) {
+				return {
+					lat: Number(decimalMatch[1].replace(",", ".")),
+					lon: Number(decimalMatch[2].replace(",", "."))
+				};
+			}
+
+			const normalized = raw.replace(/,/g, ".");
+
+			const dmsRegex = /(\d+(?:\.\d+)?)\s*[°º]\s*(\d+(?:\.\d+)?)?\s*['’′]?\s*(\d+(?:\.\d+)?)?\s*["”″]?\s*([NSEW])/g;
+			const parts = [...normalized.matchAll(dmsRegex)];
+			if (parts.length !== 2) {
+				return null;
+			}
+
+			let lat = null;
+			let lon = null;
+			for (const part of parts) {
+				const deg = Number(part[1]);
+				const min = Number(part[2] || 0);
+				const sec = Number(part[3] || 0);
+				const hemi = part[4];
+				const value = dmsToDecimal(deg, min, sec, hemi);
+
+				if (hemi === "N" || hemi === "S") {
+					lat = value;
+				} else if (hemi === "E" || hemi === "W") {
+					lon = value;
+				}
+			}
+
+			if (lat === null || lon === null) {
+				return null;
+			}
+
+			return { lat, lon };
+		}
+
+		function updateTargetFromInputs() {
+			const freeText = targetCoordStringInput.value.trim();
+			let lat = Number(targetLatInput.value);
+			let lon = Number(targetLonInput.value);
+
+			if (freeText) {
+				const parsed = parseCoordinateText(freeText);
+				if (parsed) {
+					lat = parsed.lat;
+					lon = parsed.lon;
+					targetLatInput.value = lat;
+					targetLonInput.value = lon;
+				}
+			}
+
+			if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+				statusEl.innerHTML = "<span class=\"goal-warn\">Bitte gueltige Zielkoordinaten eingeben (Dezimal oder DMS).</span>";
+				return false;
+			}
+			if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+				statusEl.innerHTML = "<span class=\"goal-warn\">Koordinatenbereich ungueltig (lat -90..90, lon -180..180).</span>";
+				return false;
+			}
+			targetLat = lat;
+			targetLon = lon;
+			statusEl.textContent = `Neues Ziel gesetzt: ${targetLat.toFixed(6)}, ${targetLon.toFixed(6)}`;
+			return true;
+		}
+
+		applyTargetBtn.addEventListener("click", updateTargetFromInputs);
+
+		if (!navigator.geolocation) {
+			statusEl.innerHTML = "<span class=\"goal-warn\">Geolocation wird in diesem Browser nicht unterstuetzt.</span>";
+			distanceTextEl.textContent = "Nicht verfuegbar";
+			directionTextEl.textContent = "Richtung: -";
+			metaTextEl.textContent = "Bitte Browser oder Geraet wechseln.";
+			renderArrow(0);
+		} else {
+			navigator.geolocation.watchPosition(
+				(pos) => {
+					const currentLat = pos.coords.latitude;
+					const currentLon = pos.coords.longitude;
+					const accuracy = pos.coords.accuracy;
+					const distance = haversineDistance(currentLat, currentLon, targetLat, targetLon);
+					const bearing = bearingDegrees(currentLat, currentLon, targetLat, targetLon);
+					const direction = directionFromBearing(bearing);
+					const isArrived = distance <= ARRIVAL_RADIUS_METERS;
+
+					if (isArrived) {
+						renderCheck();
+						distanceTextEl.textContent = "Standort erreicht";
+						directionTextEl.innerHTML = "<span class=\"goal-ok\">Du bist am Ziel.</span>";
+						statusEl.innerHTML = "<span class=\"goal-ok\">Erfolgreich: Zielposition erreicht.</span>";
+					} else {
+						renderArrow(bearing);
+						distanceTextEl.textContent = `${metersLabel(distance)} verbleibend`;
+						directionTextEl.textContent = `Richtung: ${direction} (${Math.round(bearing)}°)`;
+						statusEl.textContent = `Standort aktiv. Ziel: ${targetLat.toFixed(6)}, ${targetLon.toFixed(6)}`;
+					}
+
+					metaTextEl.textContent = `Aktuell: ${currentLat.toFixed(6)}, ${currentLon.toFixed(6)} | GPS Genauigkeit: ±${Math.round(accuracy)} m | Zielradius: ${ARRIVAL_RADIUS_METERS} m`;
+				},
+				(err) => {
+					const messages = {
+						1: "Standortfreigabe wurde verweigert.",
+						2: "Position aktuell nicht verfuegbar.",
+						3: "Zeitueberschreitung bei Standortabfrage."
+					};
+					statusEl.innerHTML = `<span class=\"goal-warn\">${messages[err.code] || "Unbekannter Standortfehler."}</span>`;
+					distanceTextEl.textContent = "Kein Standort";
+					directionTextEl.textContent = "Richtung: -";
+					metaTextEl.textContent = "Bitte Berechtigung pruefen und Seite neu laden.";
+					renderArrow(0);
+				},
+				{
+					enableHighAccuracy: true,
+					timeout: 12000,
+					maximumAge: 0
+				}
+			);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Hex LED Grid</title>
+		<style>
+			:root {
+				--bg: #ffffff;
+				--hex-white: #ffffff;
+				--hex-w: 64px;
+				--gap-x: 0px;
+				--gap-y: 6px;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				min-height: 100vh;
+				background: var(--bg);
+				font-family: Arial, Helvetica, sans-serif;
+				color: #fff;
+				overflow: hidden;
+			}
+
+			.grid {
+				width: 100vw;
+				height: 100vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: flex-start;
+				gap: 0;
+				padding: 8px;
+				overflow: hidden;
+			}
+
+			.row {
+				display: flex;
+				gap: var(--gap-x);
+				margin-top: calc(var(--hex-w) * -0.285);
+			}
+
+			.row:first-child {
+				margin-top: 0;
+			}
+
+			.row.offset {
+				margin-left: calc((var(--hex-w) + var(--gap-x)) / 2);
+			}
+
+			.hex {
+				width: var(--hex-w);
+				aspect-ratio: 1 / 1.1547;
+				clip-path: polygon(
+					50% 0%,
+					93.3% 25%,
+					93.3% 75%,
+					50% 100%,
+					6.7% 75%,
+					6.7% 25%
+				);
+				background: var(--hex-white);
+				border: 1px solid #000;
+				cursor: pointer;
+				transition: transform 0.12s ease, filter 0.2s ease;
+				box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+			}
+
+			.hex:hover {
+				background: #d9d9d9;
+				transform: scale(1.03);
+			}
+
+			.hex.active {
+				filter: brightness(1.08) saturate(1.25);
+				box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 22px currentColor;
+			}
+
+			.counter {
+				position: fixed;
+				right: 16px;
+				bottom: 16px;
+				z-index: 5;
+				background: rgba(0, 0, 0, 0.7);
+				border: 1px solid rgba(255, 255, 255, 0.25);
+				padding: 10px 14px;
+				border-radius: 10px;
+				font-size: 14px;
+				backdrop-filter: blur(4px);
+			}
+		</style>
+	</head>
+	<body>
+		<main class="grid" id="grid" aria-label="Hex LED Fläche"></main>
+		<div class="counter">Aktiv: <span id="count">0</span></div>
+
+		<script>
+			const COLORS = [
+				"#2dd4bf",
+				"#38bdf8",
+				"#818cf8",
+				"#c084fc",
+				"#fb7185",
+				"#f59e0b",
+				"#a3e635",
+			];
+
+			const grid = document.getElementById("grid");
+			const countEl = document.getElementById("count");
+			const root = document.documentElement;
+
+			function calcHexWidth() {
+				const byWidth = Math.floor(window.innerWidth / 16);
+				return Math.max(34, Math.min(74, byWidth));
+			}
+
+			function updateCounter() {
+				countEl.textContent = grid.querySelectorAll(".hex.active").length;
+			}
+
+			function randomColor() {
+				return COLORS[Math.floor(Math.random() * COLORS.length)];
+			}
+
+			function createHex(index) {
+				const hex = document.createElement("button");
+				hex.className = "hex";
+				hex.type = "button";
+				hex.setAttribute("aria-label", `Hex ${index + 1}`);
+
+				hex.addEventListener("click", () => {
+					const isActive = hex.classList.toggle("active");
+					hex.style.background = isActive ? randomColor() : "#ffffff";
+					hex.style.color = isActive ? hex.style.background : "#ffffff";
+					updateCounter();
+				});
+
+				return hex;
+			}
+
+			function renderHoneycomb() {
+				grid.innerHTML = "";
+
+				const hexWidth = calcHexWidth();
+				const gapX = 0;
+				const hexHeight = hexWidth * 1.1547;
+				const rowStep = hexHeight * 0.75;
+
+				root.style.setProperty("--hex-w", `${hexWidth}px`);
+				root.style.setProperty("--gap-x", `${gapX}px`);
+
+				const cols = Math.ceil(window.innerWidth / (hexWidth + gapX)) + 2;
+				const rows = Math.ceil(window.innerHeight / rowStep) + 1;
+
+				let idx = 0;
+				for (let r = 0; r < rows; r++) {
+					const row = document.createElement("div");
+					row.className = `row ${r % 2 === 1 ? "offset" : ""}`.trim();
+
+					for (let c = 0; c < cols; c++) {
+						row.appendChild(createHex(idx++));
+					}
+
+					grid.appendChild(row);
+				}
+
+				updateCounter();
+			}
+
+			let resizeTimer;
+			window.addEventListener("resize", () => {
+				clearTimeout(resizeTimer);
+				resizeTimer = setTimeout(renderHoneycomb, 120);
+			});
+
+			renderHoneycomb();
+		</script>
+	</body>
+</html>
