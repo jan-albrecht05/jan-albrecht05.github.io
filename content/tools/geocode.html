@@ -240,9 +240,12 @@
 		const directionTextEl = document.getElementById("directionText");
 		const metaTextEl = document.getElementById("metaText");
 
-		const ARRIVAL_RADIUS_METERS = 15;
+		const ARRIVAL_RADIUS_METERS = 6;
+		const MAX_ACCEPTED_ACCURACY_METERS = 2;
+		const REQUIRED_STABLE_HITS = 3;
 		let targetLat = Number(targetLatInput.value);
 		let targetLon = Number(targetLonInput.value);
+		let stableArrivalHits = 0;
 
 		function toRad(degrees) {
 			return (degrees * Math.PI) / 180;
@@ -386,6 +389,7 @@
 			}
 			targetLat = lat;
 			targetLon = lon;
+			stableArrivalHits = 0;
 			statusEl.textContent = `Neues Ziel gesetzt: ${targetLat.toFixed(6)}, ${targetLon.toFixed(6)}`;
 			return true;
 		}
@@ -407,7 +411,16 @@
 					const distance = haversineDistance(currentLat, currentLon, targetLat, targetLon);
 					const bearing = bearingDegrees(currentLat, currentLon, targetLat, targetLon);
 					const direction = directionFromBearing(bearing);
-					const isArrived = distance <= ARRIVAL_RADIUS_METERS;
+					const hasReliableFix = accuracy <= MAX_ACCEPTED_ACCURACY_METERS;
+					const isInsideArrivalRadius = distance <= ARRIVAL_RADIUS_METERS;
+
+					if (hasReliableFix && isInsideArrivalRadius) {
+						stableArrivalHits += 1;
+					} else {
+						stableArrivalHits = 0;
+					}
+
+					const isArrived = stableArrivalHits >= REQUIRED_STABLE_HITS;
 
 					if (isArrived) {
 						renderCheck();
@@ -418,10 +431,14 @@
 						renderArrow(bearing);
 						distanceTextEl.textContent = `${metersLabel(distance)} verbleibend`;
 						directionTextEl.textContent = `Richtung: ${direction} (${Math.round(bearing)}°)`;
-						statusEl.textContent = `Standort aktiv. Ziel: ${targetLat.toFixed(6)}, ${targetLon.toFixed(6)}`;
+						if (!hasReliableFix) {
+							statusEl.innerHTML = `<span class=\"goal-warn\">GPS noch zu ungenau (±${Math.round(accuracy)} m). Fuer Praezision bitte unter ±${MAX_ACCEPTED_ACCURACY_METERS} m warten.</span>`;
+						} else {
+							statusEl.textContent = `Standort aktiv. Ziel: ${targetLat.toFixed(6)}, ${targetLon.toFixed(6)}`;
+						}
 					}
 
-					metaTextEl.textContent = `Aktuell: ${currentLat.toFixed(6)}, ${currentLon.toFixed(6)} | GPS Genauigkeit: ±${Math.round(accuracy)} m | Zielradius: ${ARRIVAL_RADIUS_METERS} m`;
+					metaTextEl.textContent = `Aktuell: ${currentLat.toFixed(6)}, ${currentLon.toFixed(6)} | GPS Genauigkeit: ±${Math.round(accuracy)} m | Zielradius: ${ARRIVAL_RADIUS_METERS} m | Stabile Treffer: ${stableArrivalHits}/${REQUIRED_STABLE_HITS}`;
 				},
 				(err) => {
 					const messages = {
